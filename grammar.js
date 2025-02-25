@@ -11,7 +11,15 @@ module.exports = grammar({
   name: "axel",
 
   rules: {
-    // TODO: add the actual grammar rules
-    source_file: $ => "hello"
+    source_file: $ => repeat($.expression),
+
+    expression: $ => choice(
+      $.identifier,
+      $.number,
+      seq($.identifier, '=', $.expression)
+    ),
+
+    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    number: $ => /\d+/
   }
 });

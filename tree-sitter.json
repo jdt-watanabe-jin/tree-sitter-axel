@@ -4,7 +4,6 @@
     {
       "name": "axel",
       "camelcase": "Axel",
-      "title": "Axel",
       "scope": "source.axel",
       "file-types": [
         "axel"
