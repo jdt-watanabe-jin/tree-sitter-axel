@@ -2,10 +2,11 @@
   "name": "tree-sitter-axel",
   "version": "0.1.0",
   "description": "Axel grammar for tree-sitter",
-  "repository": "https://github.com/tree-sitter/tree-sitter-axel",
+  "repository": "file://\\\\dvanakin\\repositories\\watanabe\\tree-sitter-axel.git",
   "license": "MIT",
   "author": {
-    "name": "JinWatanabe"
+    "name": "JinWatanabe",
+    "email": "watanabe.jin@jedat.co.jp"
   },
   "main": "bindings/node",
   "types": "bindings/node",

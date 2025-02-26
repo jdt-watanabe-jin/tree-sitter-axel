@@ -6,7 +6,10 @@
       "camelcase": "Axel",
       "scope": "source.axel",
       "file-types": [
-        "axel"
+        "axel",
+        "axl",
+        "h",
+        "hh"
       ],
       "injection-regex": "^axel$",
       "class-name": "TreeSitterAxel"
@@ -18,11 +21,12 @@
     "description": "Axel grammar for tree-sitter",
     "authors": [
       {
-        "name": "JinWatanabe"
+        "name": "JinWatanabe",
+        "email": "watanabe.jin@jedat.co.jp"
       }
     ],
     "links": {
-      "repository": "https://github.com/tree-sitter/tree-sitter-axel"
+      "repository": "file://\\\\dvanakin\\repositories\\watanabe\\tree-sitter-axel.git"
     }
   },
   "bindings": {
