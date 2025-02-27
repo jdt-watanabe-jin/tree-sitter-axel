@@ -26,7 +26,7 @@
       }
     ],
     "links": {
-      "repository": "file://\\\\dvanakin\\repositories\\watanabe\\tree-sitter-axel.git"
+      "repository": "file://dvanakin/repositories/watanabe/tree-sitter-axel.git"
     }
   },
   "bindings": {
