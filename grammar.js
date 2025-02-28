@@ -38,7 +38,10 @@ module.exports = grammar({
   name: "axel",
 
   conflicts: $ => [
+    [$.classdef, $.obj_name],
+    [$.classdef],
     [$.obj_name],
+    [$.direct_declarator]
   ],
 
   extras: $ => [
@@ -56,6 +59,7 @@ module.exports = grammar({
   supertypes: $ => [
     $.expression,
     $.statement,
+    $._declarator,
   ],
 
   word: $ => $.identifier,
@@ -64,7 +68,7 @@ module.exports = grammar({
     translation_unit: $ => repeat($.context),
 
     context: $ => choice(
-      $.statement,
+      $.obj_def,
       $.preproc_if,
       $.preproc_ifdef,
       $.preproc_include,
@@ -74,6 +78,7 @@ module.exports = grammar({
     ),
 
     _block_item: $ => choice(
+      $.obj_def,
       $.statement,
       $.preproc_if,
       $.preproc_ifdef,
@@ -212,6 +217,134 @@ module.exports = grammar({
 
     // Declarations
 
+    obj_def: $ => seq(
+      optional(field('storage_class', $._storage_class)),
+      field('type', $.classdef),
+      repeat1(field('declarator', $.init_declarator)),
+      ';',
+    ),
+
+    classdef: $ => choice(
+      seq(
+        optional(field('class_modifier', $._class_modifier)),
+        $._class_name,
+      ),
+      $._gtop_class,
+      $._gins_class,
+      //$.struct_def,
+      //$.enum_def,
+    ),
+
+    _storage_class: $ => repeat1(choice(
+      'static',
+      'auto',
+      'register',
+      'const',
+      'extern',
+      'global',
+      'universal',
+      'private',
+      'protected',
+      'public',
+      'virtual',
+    )),
+
+    _class_modifier: $ => repeat1(choice(
+      'signed',
+      'unsigned',
+      'short',
+      'long',
+    )),
+
+    init_declarator: $ => choice(
+      $._declarator,
+      seq($._declarator, '=', $.initializer,),
+      seq($._declarator, '(', commaSep($.expression), ')',),
+    ),
+
+    _declarator: $ => choice(
+      $.direct_declarator,
+      $.pointer_declarator,
+      $.array_declarator,
+      $.function_declarator,
+      $.parenthesized_declarator,
+    ),
+
+    pointer_declarator: $ => prec(PREC.UNARY, seq(
+      choice('*', '&'),
+      field('declarator', $._declarator),
+    )),
+
+    array_declarator: $ => prec(PREC.FIELD, seq(
+      field('declarator', $._declarator),
+      '[',
+      optional(field('size', $.expression)),
+      ']',
+    )),
+
+    function_declarator: $ => prec(PREC.FIELD, seq(
+      field('declarator', $._declarator),
+      '(',
+      optional(field('parameters', $.parameter_list)),
+      ')',
+    )),
+
+    parenthesized_declarator: $ => prec(PREC.PAREN_DECLARATOR, seq(
+      '(',
+      $._declarator,
+      ')',
+    )),
+
+    direct_declarator: $ => choice(
+      $.identifier,
+      //$.operator_declar,
+      //$.conversion_declar,
+      seq(
+        field('scope', 
+          choice(
+            $.identifier,
+            $._class_name,
+            $._gtop_class,
+            $._gins_class,
+          )
+        ),
+        '::',
+        field('name', choice(
+          $.identifier,
+          //$.operator_declar,
+          //$.conversion_declar,
+          $._class_name,
+          seq('~', $._class_name),
+        ))
+      )
+    ),
+
+    parameter_list: $ => choice(seq(
+        commaSep1($.parameter_declaration),
+        optional(','),
+        optional('...'),
+      ),
+      '...',
+    ),
+
+    parameter_declaration: $ => choice(
+      seq(
+        optional('const'),
+        field('type', $.classdef),
+        optional(field('declarator',$.init_declarator))
+      ),
+      // seq(
+      //   optional('const'),
+      //   field('type', $.classdef),
+      //   optional(field('declarator',$.abstruct_declarator))
+      // ),
+    ),
+
+
+    initializer: $ => choice(
+      $.expression,
+      seq('{', commaSep($.initializer), '}'),
+    ),
 
     compound_statement: $ => seq(
       '{',
@@ -220,6 +353,7 @@ module.exports = grammar({
     ),
 
     // Statements
+
     statement: $ => choice(
       //$.case_statement,
       //$.labeled_statement,
