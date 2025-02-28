@@ -39,9 +39,15 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.classdef, $.obj_name],
+    [$.classdef, $.direct_declarator],
     [$.classdef],
     [$.obj_name],
-    [$.direct_declarator]
+    [$.direct_declarator],
+    [$.parameter_declaration],
+    [$.abstruct_pointer_declarator, $.pointer_declarator],
+    [$.abstruct_pointer_declarator],
+    [$.classref, $.obj_name],
+    [$.classref],
   ],
 
   extras: $ => [
@@ -60,6 +66,7 @@ module.exports = grammar({
     $.expression,
     $.statement,
     $._declarator,
+    $.abstruct_declarator,
   ],
 
   word: $ => $.identifier,
@@ -68,10 +75,12 @@ module.exports = grammar({
     translation_unit: $ => repeat($.context),
 
     context: $ => choice(
+      $.compound_statement,
       $.obj_def,
       $.preproc_if,
       $.preproc_ifdef,
       $.preproc_include,
+      $.preproc_using,
       $.preproc_def,
       $.preproc_function_def,
       $.preproc_call,
@@ -224,6 +233,13 @@ module.exports = grammar({
       ';',
     ),
 
+    type_def: $ => seq(
+      'typedef',
+      field('type', $.classdef),
+      repeat1(field('declarator', $.init_declarator)),
+      ';',
+    ),
+
     classdef: $ => choice(
       seq(
         optional(field('class_modifier', $._class_modifier)),
@@ -231,8 +247,8 @@ module.exports = grammar({
       ),
       $._gtop_class,
       $._gins_class,
-      //$.struct_def,
-      //$.enum_def,
+      //TODO$.struct_def,
+      //TODO$.enum_def,
     ),
 
     _storage_class: $ => repeat1(choice(
@@ -297,8 +313,8 @@ module.exports = grammar({
 
     direct_declarator: $ => choice(
       $.identifier,
-      //$.operator_declar,
-      //$.conversion_declar,
+      $.operator_declarator,
+      $.conversion_declarator,
       seq(
         field('scope', 
           choice(
@@ -309,14 +325,55 @@ module.exports = grammar({
           )
         ),
         '::',
+        optional(seq(
+          field('instance', $.instance_name),
+          '::',
+        )),
         field('name', choice(
           $.identifier,
-          //$.operator_declar,
-          //$.conversion_declar,
+          $.operator_declarator,
+          $.conversion_declarator,
           $._class_name,
           seq('~', $._class_name),
         ))
-      )
+      ),
+    ),
+
+    abstruct_declarator: $ => choice(
+      $.abstruct_pointer_declarator,
+      $.abstruct_array_declarator,
+      $.abstruct_function_declarator,
+      $.abstruct_parenthesized_declarator,
+    ),
+
+    abstruct_pointer_declarator: $ => prec(PREC.UNARY, seq(
+      choice('*', '&'),
+      optional(field('declarator', $.abstruct_declarator)),
+    )),
+
+    abstruct_array_declarator: $ => prec(PREC.FIELD, seq(
+      optional(field('declarator', $.abstruct_declarator)),
+      '[',
+      optional(field('size', $.expression)),
+      ']',
+    )),
+
+    abstruct_function_declarator: $ => prec(PREC.FIELD, seq(
+      optional(field('declarator', $.abstruct_declarator)),
+      '(',
+      optional(field('parameters', $.parameter_list)),
+      ')',
+    )),
+
+    abstruct_parenthesized_declarator: $ => prec(PREC.PAREN_DECLARATOR, seq(
+      '(',
+      $.abstruct_declarator,
+      ')',
+    )),
+
+    instance_name: $ => choice(
+      $.identifier,
+      seq($.instance_name, '.', $.identifier),
     ),
 
     parameter_list: $ => choice(seq(
@@ -329,21 +386,67 @@ module.exports = grammar({
 
     parameter_declaration: $ => choice(
       seq(
-        optional('const'),
+        optional(field('storage_class','const')),
         field('type', $.classdef),
         optional(field('declarator',$.init_declarator))
       ),
-      // seq(
-      //   optional('const'),
-      //   field('type', $.classdef),
-      //   optional(field('declarator',$.abstruct_declarator))
-      // ),
+      seq(
+        optional('const'),
+        field('type', $.classdef),
+        optional(field('declarator',$.abstruct_declarator))
+      ),
     ),
-
 
     initializer: $ => choice(
       $.expression,
       seq('{', commaSep($.initializer), '}'),
+    ),
+
+    operator_declarator: $ => seq(
+      'operator',
+      field('operator', choice(
+        '+',
+        '-',
+        '*',
+        '/',
+        '%',
+        '<<',
+        '>>',
+        '&',
+        '|',
+        '^',
+        '==',
+        '!=',
+        '>',
+        '<',
+        '>=',
+        '<=',
+        '!',
+        '~',
+        '++',
+        '--',
+        '=',
+        '.*',
+        '->*',
+        '+=',
+        '-=',
+        '*=',
+        '/=',
+        '%=',
+        '<<=',
+        '>>=',
+        '&=',
+        '|=',
+        '^=',
+        seq('[', ']'),
+      )),
+    ),
+
+    conversion_declarator: $ => seq(
+      'operator',
+      field('type', choice(
+        $._class_name,
+      )),
     ),
 
     compound_statement: $ => seq(
@@ -357,7 +460,7 @@ module.exports = grammar({
     statement: $ => choice(
       //$.case_statement,
       //$.labeled_statement,
-      //$.compound_statement,
+      $.compound_statement,
       $.expression_statement,
       //$.if_statement,
       //$.switch_statement,
@@ -385,7 +488,7 @@ module.exports = grammar({
       $.primary,
       $.call_expression,
       $.update_expression,
-      //$.cast_expression,
+      $.cast_expression,
       $.binary_expression,
       $.unary_expression,
       $.pointer_expression,
@@ -395,10 +498,10 @@ module.exports = grammar({
       $.subscript_expression,
       $.conditional_expression,
       $.parenthesized_expression,
-      //$.sizeof_expression,
-      //$.this,
-      //$.new_expression,
-      //$.delete_expression,
+      $.sizeof_expression,
+      $.this,
+      $.new_expression,
+      $.delete_expression,
     ),
 
     comma_expression: $ => seq(
@@ -521,12 +624,64 @@ module.exports = grammar({
 
     argument_list: $ => seq('(', commaSep(choice($.expression, $.compound_statement)), ')'),
 
+    classref: $ => choice(
+      seq(
+        optional(field('class_modifier', $._class_modifier)),
+        $._class_name,
+      ),
+      $._gtop_class,
+      $._gins_class,
+      //TODO$.class class_name,
+      //TODO$.enum class_name,
+    ),
+
+    cast_expression: $ => prec(PREC.CAST, seq(
+      '(',
+      field('type', $.classref),
+      optional(field('declarator', $.abstruct_declarator)),
+      ')',
+      field('argument', $.expression),
+    )),
+
+    sizeof_expression: $ => prec(PREC.SIZEOF, seq(
+      'sizeof',
+      field('argument', choice(
+        seq('(', $.classref, optional($.abstruct_declarator), ')'),
+        seq('(', $.expression, ')'),
+      )),
+    )),
+
+    this: $ => 'this',
+
+    new_expression: $ => prec.right(PREC.NEW, seq(
+      optional($._storage_class),
+      'new',
+      field('type', $.classref),
+      optional(field('size', seq(
+        '[',
+        optional($.expression),
+        ']',
+      ))),
+      optional(field('initializer', seq(
+        '(',
+        optional(commaSep($.expression)),
+        ')',
+      ))),
+    )),
+
+    delete_expression: $ => prec.left(PREC.UNARY, seq(
+      'delete',
+      optional(field('array', seq('[', ']'))),
+      field('argument', $.expression),
+    )),
+
+
     obj_name: $ => choice(
       seq(
         optional('::'),
         choice(
           $.identifier,
-          //operator_declar,
+          $.operator_declarator,
         )
       ),
       seq(
@@ -534,7 +689,7 @@ module.exports = grammar({
         '::',
         field('name', choice(
           $.identifier,
-          //operator_declar,
+          $.operator_declarator,
           $.obj_name,
         ))
       ),
