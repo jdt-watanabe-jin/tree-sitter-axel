@@ -89,8 +89,6 @@ module.exports = grammar({
     ),
 
     _block_item: $ => choice(
-      $.obj_def,
-      $.type_def,
       $.statement,
       $.preproc_if,
       $.preproc_ifdef,
@@ -468,19 +466,24 @@ module.exports = grammar({
     // Statements
 
     statement: $ => choice(
-      //$.case_statement,
-      //$.labeled_statement,
-      $.compound_statement,
+      $.obj_def,
+      $.type_def,
+      $.case_statement,
+      $.labeled_statement,
       $.expression_statement,
-      //$.if_statement,
-      //$.switch_statement,
-      //$.do_statement,
-      //$.while_statement,
-      //$.for_statement,
-      //$.return_statement,
-      //$.break_statement,
-      //$.continue_statement,
-      //$.goto_statement,
+      $.compound_statement,
+      $.try_statement,
+      $.if_statement,
+      $.while_statement,
+      $.do_statement,
+      $.for_statement,
+      $.switch_statement,
+      $.case_statement,
+      $.return_statement,
+      $.break_statement,
+      $.continue_statement,
+      $.goto_statement,
+      $.throw_statement,
     ),
 
     expression_statement: $ => seq(
@@ -488,6 +491,105 @@ module.exports = grammar({
         $.expression,
         $.comma_expression,
       )),
+      ';',
+    ),
+
+    try_statement: $ => seq(
+      'try',
+      field('body', $.compound_statement),
+      repeat1($.catch_clause),
+    ),
+
+    catch_clause: $ => seq(
+      'catch',
+      field('parameters', $.parameter_list),
+      field('body', $.compound_statement),
+    ),
+
+    if_statement: $ => prec.right(seq(
+      'if',
+      field('condition', $.parenthesized_expression),
+      field('consequence', $.statement),
+      optional(field('alternative', $.else_clause)),
+    )),
+
+    else_clause: $ => seq('else', $.statement),
+
+    while_statement: $ => seq(
+      'while',
+      field('condition', $.parenthesized_expression),
+      field('body', $.statement),
+    ),
+
+    do_statement: $ => seq(
+      'do',
+      field('body', $.statement),
+      'while',
+      field('condition', $.parenthesized_expression),
+      ';',
+    ),
+
+    for_statement: $ => seq(
+      'for',
+      '(',
+      $._for_statement_body,
+      ')',
+      field('body', $.statement),
+    ),
+    _for_statement_body: $ => seq(
+      field('initializer', optional(choice($.expression, $.comma_expression))),
+      ';',
+      field('condition', optional(choice($.expression, $.comma_expression))),
+      ';',
+      field('update', optional(choice($.expression, $.comma_expression))),
+    ),
+
+    switch_statement: $ => seq(
+      'switch',
+      field('condition', $.parenthesized_expression),
+      field('body', $.compound_statement),
+    ),
+
+    case_statement: $ => prec.right(seq(
+      choice(
+        seq('case', field('value', $.expression)),
+        'default',
+      ),
+      ':',
+      repeat(choice(
+        $.statement,
+      )),
+    )),
+
+    labeled_statement: $ => seq(
+      field('label', $._statement_identifier),
+      ':',
+      $.statement,
+    ),
+
+    return_statement: $ => seq(
+      'return',
+      optional(choice($.expression, $.comma_expression)),
+      ';',
+    ),
+
+    break_statement: _ => seq(
+      'break', ';',
+    ),
+
+    continue_statement: _ => seq(
+      'continue', ';',
+    ),
+
+    goto_statement: $ => seq(
+      'goto',
+      field('label', $._statement_identifier),
+      ';',
+    ),
+
+    throw_statement: $ => seq(
+      'throw',
+      optional($.expression),
       ';',
     ),
 
@@ -735,6 +837,7 @@ module.exports = grammar({
     _gtop_class: $ => alias($.identifier, $.gtop_class),
     _gins_class: $ => alias($.identifier, $.gins_class),
     _member_name: $ => alias($.identifier, $.member_name),
+    _statement_identifier: $ => alias($.identifier, $.statement_identifier),
 
     number_literal: $ => choice(
       alias($.integer_literal, $.number_literal),
