@@ -757,6 +757,10 @@
         {
           "type": "statement",
           "named": true
+        },
+        {
+          "type": "type_def",
+          "named": true
         }
       ]
     }
@@ -829,6 +833,10 @@
           "named": true
         },
         {
+          "type": "func_def",
+          "named": true
+        },
+        {
           "type": "obj_def",
           "named": true
         },
@@ -858,6 +866,10 @@
         },
         {
           "type": "preproc_using",
+          "named": true
+        },
+        {
+          "type": "type_def",
           "named": true
         }
       ]
@@ -1087,6 +1099,92 @@
           {
             "type": ".*",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "func_def",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "compound_statement",
+            "named": true
+          }
+        ]
+      },
+      "declarator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_declarator",
+            "named": true
+          }
+        ]
+      },
+      "storage_class": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "auto",
+            "named": false
+          },
+          {
+            "type": "const",
+            "named": false
+          },
+          {
+            "type": "extern",
+            "named": false
+          },
+          {
+            "type": "global",
+            "named": false
+          },
+          {
+            "type": "private",
+            "named": false
+          },
+          {
+            "type": "protected",
+            "named": false
+          },
+          {
+            "type": "public",
+            "named": false
+          },
+          {
+            "type": "register",
+            "named": false
+          },
+          {
+            "type": "static",
+            "named": false
+          },
+          {
+            "type": "universal",
+            "named": false
+          },
+          {
+            "type": "virtual",
+            "named": false
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "classdef",
+            "named": true
           }
         ]
       }
@@ -1844,6 +1942,10 @@
         {
           "type": "statement",
           "named": true
+        },
+        {
+          "type": "type_def",
+          "named": true
         }
       ]
     }
@@ -1916,6 +2018,10 @@
         {
           "type": "statement",
           "named": true
+        },
+        {
+          "type": "type_def",
+          "named": true
         }
       ]
     }
@@ -1958,6 +2064,10 @@
         },
         {
           "type": "statement",
+          "named": true
+        },
+        {
+          "type": "type_def",
           "named": true
         }
       ]
@@ -2095,6 +2205,10 @@
         {
           "type": "statement",
           "named": true
+        },
+        {
+          "type": "type_def",
+          "named": true
         }
       ]
     }
@@ -2166,6 +2280,10 @@
         },
         {
           "type": "statement",
+          "named": true
+        },
+        {
+          "type": "type_def",
           "named": true
         }
       ]
@@ -2376,6 +2494,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "type_def",
+    "named": true,
+    "fields": {
+      "declarator": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "init_declarator",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "classdef",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2830,6 +2974,10 @@
   {
     "type": "this",
     "named": true
+  },
+  {
+    "type": "typedef",
+    "named": false
   },
   {
     "type": "unit_double_literal",

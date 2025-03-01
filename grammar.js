@@ -76,7 +76,9 @@ module.exports = grammar({
 
     context: $ => choice(
       $.compound_statement,
+      $.func_def,
       $.obj_def,
+      $.type_def,
       $.preproc_if,
       $.preproc_ifdef,
       $.preproc_include,
@@ -88,6 +90,7 @@ module.exports = grammar({
 
     _block_item: $ => choice(
       $.obj_def,
+      $.type_def,
       $.statement,
       $.preproc_if,
       $.preproc_ifdef,
@@ -447,6 +450,13 @@ module.exports = grammar({
       field('type', choice(
         $._class_name,
       )),
+    ),
+
+    func_def: $ => seq(
+      optional(field('storage_class', $._storage_class)),
+      optional(field('type', $.classdef)),
+      field('declarator', $._declarator),
+      field('body', $.compound_statement),
     ),
 
     compound_statement: $ => seq(

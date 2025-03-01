@@ -19,7 +19,15 @@
         },
         {
           "type": "SYMBOL",
+          "name": "func_def"
+        },
+        {
+          "type": "SYMBOL",
           "name": "obj_def"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_def"
         },
         {
           "type": "SYMBOL",
@@ -57,6 +65,10 @@
         {
           "type": "SYMBOL",
           "name": "obj_def"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_def"
         },
         {
           "type": "SYMBOL",
@@ -2699,6 +2711,59 @@
                 "name": "_class_name"
               }
             ]
+          }
+        }
+      ]
+    },
+    "func_def": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "storage_class",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_storage_class"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "type",
+              "content": {
+                "type": "SYMBOL",
+                "name": "classdef"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "declarator",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_declarator"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "SYMBOL",
+            "name": "compound_statement"
           }
         }
       ]
