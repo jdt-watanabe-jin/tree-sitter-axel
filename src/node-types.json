@@ -755,6 +755,10 @@
         {
           "type": "gtop_class",
           "named": true
+        },
+        {
+          "type": "struct_def",
+          "named": true
         }
       ]
     }
@@ -1430,6 +1434,56 @@
     }
   },
   {
+    "type": "gins_def",
+    "named": true,
+    "fields": {
+      "attributes": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "func_def",
+            "named": true
+          }
+        ]
+      },
+      "instance": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "gins_def",
+            "named": true
+          },
+          {
+            "type": "obj_def",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "gins_class",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "goto_statement",
     "named": true,
     "fields": {
@@ -1569,6 +1623,61 @@
     }
   },
   {
+    "type": "member_definitions",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "func_def",
+          "named": true
+        },
+        {
+          "type": "gins_def",
+          "named": true
+        },
+        {
+          "type": "member_label",
+          "named": true
+        },
+        {
+          "type": "obj_def",
+          "named": true
+        },
+        {
+          "type": "type_def",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "member_label",
+    "named": true,
+    "fields": {
+      "label": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "private",
+            "named": false
+          },
+          {
+            "type": "protected",
+            "named": false
+          },
+          {
+            "type": "public",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "new_expression",
     "named": true,
     "fields": {
@@ -1645,7 +1754,7 @@
     "fields": {
       "declarator": {
         "multiple": true,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "init_declarator",
@@ -2725,6 +2834,46 @@
     }
   },
   {
+    "type": "struct_def",
+    "named": true,
+    "fields": {
+      "base": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "classref",
+            "named": true
+          }
+        ]
+      },
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "member_definitions",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "subscript_expression",
     "named": true,
     "fields": {
@@ -3226,6 +3375,10 @@
     "named": true
   },
   {
+    "type": "class",
+    "named": false
+  },
+  {
     "type": "class_name",
     "named": true
   },
@@ -3379,6 +3532,10 @@
     "named": true
   },
   {
+    "type": "struct",
+    "named": false
+  },
+  {
     "type": "switch",
     "named": false
   },
@@ -3400,6 +3557,10 @@
   },
   {
     "type": "typedef",
+    "named": false
+  },
+  {
+    "type": "union",
     "named": false
   },
   {

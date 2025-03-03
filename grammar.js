@@ -48,6 +48,8 @@ module.exports = grammar({
     [$.abstruct_pointer_declarator],
     [$.classref, $.obj_name],
     [$.classref],
+    [$.direct_declarator, $.gins_def],
+    [$.classdef, $.gins_def],
   ],
 
   extras: $ => [
@@ -148,7 +150,7 @@ module.exports = grammar({
     ),
 
     ...preprocIf('', $ => $._block_item),
-    //TODO...preprocIf('_in_field_declaration_list', $ => $._field_declaration_list_item),
+    ...preprocIf('_in_field_declaration_list', $ => $._field_declaration_list_item),
     //TODO...preprocIf('_in_enumerator_list', $ => seq($.enumerator, ',')),
     //TODO...preprocIf('_in_enumerator_list_no_comma', $ => $.enumerator, -1),
 
@@ -230,7 +232,7 @@ module.exports = grammar({
     obj_def: $ => seq(
       optional(field('storage_class', $._storage_class)),
       field('type', $.classdef),
-      repeat1(field('declarator', $.init_declarator)),
+      repeat(field('declarator', $.init_declarator)),
       ';',
     ),
 
@@ -248,7 +250,7 @@ module.exports = grammar({
       ),
       $._gtop_class,
       $._gins_class,
-      //TODO$.struct_def,
+      $.struct_def,
       //TODO$.enum_def,
     ),
 
@@ -461,6 +463,53 @@ module.exports = grammar({
       '{',
       repeat($._block_item),
       '}',
+    ),
+
+    struct_def: $ => seq(
+      choice('struct', 'class', 'union'),
+      optional(field('name', $.identifier)),
+      optional(seq(
+        ':',
+        choice('public', 'protected', 'private'),
+        field('base', commaSep1($.classref)),
+      )),
+      field('body', $.member_definitions),
+    ),
+
+    member_definitions: $ => seq(
+      '{',
+      repeat($._field_declaration_list_item),
+      '}',
+    ),
+
+    _field_declaration_list_item: $ => choice(
+      $.obj_def,
+      $.func_def,
+      $.type_def,
+      $.gins_def,
+      $.member_label,
+    ),
+
+    member_label: $ => seq(
+      field('label', choice('public', 'protected', 'private')),
+      ':',
+    ),
+
+    gins_def: $ => seq(
+      $._gins_class,
+      optional(field('name', $.identifier)),
+      seq(
+        '{',
+        repeat1(choice(
+          field('attributes', $.func_def),
+          field('instance', choice(
+            $.obj_def,
+            $.gins_def,
+          )),
+        )),
+        '}',
+      ),
+      ';',
     ),
 
     // Statements
@@ -743,7 +792,14 @@ module.exports = grammar({
       ),
       $._gtop_class,
       $._gins_class,
-      //TODO$.class class_name,
+      seq(
+        choice('struct', 'class', 'union'),
+        choice(
+          $._class_name,
+          $._gtop_class,
+          $._gins_class,
+        ),
+      )
       //TODO$.enum class_name,
     ),
 
