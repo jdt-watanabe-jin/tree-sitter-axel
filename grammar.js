@@ -151,8 +151,8 @@ module.exports = grammar({
 
     ...preprocIf('', $ => $._block_item),
     ...preprocIf('_in_field_declaration_list', $ => $._field_declaration_list_item),
-    //TODO...preprocIf('_in_enumerator_list', $ => seq($.enumerator, ',')),
-    //TODO...preprocIf('_in_enumerator_list_no_comma', $ => $.enumerator, -1),
+    ...preprocIf('_in_enumerator_list', $ => seq($.enumerator, ',')),
+    ...preprocIf('_in_enumerator_list_no_comma', $ => $.enumerator, -1),
 
     preproc_arg: _ => token(prec(-1, /\S([^/\n]|\/[^*]|\\\r?\n)*/)),
     preproc_directive: _ => /#[ \t]*[a-zA-Z0-9]\w*/,
@@ -251,7 +251,7 @@ module.exports = grammar({
       $._gtop_class,
       $._gins_class,
       $.struct_def,
-      //TODO$.enum_def,
+      $.enum_def,
     ),
 
     _storage_class: $ => repeat1(choice(
@@ -510,6 +510,27 @@ module.exports = grammar({
         '}',
       ),
       ';',
+    ),
+
+    enum_def: $ => seq(
+      'enum',
+      field('name', $.identifier),
+      field('body', $.enumerator_list),
+    ),
+
+    enumerator_list: $ => seq(
+      '{',
+      commaSep($.enumerator),
+      optional(','),
+      '}',
+    ),
+
+    enumerator: $ => seq(
+      field('name', $.identifier),
+      optional(seq(
+        '=',
+        field('value', $.expression),
+      )),
     ),
 
     // Statements
@@ -793,14 +814,13 @@ module.exports = grammar({
       $._gtop_class,
       $._gins_class,
       seq(
-        choice('struct', 'class', 'union'),
+        choice('struct', 'class', 'union', 'enum'),
         choice(
           $._class_name,
           $._gtop_class,
           $._gins_class,
         ),
       )
-      //TODO$.enum class_name,
     ),
 
     cast_expression: $ => prec(PREC.CAST, seq(
