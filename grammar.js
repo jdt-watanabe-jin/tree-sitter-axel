@@ -50,6 +50,7 @@ module.exports = grammar({
     [$.classref],
     [$.direct_declarator, $.gins_def],
     [$.classdef, $.gins_def],
+    [$.command_statement],
   ],
 
   extras: $ => [
@@ -554,6 +555,7 @@ module.exports = grammar({
       $.continue_statement,
       $.goto_statement,
       $.throw_statement,
+      $.command_statement,
     ),
 
     expression_statement: $ => seq(
@@ -662,6 +664,18 @@ module.exports = grammar({
       optional($.expression),
       ';',
     ),
+
+    command_statement: $ => seq(
+      '@',
+      field('command', repeat($.command)),
+    ),
+
+    command: $ => choice(
+      $.identifier,
+      $.string_literal,
+      seq('`', $.expression, '`',),
+    ),
+
 
     // Expressions
 
