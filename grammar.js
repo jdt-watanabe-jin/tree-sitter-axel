@@ -38,9 +38,9 @@ module.exports = grammar({
   name: "axel",
 
   conflicts: $ => [
-    [$.classdef, $.obj_name],
-    [$.classdef, $.direct_declarator],
-    [$.classdef],
+    [$._class_definition, $.obj_name],
+    [$._class_definition, $.direct_declarator],
+    [$._class_definition],
     [$.obj_name],
     [$.direct_declarator],
     [$.parameter_declaration],
@@ -49,7 +49,7 @@ module.exports = grammar({
     [$.classref, $.obj_name],
     [$.classref],
     [$.direct_declarator, $.gins_def],
-    [$.classdef, $.gins_def],
+    [$._class_definition, $.gins_def],
     [$.command_statement],
   ],
 
@@ -75,12 +75,12 @@ module.exports = grammar({
   word: $ => $.identifier,
 
   rules: {
-    translation_unit: $ => repeat($.context),
+    translation_unit: $ => repeat($._context),
 
-    context: $ => choice(
+    _context: $ => choice(
       $.compound_statement,
       $.func_def,
-      $.obj_def,
+      $.object_definition,
       $.type_def,
       $.preproc_if,
       $.preproc_ifdef,
@@ -230,21 +230,21 @@ module.exports = grammar({
 
     // Declarations
 
-    obj_def: $ => seq(
+    object_definition: $ => seq(
       optional(field('storage_class', $._storage_class)),
-      field('type', $.classdef),
+      field('type', $._class_definition),
       repeat(field('declarator', $.init_declarator)),
       ';',
     ),
 
     type_def: $ => seq(
       'typedef',
-      field('type', $.classdef),
+      field('type', $._class_definition),
       repeat1(field('declarator', $.init_declarator)),
       ';',
     ),
 
-    classdef: $ => choice(
+    _class_definition: $ => choice(
       seq(
         optional(field('class_modifier', $._class_modifier)),
         $._class_name,
@@ -391,12 +391,12 @@ module.exports = grammar({
     parameter_declaration: $ => choice(
       seq(
         optional(field('storage_class','const')),
-        field('type', $.classdef),
+        field('type', $._class_definition),
         optional(field('declarator',$.init_declarator))
       ),
       seq(
         optional('const'),
-        field('type', $.classdef),
+        field('type', $._class_definition),
         optional(field('declarator',$.abstruct_declarator))
       ),
     ),
@@ -455,7 +455,7 @@ module.exports = grammar({
 
     func_def: $ => seq(
       optional(field('storage_class', $._storage_class)),
-      optional(field('type', $.classdef)),
+      optional(field('type', $._class_definition)),
       field('declarator', $._declarator),
       field('body', $.compound_statement),
     ),
@@ -484,7 +484,7 @@ module.exports = grammar({
     ),
 
     _field_declaration_list_item: $ => choice(
-      $.obj_def,
+      $.object_definition,
       $.func_def,
       $.type_def,
       $.gins_def,
@@ -504,7 +504,7 @@ module.exports = grammar({
         repeat1(choice(
           field('attributes', $.func_def),
           field('instance', choice(
-            $.obj_def,
+            $.object_definition,
             $.gins_def,
           )),
         )),
@@ -537,7 +537,7 @@ module.exports = grammar({
     // Statements
 
     statement: $ => choice(
-      $.obj_def,
+      $.object_definition,
       $.type_def,
       $.case_statement,
       $.labeled_statement,
