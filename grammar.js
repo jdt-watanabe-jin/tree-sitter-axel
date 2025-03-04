@@ -39,15 +39,15 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$._class_definition, $._qualified_identifier],
-    [$._class_definition, $.direct_declarator],
+    [$._class_definition, $._direct_declarator],
     [$._class_definition],
-    [$.direct_declarator],
+    [$.qualified_declarator],
     [$.parameter_declaration],
     [$.abstruct_pointer_declarator, $.pointer_declarator],
     [$.abstruct_pointer_declarator],
     [$.classref, $._qualified_identifier],
     [$.classref],
-    [$.direct_declarator, $.gins_def],
+    [$._direct_declarator, $.gins_def],
     [$._class_definition, $.gins_def],
     [$.command_statement],
     [$.init_declarator, $.parameter_list],
@@ -289,7 +289,7 @@ module.exports = grammar({
     ),
 
     _declarator: $ => choice(
-      $.direct_declarator,
+      $._direct_declarator,
       $.pointer_declarator,
       $.array_declarator,
       $.function_declarator,
@@ -319,32 +319,34 @@ module.exports = grammar({
       ')',
     )),
 
-    direct_declarator: $ => choice(
+    qualified_declarator: $ => seq(
+      field('scope', 
+        choice(
+          $.identifier,
+          $._class_name,
+          $._gtop_class,
+          $._gins_class,
+        )
+      ),
+      '::',
+      optional(seq(
+        field('instance', $.instance_name),
+        '::',
+      )),
+      field('name', choice(
+        $.identifier,
+        $.operator_declarator,
+        $.conversion_declarator,
+        $._class_name,
+        seq('~', $._class_name),
+      ))
+    ),
+
+    _direct_declarator: $ => choice(
       $.identifier,
       $.operator_declarator,
       $.conversion_declarator,
-      seq(
-        field('scope', 
-          choice(
-            $.identifier,
-            $._class_name,
-            $._gtop_class,
-            $._gins_class,
-          )
-        ),
-        '::',
-        optional(seq(
-          field('instance', $.instance_name),
-          '::',
-        )),
-        field('name', choice(
-          $.identifier,
-          $.operator_declarator,
-          $.conversion_declarator,
-          $._class_name,
-          seq('~', $._class_name),
-        ))
-      ),
+      $.qualified_declarator,
     ),
 
     abstruct_declarator: $ => choice(

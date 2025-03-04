@@ -8,11 +8,19 @@
         "named": true
       },
       {
-        "type": "direct_declarator",
+        "type": "conversion_declarator",
         "named": true
       },
       {
         "type": "function_declarator",
+        "named": true
+      },
+      {
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "operator_declarator",
         "named": true
       },
       {
@@ -21,6 +29,10 @@
       },
       {
         "type": "pointer_declarator",
+        "named": true
+      },
+      {
+        "type": "qualified_declarator",
         "named": true
       }
     ]
@@ -1074,88 +1086,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "direct_declarator",
-    "named": true,
-    "fields": {
-      "instance": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "instance_name",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "class_name",
-            "named": true
-          },
-          {
-            "type": "conversion_declarator",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "operator_declarator",
-            "named": true
-          },
-          {
-            "type": "~",
-            "named": false
-          }
-        ]
-      },
-      "scope": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "class_name",
-            "named": true
-          },
-          {
-            "type": "gins_class",
-            "named": true
-          },
-          {
-            "type": "gtop_class",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "conversion_declarator",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "operator_declarator",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -2916,6 +2846,70 @@
           },
           {
             "type": "system_lib_string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "qualified_declarator",
+    "named": true,
+    "fields": {
+      "instance": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "instance_name",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "class_name",
+            "named": true
+          },
+          {
+            "type": "conversion_declarator",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "operator_declarator",
+            "named": true
+          },
+          {
+            "type": "~",
+            "named": false
+          }
+        ]
+      },
+      "scope": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "class_name",
+            "named": true
+          },
+          {
+            "type": "gins_class",
+            "named": true
+          },
+          {
+            "type": "gtop_class",
+            "named": true
+          },
+          {
+            "type": "identifier",
             "named": true
           }
         ]

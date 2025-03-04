@@ -13,9 +13,7 @@ this_is_not a_comment;
   (object_definition
     type: (class_name)
     declarator: (init_declarator
-      declarator: (direct_declarator
-        (identifier)
-      )
+      declarator: (identifier)
     )
   )
 )
