@@ -38,15 +38,14 @@ module.exports = grammar({
   name: "axel",
 
   conflicts: $ => [
-    [$._class_definition, $.qualified_identifier],
+    [$._class_definition, $._qualified_identifier],
     [$._class_definition, $.direct_declarator],
     [$._class_definition],
-    [$.qualified_identifier],
     [$.direct_declarator],
     [$.parameter_declaration],
     [$.abstruct_pointer_declarator, $.pointer_declarator],
     [$.abstruct_pointer_declarator],
-    [$.classref, $.qualified_identifier],
+    [$.classref, $._qualified_identifier],
     [$.classref],
     [$.direct_declarator, $.gins_def],
     [$._class_definition, $.gins_def],
@@ -699,7 +698,7 @@ module.exports = grammar({
       $.unary_expression,
       $.pointer_expression,
       $.assignment_expression,
-      $.qualified_identifier,
+      $._qualified_identifier,
       $.field_expression,
       $.subscript_expression,
       $.conditional_expression,
@@ -799,7 +798,7 @@ module.exports = grammar({
         field('argument', $.expression),
         field('operator', choice('.', '->', '->*', '.*')),
       )),
-      field('field', $._member_name),
+      field('field', $._member_identifier),
     ),
 
     subscript_expression: $ => prec(PREC.SUBSCRIPT, seq(
@@ -887,17 +886,21 @@ module.exports = grammar({
       field('argument', $.expression),
     )),
 
+    _qualified_identifier: $ => choice(
+      $.identifier,
+      $.qualified_identifier,
+    ),
 
     qualified_identifier: $ => choice(
       seq(
-        optional('::'),
+        '::',
         field('name', choice(
           $.identifier,
           $.operator_declarator,
         )),
       ),
       seq(
-        field('scope', $._member_name),
+        field('scope', $._member_identifier),
         '::',
         field('name', choice(
           $.identifier,
@@ -1026,7 +1029,7 @@ module.exports = grammar({
     _class_name: $ => alias($.identifier, $.class_name),
     _gtop_class: $ => alias($.identifier, $.gtop_class),
     _gins_class: $ => alias($.identifier, $.gins_class),
-    _member_name: $ => alias($.identifier, $.member_name),
+    _member_identifier: $ => alias($.identifier, $.member_identifier),
     _statement_identifier: $ => alias($.identifier, $.statement_identifier),
 
     // Comments

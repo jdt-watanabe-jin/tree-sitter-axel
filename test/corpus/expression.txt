@@ -58,19 +58,13 @@ int main() {
     parameters: (parameter_list))
     body: (compound_statement
       (expression_statement
-        (qualified_identifier
-          name: (identifier)
-        )
+        (identifier)
       )
       (expression_statement
-        (qualified_identifier
-          name: (identifier)
-        )
+        (identifier)
       )
       (expression_statement
-        (qualified_identifier
-          name: (identifier)
-        )
+        (identifier)
       )
     )
   )
@@ -107,23 +101,15 @@ int main() {
         (false))
       (expression_statement
         (null))
-
       (comment)
-
       (expression_statement
-        (qualified_identifier
-          name: (identifier)
-        )
+        (identifier)
       )
       (expression_statement
-        (qualified_identifier
-          name: (identifier)
-        )
+        (identifier)
       )
       (expression_statement
-        (qualified_identifier
-          name: (identifier)
-        )
+        (identifier)
       )
     )
   )
@@ -149,15 +135,13 @@ int main() {
     body: (compound_statement
       (expression_statement
         (call_expression
-          function: (qualified_identifier
-            name: (identifier))
+          function: (identifier)
           arguments: (argument_list
             (string_literal
               (string_content)
               (escape_sequence)
             )
-            (qualified_identifier
-              name: (identifier))
+            (identifier)
           )
         )
       )
@@ -309,6 +293,86 @@ int main() {
             (coordinate_point
               x: (integer_literal)
               y: (integer_literal)
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Field access
+================================================================================
+
+int main() {
+  s.data1;
+  p->data2;
+  q[data3];
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+  type: (class_name)
+  declarator: (function_declarator
+    declarator: (direct_declarator
+      (identifier))
+    parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (field_expression
+          argument: (identifier)
+          field: (member_identifier)
+        )
+      )
+      (expression_statement
+        (field_expression
+          argument: (identifier)
+          field: (member_identifier)
+        )
+      )
+      (expression_statement
+        (subscript_expression
+          argument: (identifier)
+          index: (identifier)
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Boolean operators
+================================================================================
+
+int main() {
+  !x || !y && !z;
+}
+
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+  type: (class_name)
+  declarator: (function_declarator
+    declarator: (direct_declarator
+      (identifier))
+    parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (binary_expression
+          left: (unary_expression
+            argument: (identifier)
+          )
+          right: (binary_expression
+            left: (unary_expression
+              argument: (identifier)
+            )
+            right: (unary_expression
+              argument: (identifier)
             )
           )
         )

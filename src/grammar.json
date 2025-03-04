@@ -5097,7 +5097,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "qualified_identifier"
+          "name": "_qualified_identifier"
         },
         {
           "type": "SYMBOL",
@@ -6068,7 +6068,7 @@
           "name": "field",
           "content": {
             "type": "SYMBOL",
-            "name": "_member_name"
+            "name": "_member_identifier"
           }
         }
       ]
@@ -6667,6 +6667,19 @@
         ]
       }
     },
+    "_qualified_identifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "qualified_identifier"
+        }
+      ]
+    },
     "qualified_identifier": {
       "type": "CHOICE",
       "members": [
@@ -6674,16 +6687,8 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "::"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
+              "type": "STRING",
+              "value": "::"
             },
             {
               "type": "FIELD",
@@ -6712,7 +6717,7 @@
               "name": "scope",
               "content": {
                 "type": "SYMBOL",
-                "name": "_member_name"
+                "name": "_member_identifier"
               }
             },
             {
@@ -7336,14 +7341,14 @@
       "named": true,
       "value": "gins_class"
     },
-    "_member_name": {
+    "_member_identifier": {
       "type": "ALIAS",
       "content": {
         "type": "SYMBOL",
         "name": "identifier"
       },
       "named": true,
-      "value": "member_name"
+      "value": "member_identifier"
     },
     "_statement_identifier": {
       "type": "ALIAS",
@@ -7406,7 +7411,7 @@
   "conflicts": [
     [
       "_class_definition",
-      "qualified_identifier"
+      "_qualified_identifier"
     ],
     [
       "_class_definition",
@@ -7414,9 +7419,6 @@
     ],
     [
       "_class_definition"
-    ],
-    [
-      "qualified_identifier"
     ],
     [
       "direct_declarator"
@@ -7433,7 +7435,7 @@
     ],
     [
       "classref",
-      "qualified_identifier"
+      "_qualified_identifier"
     ],
     [
       "classref"

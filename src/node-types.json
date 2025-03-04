@@ -84,6 +84,10 @@
         "named": true
       },
       {
+        "type": "identifier",
+        "named": true
+      },
+      {
         "type": "new_expression",
         "named": true
       },
@@ -361,10 +365,6 @@
           "named": true
         },
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "number_literal",
           "named": true
         },
@@ -514,10 +514,6 @@
             "named": true
           },
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
             "type": "number_literal",
             "named": true
           },
@@ -618,10 +614,6 @@
             "named": true
           },
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
             "type": "number_literal",
             "named": true
           },
@@ -658,10 +650,6 @@
         "types": [
           {
             "type": "expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           }
         ]
@@ -861,10 +849,6 @@
       "types": [
         {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         },
         {
@@ -1320,7 +1304,7 @@
         "required": true,
         "types": [
           {
-            "type": "member_name",
+            "type": "member_identifier",
             "named": true
           }
         ]
@@ -2341,10 +2325,6 @@
           "named": true
         },
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "number_literal",
           "named": true
         },
@@ -2969,7 +2949,7 @@
         "required": false,
         "types": [
           {
-            "type": "member_name",
+            "type": "member_identifier",
             "named": true
           }
         ]
@@ -3329,10 +3309,6 @@
           },
           {
             "type": "expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -3795,7 +3771,7 @@
     "named": false
   },
   {
-    "type": "member_name",
+    "type": "member_identifier",
     "named": true
   },
   {
