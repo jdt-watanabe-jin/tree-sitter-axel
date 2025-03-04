@@ -162,6 +162,10 @@
         "named": true
       },
       {
+        "type": "string_literal",
+        "named": true
+      },
+      {
         "type": "unit_double_literal",
         "named": true
       },

@@ -152,11 +152,9 @@ int main() {
           function: (qualified_identifier
             name: (identifier))
           arguments: (argument_list
-            (concatenated_string
-              (string_literal
-                (string_content)
-                (escape_sequence)
-              )
+            (string_literal
+              (string_content)
+              (escape_sequence)
             )
             (qualified_identifier
               name: (identifier))
@@ -189,10 +187,8 @@ int main() {
     parameters: (parameter_list))
     body: (compound_statement
       (expression_statement
-        (concatenated_string
-          (string_literal
-            (string_content))
-        )
+        (string_literal
+          (string_content))
       )
       (expression_statement
         (concatenated_string
@@ -205,19 +201,15 @@ int main() {
         )
       )
       (expression_statement
-        (concatenated_string
-          (string_literal
-            (escape_sequence)
-            (string_content)
-            (escape_sequence)
-          )
+        (string_literal
+          (escape_sequence)
+          (string_content)
+          (escape_sequence)
         )
       )
       (expression_statement
-        (concatenated_string
-          (string_literal
-            (string_content))
-        )
+        (string_literal
+          (string_content))
       )
     )
   )

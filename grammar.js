@@ -914,9 +914,14 @@ module.exports = grammar({
       $.unit_integer_literal,
       $.unit_double_literal,
       $.char_literal,
-      $.concatenated_string,
+      $._string,
       $.coordinate,
     ),
+
+    _string: $ => prec.left(choice(
+      $.string_literal,
+      $.concatenated_string,
+    )),
 
     coordinate_one: $ => seq(
       '/',
@@ -988,8 +993,9 @@ module.exports = grammar({
       '\'',
     ),
 
-    concatenated_string: $ => prec.right(repeat1(
-      $.string_literal,
+    concatenated_string: $ => prec.right(seq(
+      seq($.string_literal, $.string_literal),
+      repeat($.string_literal),
     )),
 
     string_literal: $ => seq(
