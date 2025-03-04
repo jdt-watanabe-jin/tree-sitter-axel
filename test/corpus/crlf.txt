@@ -1,0 +1,21 @@
+============================================
+Line comments with escaped CRLF line endings
+============================================
+
+// hello \
+   this is still a comment
+this_is_not a_comment;
+
+---
+
+(translation_unit
+  (comment)
+  (object_definition
+    type: (class_name)
+    declarator: (init_declarator
+      (direct_declarator
+        (identifier)
+      )
+    )
+  )
+)
