@@ -81,7 +81,7 @@ module.exports = grammar({
 
     _context: $ => choice(
       $.compound_statement,
-      $.func_def,
+      $.function_definition,
       $.object_definition,
       $.type_def,
       $.preproc_if,
@@ -460,7 +460,7 @@ module.exports = grammar({
       )),
     ),
 
-    func_def: $ => seq(
+    function_definition: $ => seq(
       optional(field('storage_class', $._storage_class)),
       optional(field('type', $._class_definition)),
       field('declarator', $._declarator),
@@ -492,7 +492,7 @@ module.exports = grammar({
 
     _field_declaration_list_item: $ => choice(
       $.object_definition,
-      $.func_def,
+      $.function_definition,
       $.type_def,
       $.gins_def,
       $.member_label,
@@ -509,7 +509,7 @@ module.exports = grammar({
       seq(
         '{',
         repeat1(choice(
-          field('attributes', $.func_def),
+          field('attributes', $.function_definition),
           field('instance', choice(
             $.object_definition,
             $.gins_def,
@@ -689,6 +689,9 @@ module.exports = grammar({
     
     expression: $ => choice(
       $.primary,
+      $.true,
+      $.false,
+      $.null,
       $.call_expression,
       $.update_expression,
       $.cast_expression,
@@ -888,10 +891,10 @@ module.exports = grammar({
     qualified_identifier: $ => choice(
       seq(
         optional('::'),
-        choice(
+        field('name', choice(
           $.identifier,
           $.operator_declarator,
-        )
+        )),
       ),
       seq(
         field('scope', $._member_name),
@@ -917,24 +920,27 @@ module.exports = grammar({
 
     coordinate_one: $ => seq(
       '/',
-      choice(
+      field('x', choice(
         $.integer_literal,
         prec.left(PREC.UNARY, seq('-', $.integer_literal)),
         $.double_literal,
         prec.left(PREC.UNARY, seq('-', $.double_literal)),
-      ),
+      )),
+      field('y', choice(
+        $.integer_literal,
+        prec.left(PREC.UNARY, seq('-', $.integer_literal)),
+        $.double_literal,
+        prec.left(PREC.UNARY, seq('-', $.double_literal)),
+      )),
     ),
 
     coordinate: $ => prec.left(repeat1($.coordinate_one)),
 
     // Literals
 
-    identifier: _ => /[a-zA-Z_$][0-9a-zA-Z_$]*/,
-    _class_name: $ => alias($.identifier, $.class_name),
-    _gtop_class: $ => alias($.identifier, $.gtop_class),
-    _gins_class: $ => alias($.identifier, $.gins_class),
-    _member_name: $ => alias($.identifier, $.member_name),
-    _statement_identifier: $ => alias($.identifier, $.statement_identifier),
+    true: _ => token(choice('TRUE', 'true')),
+    false: _ => token(choice('FALSE', 'false')),
+    null: _ => choice('NULL', 'nullptr'),
 
     number_literal: $ => choice(
       alias($.integer_literal, $.number_literal),
@@ -1011,6 +1017,13 @@ module.exports = grammar({
       repeat(choice(/[^>\n]/, '\\>')),
       '>',
     )),
+
+    identifier: _ => /[a-zA-Z_$][0-9a-zA-Z_$]*/,
+    _class_name: $ => alias($.identifier, $.class_name),
+    _gtop_class: $ => alias($.identifier, $.gtop_class),
+    _gins_class: $ => alias($.identifier, $.gins_class),
+    _member_name: $ => alias($.identifier, $.member_name),
+    _statement_identifier: $ => alias($.identifier, $.statement_identifier),
 
     // Comments
     comment: _ => token(choice(

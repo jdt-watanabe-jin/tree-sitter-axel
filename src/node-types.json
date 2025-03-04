@@ -76,11 +76,19 @@
         "named": true
       },
       {
+        "type": "false",
+        "named": true
+      },
+      {
         "type": "field_expression",
         "named": true
       },
       {
         "type": "new_expression",
+        "named": true
+      },
+      {
+        "type": "null",
         "named": true
       },
       {
@@ -109,6 +117,10 @@
       },
       {
         "type": "this",
+        "named": true
+      },
+      {
+        "type": "true",
         "named": true
       },
       {
@@ -1003,20 +1015,43 @@
   {
     "type": "coordinate_one",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "double_literal",
-          "named": true
-        },
-        {
-          "type": "integer_literal",
-          "named": true
-        }
-      ]
+    "fields": {
+      "x": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "double_literal",
+            "named": true
+          },
+          {
+            "type": "integer_literal",
+            "named": true
+          }
+        ]
+      },
+      "y": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "double_literal",
+            "named": true
+          },
+          {
+            "type": "integer_literal",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1365,7 +1400,33 @@
     }
   },
   {
-    "type": "func_def",
+    "type": "function_declarator",
+    "named": true,
+    "fields": {
+      "declarator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_declarator",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "parameter_list",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "function_definition",
     "named": true,
     "fields": {
       "body": {
@@ -1505,32 +1566,6 @@
     }
   },
   {
-    "type": "function_declarator",
-    "named": true,
-    "fields": {
-      "declarator": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "_declarator",
-            "named": true
-          }
-        ]
-      },
-      "parameters": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "parameter_list",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "gins_def",
     "named": true,
     "fields": {
@@ -1539,7 +1574,7 @@
         "required": false,
         "types": [
           {
-            "type": "func_def",
+            "type": "function_definition",
             "named": true
           }
         ]
@@ -1745,7 +1780,7 @@
       "required": false,
       "types": [
         {
-          "type": "func_def",
+          "type": "function_definition",
           "named": true
         },
         {
@@ -1846,6 +1881,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "null",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "number_literal",
@@ -2900,7 +2940,7 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "identifier",
@@ -2926,20 +2966,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "operator_declarator",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -3133,7 +3159,7 @@
           "named": true
         },
         {
-          "type": "func_def",
+          "type": "function_definition",
           "named": true
         },
         {
@@ -3616,6 +3642,10 @@
     "named": false
   },
   {
+    "type": "NULL",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -3713,6 +3743,10 @@
     "named": false
   },
   {
+    "type": "false",
+    "named": true
+  },
+  {
     "type": "for",
     "named": false
   },
@@ -3758,6 +3792,10 @@
   },
   {
     "type": "new",
+    "named": false
+  },
+  {
+    "type": "nullptr",
     "named": false
   },
   {
@@ -3835,6 +3873,10 @@
   {
     "type": "throw",
     "named": false
+  },
+  {
+    "type": "true",
+    "named": true
   },
   {
     "type": "try",

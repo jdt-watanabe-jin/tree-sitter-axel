@@ -36,3 +36,240 @@ double a = {
     )
   )
 )
+
+================================================================================
+Identifiers
+================================================================================
+
+int main() {
+  _abc;
+  d_EG123;
+  $f;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+  type: (class_name)
+  declarator: (function_declarator
+    declarator: (direct_declarator
+      (identifier))
+    parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (qualified_identifier
+          name: (identifier)
+        )
+      )
+      (expression_statement
+        (qualified_identifier
+          name: (identifier)
+        )
+      )
+      (expression_statement
+        (qualified_identifier
+          name: (identifier)
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Common constants
+================================================================================
+
+int main() {
+  true;
+  false;
+  NULL;
+
+  // regression test - identifiers starting w/ these strings should tokenize correctly.
+  true_value;
+  false_value;
+  NULL_value;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+  type: (class_name)
+  declarator: (function_declarator
+    declarator: (direct_declarator
+      (identifier))
+    parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (true))
+      (expression_statement
+        (false))
+      (expression_statement
+        (null))
+
+      (comment)
+
+      (expression_statement
+        (qualified_identifier
+          name: (identifier)
+        )
+      )
+      (expression_statement
+        (qualified_identifier
+          name: (identifier)
+        )
+      )
+      (expression_statement
+        (qualified_identifier
+          name: (identifier)
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Function calls
+================================================================================
+
+int main() {
+  printf("hi! %d\n", x);
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+  type: (class_name)
+  declarator: (function_declarator
+    declarator: (direct_declarator
+      (identifier))
+    parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (call_expression
+          function: (qualified_identifier
+            name: (identifier))
+          arguments: (argument_list
+            (concatenated_string
+              (string_literal
+                (string_content)
+                (escape_sequence)
+              )
+            )
+            (qualified_identifier
+              name: (identifier))
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+String literals
+================================================================================
+
+int main() {
+  "a";
+  "b" "c" "d";
+  "\"hi\"";
+  L"bonjour";
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+  type: (class_name)
+  declarator: (function_declarator
+    declarator: (direct_declarator
+      (identifier))
+    parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (concatenated_string
+          (string_literal
+            (string_content))
+        )
+      )
+      (expression_statement
+        (concatenated_string
+          (string_literal
+            (string_content))
+          (string_literal
+            (string_content))
+          (string_literal
+            (string_content))
+        )
+      )
+      (expression_statement
+        (concatenated_string
+          (string_literal
+            (escape_sequence)
+            (string_content)
+            (escape_sequence)
+          )
+        )
+      )
+      (expression_statement
+        (concatenated_string
+          (string_literal
+            (string_content))
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Character literals
+================================================================================
+
+int main() {
+  'a';
+  '\0';
+  '\t';
+  '\'';
+  L'b';
+  '\x3';
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+  type: (class_name)
+  declarator: (function_declarator
+    declarator: (direct_declarator
+      (identifier))
+    parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (char_literal
+          (character))
+      )
+      (expression_statement
+        (char_literal
+          (escape_sequence))
+      )
+      (expression_statement
+        (char_literal
+          (escape_sequence))
+      )
+      (expression_statement
+        (char_literal
+          (escape_sequence))
+      )
+      (expression_statement
+        (char_literal
+          (character))
+      )
+      (expression_statement
+        (char_literal
+          (escape_sequence))
+      )
+    )
+  )
+)
