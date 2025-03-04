@@ -1010,14 +1010,14 @@
       "required": true,
       "types": [
         {
-          "type": "coordinate_one",
+          "type": "coordinate_point",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "coordinate_one",
+    "type": "coordinate_point",
     "named": true,
     "fields": {
       "x": {

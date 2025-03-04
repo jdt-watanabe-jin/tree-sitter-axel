@@ -6798,7 +6798,7 @@
         ]
       }
     },
-    "coordinate_one": {
+    "coordinate_point": {
       "type": "SEQ",
       "members": [
         {
@@ -6809,49 +6809,32 @@
           "type": "FIELD",
           "name": "x",
           "content": {
-            "type": "CHOICE",
+            "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "integer_literal"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "-"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
               },
               {
-                "type": "PREC_LEFT",
-                "value": 14,
-                "content": {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "-"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "integer_literal"
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "SYMBOL",
-                "name": "double_literal"
-              },
-              {
-                "type": "PREC_LEFT",
-                "value": 14,
-                "content": {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "-"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "double_literal"
-                    }
-                  ]
-                }
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "integer_literal"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "double_literal"
+                  }
+                ]
               }
             ]
           }
@@ -6860,49 +6843,32 @@
           "type": "FIELD",
           "name": "y",
           "content": {
-            "type": "CHOICE",
+            "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "integer_literal"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "-"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
               },
               {
-                "type": "PREC_LEFT",
-                "value": 14,
-                "content": {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "-"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "integer_literal"
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "SYMBOL",
-                "name": "double_literal"
-              },
-              {
-                "type": "PREC_LEFT",
-                "value": 14,
-                "content": {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "-"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "double_literal"
-                    }
-                  ]
-                }
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "integer_literal"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "double_literal"
+                  }
+                ]
               }
             ]
           }
@@ -6910,13 +6876,13 @@
       ]
     },
     "coordinate": {
-      "type": "PREC_LEFT",
+      "type": "PREC_RIGHT",
       "value": 0,
       "content": {
         "type": "REPEAT1",
         "content": {
           "type": "SYMBOL",
-          "name": "coordinate_one"
+          "name": "coordinate_point"
         }
       }
     },
