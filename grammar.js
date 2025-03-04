@@ -915,7 +915,7 @@ module.exports = grammar({
       $.unit_double_literal,
       $.char_literal,
       $._string,
-      $.coordinate,
+      $._coordinate,
     ),
 
     _string: $ => prec.left(choice(
@@ -923,13 +923,21 @@ module.exports = grammar({
       $.concatenated_string,
     )),
 
+    _coordinate: $ => prec.right(choice(
+      $.coordinate_point,
+      $.coordinate,
+    )),
+
     coordinate_point: $ => seq(
       '/',
       field('x', seq(optional('-'), choice($.integer_literal, $.double_literal))),
       field('y', seq(optional('-'), choice($.integer_literal, $.double_literal))),
     ),
-
-    coordinate: $ => prec.right(repeat1($.coordinate_point)),
+    
+    coordinate: $ => prec.right(seq(
+      seq($.coordinate_point, $.coordinate_point),
+      repeat($.coordinate_point),
+    )),
 
     // Literals
 

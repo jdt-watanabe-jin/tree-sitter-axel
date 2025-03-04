@@ -150,6 +150,10 @@
         "named": true
       },
       {
+        "type": "coordinate_point",
+        "named": true
+      },
+      {
         "type": "double_literal",
         "named": true
       },

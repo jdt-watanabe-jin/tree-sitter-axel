@@ -6777,7 +6777,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "coordinate"
+          "name": "_coordinate"
         }
       ]
     },
@@ -6794,6 +6794,23 @@
           {
             "type": "SYMBOL",
             "name": "concatenated_string"
+          }
+        ]
+      }
+    },
+    "_coordinate": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "coordinate_point"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "coordinate"
           }
         ]
       }
@@ -6879,11 +6896,29 @@
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "SYMBOL",
-          "name": "coordinate_point"
-        }
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "coordinate_point"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "coordinate_point"
+              }
+            ]
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "coordinate_point"
+            }
+          }
+        ]
       }
     },
     "true": {

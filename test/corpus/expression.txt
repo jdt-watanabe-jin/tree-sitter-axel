@@ -265,3 +265,54 @@ int main() {
     )
   )
 )
+
+================================================================================
+Coordinate literals
+================================================================================
+
+int main() {
+  ipoint p = /1 2;
+  icoord c = /-1 0 /1 2;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+  type: (class_name)
+  declarator: (function_declarator
+    declarator: (direct_declarator
+      (identifier))
+    parameters: (parameter_list))
+    body: (compound_statement
+      (object_definition
+        type: (class_name)
+        declarator: (init_declarator
+          declarator: (direct_declarator
+            (identifier))
+          value: (coordinate_point
+            x: (integer_literal)
+            y: (integer_literal)
+          )
+        )
+      )
+      (object_definition
+        type: (class_name)
+        declarator: (init_declarator
+          declarator: (direct_declarator
+            (identifier))
+          value: (coordinate
+            (coordinate_point
+              x: (integer_literal)
+              y: (integer_literal)
+            )
+            (coordinate_point
+              x: (integer_literal)
+              y: (integer_literal)
+            )
+          )
+        )
+      )
+    )
+  )
+)
