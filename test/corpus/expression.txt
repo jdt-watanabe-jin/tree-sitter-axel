@@ -375,3 +375,526 @@ int main() {
     )
   )
 )
+
+================================================================================
+Math operators
+================================================================================
+
+int main() {
+  -a / b + c * -d;
+  a++ - ++b + c-- + --d;
+  ++L;
+  }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (expression_statement
+        (binary_expression
+          left: (binary_expression
+            left: (unary_expression 
+              argument: (identifier)
+            )
+            right: (identifier)
+          )
+          right: (binary_expression
+            left: (identifier)
+            right: (unary_expression 
+              argument: (identifier)
+            )
+          )
+        )
+      )
+      (expression_statement
+        (binary_expression
+          left: (binary_expression
+            left: (binary_expression
+              left: (update_expression
+                argument: (identifier)
+              )
+              right: (update_expression
+                argument: (identifier)
+              )
+            )
+            right: (update_expression
+              argument: (identifier)
+            )
+          )
+          right: (update_expression
+            argument: (identifier)
+          )
+        )
+      )
+      (expression_statement
+        (update_expression
+          argument: (identifier)
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+The comma operator
+================================================================================
+
+int main() {
+  i--, j--;
+  (i--, j--);
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (expression_statement
+        (comma_expression
+          left: (update_expression
+            argument: (identifier)
+          )
+          right: (update_expression
+            argument: (identifier)
+          )
+        )
+      )
+      (expression_statement
+        (parenthesized_expression
+          (comma_expression
+            left: (update_expression
+              argument: (identifier)
+            )
+            right: (update_expression
+              argument: (identifier)
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Assignments
+================================================================================
+
+int main() {
+  static int a = 1;
+  b = *c = 2;
+  d.e = 3;
+  f->g = 4;
+  h[i] = j;
+  k += l;
+  m -= o;
+  n *= p;
+  q /= r;
+  *s++ = 1;
+  (*t) = 1;
+  a *= ((b!=c) ? d : e);
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (object_definition
+        storage_class_specifier: (storage_class_specifier)
+        type: (class_name)
+        declarator: (init_declarator
+          declarator: (identifier)
+          value: (integer_literal)
+        )
+      )
+      (expression_statement
+        (assignment_expression
+          left: (identifier)
+          right: (assignment_expression
+            left: (pointer_expression
+              argument: (identifier)
+            )
+            right: (integer_literal)
+          )
+        )
+      )
+      (expression_statement
+        (assignment_expression
+          left: (field_expression
+            argument: (identifier)
+            field: (member_identifier)
+          )
+          right: (integer_literal)
+        )
+      )
+      (expression_statement
+        (assignment_expression
+          left: (field_expression
+            argument: (identifier)
+            field: (member_identifier)
+          )
+          right: (integer_literal)
+        )
+      )
+      (expression_statement
+        (assignment_expression
+          left: (subscript_expression
+            argument: (identifier)
+            index: (identifier)
+          )
+          right: (identifier)
+        )
+      )
+      (expression_statement
+        (assignment_expression
+          left: (identifier)
+          right: (identifier)
+        )
+      )
+      (expression_statement
+        (assignment_expression
+          left: (identifier)
+          right: (identifier)
+        )
+      )
+      (expression_statement
+        (assignment_expression
+          left: (identifier)
+          right: (identifier)
+        )
+      )
+      (expression_statement
+        (assignment_expression
+          left: (identifier)
+          right: (identifier)
+        )
+      )
+      (expression_statement
+        (assignment_expression
+          left: (pointer_expression
+            argument: (update_expression
+              argument: (identifier)
+            )
+          )
+          right: (integer_literal)
+        )
+      )
+      (expression_statement
+        (assignment_expression
+          left: (parenthesized_expression
+            (pointer_expression
+              argument: (identifier)
+            )
+          )
+          right: (integer_literal)
+        )
+      )
+      (expression_statement
+        (assignment_expression
+          left: (identifier)
+          right: (parenthesized_expression
+            (conditional_expression
+              condition: (parenthesized_expression
+                (binary_expression
+                  left: (identifier)
+                  right: (identifier)
+                )
+              )
+              consequence: (identifier)
+              alternative: (identifier)
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Pointer operations
+================================================================================
+
+int main() {
+  doSomething(&x, *x);
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (expression_statement
+        (call_expression
+          function: (identifier)
+          arguments: (argument_list
+            (pointer_expression
+              argument: (identifier)
+            )
+            (pointer_expression
+              argument: (identifier)
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Type-casts
+================================================================================
+
+int main() {
+  x = (SomeType *)thing;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (expression_statement
+        (assignment_expression
+          left: (identifier)
+          right: (cast_expression
+            type: (type_descriptor
+              type: (class_name)
+              declarator: (abstruct_pointer_declarator)
+            )
+            argument: (identifier)
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Sizeof expressions
+================================================================================
+
+int main() {
+  sizeof x.a;
+  sizeof(x.a);
+  sizeof(char **);
+  sizeof(char * ());
+  sizeof(1) + 1;
+  sizeof((1) + 1);
+  sizeof(int) + 1;
+  sizeof(struct foo) + sizeof(struct bar) + 1;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (expression_statement
+        (sizeof_expression
+          argument: (field_expression
+            argument: (identifier)
+            field: (member_identifier)
+          )
+        )
+      )
+      (expression_statement
+        (sizeof_expression
+          argument: (parenthesized_expression
+            (field_expression
+              argument: (identifier)
+              field: (member_identifier)
+            )
+          )
+        )
+      )
+      (expression_statement
+        (sizeof_expression
+          type: (type_descriptor
+            type: (class_name)
+            declarator: (abstruct_pointer_declarator
+              declarator: (abstruct_pointer_declarator)
+            )
+          )
+        )
+      )
+      (expression_statement
+        (sizeof_expression
+          type: (type_descriptor
+            type: (class_name)
+            declarator: (abstruct_pointer_declarator
+              declarator: (abstruct_function_declarator
+                parameters: (parameter_list)
+              )
+            )
+          )
+        )
+      )
+      (expression_statement
+        (binary_expression
+          left: (sizeof_expression
+            argument: (parenthesized_expression
+              (integer_literal)
+            )
+          )
+          right: (integer_literal)
+        )
+      )
+      (expression_statement
+        (sizeof_expression
+          argument: (parenthesized_expression
+            (binary_expression
+              left: (parenthesized_expression
+                (integer_literal)
+              )
+              right: (integer_literal)
+            )
+          )
+        )
+      )
+      (expression_statement
+        (binary_expression
+          left: (sizeof_expression
+            argument: (parenthesized_expression
+              (identifier)
+            )
+          )
+          right: (integer_literal)
+        )
+      )
+      (expression_statement
+        (binary_expression
+          left: (binary_expression
+            left: (sizeof_expression
+              type: (type_descriptor
+                struct_specifier: (struct_specifier)
+                type: (class_name)
+              )
+            )
+            right: (sizeof_expression
+              type: (type_descriptor
+                struct_specifier: (struct_specifier)
+                type: (class_name)
+              )
+            )
+          )
+          right: (integer_literal)
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Comments with escaped newlines
+================================================================================
+
+// one \
+   two
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (comment)
+)
+
+================================================================================
+Comments with escaped chars and newlines
+================================================================================
+
+// one \a \b \
+   two
+// one \c \d
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (comment)
+  (comment)
+)
+
+================================================================================
+Ternary
+================================================================================
+
+void f() {
+  0 ? 1 : 2;
+  a = 0 ? 1 : 2;
+  a = val ? b = 3, 1 : 0;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (expression_statement
+        (conditional_expression
+          condition: (integer_literal)
+          consequence: (integer_literal)
+          alternative: (integer_literal)
+        )
+      )
+      (expression_statement
+        (assignment_expression
+          left: (identifier)
+          right: (conditional_expression
+            condition: (integer_literal)
+            consequence: (integer_literal)
+            alternative: (integer_literal)
+          )
+        )
+      )
+      (expression_statement
+        (assignment_expression
+          left: (identifier)
+          right: (conditional_expression
+            condition: (identifier)
+            consequence: (comma_expression
+              left: (assignment_expression
+                left: (identifier)
+                right: (integer_literal)
+              )
+              right: (integer_literal)
+            )
+            alternative: (integer_literal)
+          )
+        )
+      )
+    )
+  )
+)

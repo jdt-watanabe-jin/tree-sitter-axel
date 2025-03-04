@@ -45,8 +45,8 @@ module.exports = grammar({
     [$.parameter_declaration],
     [$.abstruct_pointer_declarator, $.pointer_declarator],
     [$.abstruct_pointer_declarator],
-    [$.classref, $._qualified_identifier],
-    [$.classref],
+    [$._classref, $._qualified_identifier],
+    [$._classref],
     [$._direct_declarator, $.gins_def],
     [$._class_definition, $.gins_def],
     [$.command_statement],
@@ -232,7 +232,7 @@ module.exports = grammar({
     // Declarations
 
     object_definition: $ => seq(
-      optional(field('storage_class', $._storage_class)),
+      optional(field('storage_class_specifier', $.storage_class_specifier)),
       field('type', $._class_definition),
       repeat(field('declarator', $.init_declarator)),
       ';',
@@ -247,7 +247,7 @@ module.exports = grammar({
 
     _class_definition: $ => choice(
       seq(
-        optional(field('class_modifier', $._class_modifier)),
+        optional(field('class_modifier', $.class_modifier)),
         $._class_name,
       ),
       $._gtop_class,
@@ -256,7 +256,7 @@ module.exports = grammar({
       $.enum_def,
     ),
 
-    _storage_class: $ => repeat1(choice(
+    storage_class_specifier: $ => repeat1(choice(
       'static',
       'auto',
       'register',
@@ -270,12 +270,19 @@ module.exports = grammar({
       'virtual',
     )),
 
-    _class_modifier: $ => repeat1(choice(
+    class_modifier: $ => repeat1(choice(
       'signed',
       'unsigned',
       'short',
       'long',
     )),
+
+    struct_specifier: $ => choice(
+      'struct',
+      'class',
+      'union',
+      'enum',
+    ),
 
     init_declarator: $ => choice(
       field('declarator', $._declarator),
@@ -462,7 +469,7 @@ module.exports = grammar({
     ),
 
     function_definition: $ => seq(
-      optional(field('storage_class', $._storage_class)),
+      optional(field('storage_class_specifier', $.storage_class_specifier)),
       optional(field('type', $._class_definition)),
       field('declarator', $._declarator),
       field('body', $.compound_statement),
@@ -480,7 +487,7 @@ module.exports = grammar({
       optional(seq(
         ':',
         choice('public', 'protected', 'private'),
-        field('base', commaSep1($.classref)),
+        field('base', commaSep1($._classref)),
       )),
       field('body', $.member_definitions),
     ),
@@ -831,15 +838,15 @@ module.exports = grammar({
 
     argument_list: $ => seq('(', commaSep(choice($.expression, $.compound_statement)), ')'),
 
-    classref: $ => choice(
+    _classref: $ => choice(
       seq(
-        optional(field('class_modifier', $._class_modifier)),
+        optional(field('class_modifier', $.class_modifier)),
         $._class_name,
       ),
       $._gtop_class,
       $._gins_class,
       seq(
-        choice('struct', 'class', 'union', 'enum'),
+        field('struct_specifier', $.struct_specifier),
         choice(
           $._class_name,
           $._gtop_class,
@@ -848,28 +855,32 @@ module.exports = grammar({
       )
     ),
 
+    type_descriptor: $ => seq(
+      field('type', $._classref),
+      optional(field('declarator', $.abstruct_declarator)),
+    ),
+
     cast_expression: $ => prec(PREC.CAST, seq(
       '(',
-      field('type', $.classref),
-      optional(field('declarator', $.abstruct_declarator)),
+      field('type', $.type_descriptor),
       ')',
       field('argument', $.expression),
     )),
 
     sizeof_expression: $ => prec(PREC.SIZEOF, seq(
       'sizeof',
-      field('argument', choice(
-        seq('(', $.classref, optional($.abstruct_declarator), ')'),
-        seq('(', $.expression, ')'),
-      )),
+      choice(
+        seq('(', field('type', $.type_descriptor), ')'),
+        field('argument', $.expression),
+      ),
     )),
 
     this: $ => 'this',
 
     new_expression: $ => prec.right(PREC.NEW, seq(
-      optional($._storage_class),
+      optional(field('storage_class_specifier', $.storage_class_specifier)),
       'new',
-      field('type', $.classref),
+      field('type', $._classref),
       optional(field('size', seq(
         '[',
         optional($.expression),

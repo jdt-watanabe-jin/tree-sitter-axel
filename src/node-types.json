@@ -708,22 +708,12 @@
           }
         ]
       },
-      "declarator": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "abstruct_declarator",
-            "named": true
-          }
-        ]
-      },
       "type": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "classref",
+            "type": "type_descriptor",
             "named": true
           }
         ]
@@ -776,50 +766,9 @@
     }
   },
   {
-    "type": "classref",
+    "type": "class_modifier",
     "named": true,
-    "fields": {
-      "class_modifier": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "long",
-            "named": false
-          },
-          {
-            "type": "short",
-            "named": false
-          },
-          {
-            "type": "signed",
-            "named": false
-          },
-          {
-            "type": "unsigned",
-            "named": false
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "class_name",
-          "named": true
-        },
-        {
-          "type": "gins_class",
-          "named": true
-        },
-        {
-          "type": "gtop_class",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "comma_expression",
@@ -1362,24 +1311,12 @@
         ]
       },
       "class_modifier": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "long",
-            "named": false
-          },
-          {
-            "type": "short",
-            "named": false
-          },
-          {
-            "type": "signed",
-            "named": false
-          },
-          {
-            "type": "unsigned",
-            "named": false
+            "type": "class_modifier",
+            "named": true
           }
         ]
       },
@@ -1393,53 +1330,13 @@
           }
         ]
       },
-      "storage_class": {
-        "multiple": true,
+      "storage_class_specifier": {
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "auto",
-            "named": false
-          },
-          {
-            "type": "const",
-            "named": false
-          },
-          {
-            "type": "extern",
-            "named": false
-          },
-          {
-            "type": "global",
-            "named": false
-          },
-          {
-            "type": "private",
-            "named": false
-          },
-          {
-            "type": "protected",
-            "named": false
-          },
-          {
-            "type": "public",
-            "named": false
-          },
-          {
-            "type": "register",
-            "named": false
-          },
-          {
-            "type": "static",
-            "named": false
-          },
-          {
-            "type": "universal",
-            "named": false
-          },
-          {
-            "type": "virtual",
-            "named": false
+            "type": "storage_class_specifier",
+            "named": true
           }
         ]
       },
@@ -1447,6 +1344,10 @@
         "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "class_modifier",
+            "named": true
+          },
           {
             "type": "class_name",
             "named": true
@@ -1464,24 +1365,8 @@
             "named": true
           },
           {
-            "type": "long",
-            "named": false
-          },
-          {
-            "type": "short",
-            "named": false
-          },
-          {
-            "type": "signed",
-            "named": false
-          },
-          {
             "type": "struct_def",
             "named": true
-          },
-          {
-            "type": "unsigned",
-            "named": false
           }
         ]
       }
@@ -1752,6 +1637,16 @@
     "type": "new_expression",
     "named": true,
     "fields": {
+      "class_modifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "class_modifier",
+            "named": true
+          }
+        ]
+      },
       "initializer": {
         "multiple": true,
         "required": false,
@@ -1792,12 +1687,48 @@
           }
         ]
       },
-      "type": {
+      "storage_class_specifier": {
         "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "storage_class_specifier",
+            "named": true
+          }
+        ]
+      },
+      "struct_specifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "struct_specifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": true,
         "required": true,
         "types": [
           {
-            "type": "classref",
+            "type": "class_modifier",
+            "named": true
+          },
+          {
+            "type": "class_name",
+            "named": true
+          },
+          {
+            "type": "gins_class",
+            "named": true
+          },
+          {
+            "type": "gtop_class",
+            "named": true
+          },
+          {
+            "type": "struct_specifier",
             "named": true
           }
         ]
@@ -1829,24 +1760,12 @@
     "named": true,
     "fields": {
       "class_modifier": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "long",
-            "named": false
-          },
-          {
-            "type": "short",
-            "named": false
-          },
-          {
-            "type": "signed",
-            "named": false
-          },
-          {
-            "type": "unsigned",
-            "named": false
+            "type": "class_modifier",
+            "named": true
           }
         ]
       },
@@ -1860,53 +1779,13 @@
           }
         ]
       },
-      "storage_class": {
-        "multiple": true,
+      "storage_class_specifier": {
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "auto",
-            "named": false
-          },
-          {
-            "type": "const",
-            "named": false
-          },
-          {
-            "type": "extern",
-            "named": false
-          },
-          {
-            "type": "global",
-            "named": false
-          },
-          {
-            "type": "private",
-            "named": false
-          },
-          {
-            "type": "protected",
-            "named": false
-          },
-          {
-            "type": "public",
-            "named": false
-          },
-          {
-            "type": "register",
-            "named": false
-          },
-          {
-            "type": "static",
-            "named": false
-          },
-          {
-            "type": "universal",
-            "named": false
-          },
-          {
-            "type": "virtual",
-            "named": false
+            "type": "storage_class_specifier",
+            "named": true
           }
         ]
       },
@@ -1914,6 +1793,10 @@
         "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "class_modifier",
+            "named": true
+          },
           {
             "type": "class_name",
             "named": true
@@ -1931,24 +1814,8 @@
             "named": true
           },
           {
-            "type": "long",
-            "named": false
-          },
-          {
-            "type": "short",
-            "named": false
-          },
-          {
-            "type": "signed",
-            "named": false
-          },
-          {
             "type": "struct_def",
             "named": true
-          },
-          {
-            "type": "unsigned",
-            "named": false
           }
         ]
       }
@@ -2111,24 +1978,12 @@
     "named": true,
     "fields": {
       "class_modifier": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "long",
-            "named": false
-          },
-          {
-            "type": "short",
-            "named": false
-          },
-          {
-            "type": "signed",
-            "named": false
-          },
-          {
-            "type": "unsigned",
-            "named": false
+            "type": "class_modifier",
+            "named": true
           }
         ]
       },
@@ -2161,6 +2016,10 @@
         "required": true,
         "types": [
           {
+            "type": "class_modifier",
+            "named": true
+          },
+          {
             "type": "class_name",
             "named": true
           },
@@ -2177,24 +2036,8 @@
             "named": true
           },
           {
-            "type": "long",
-            "named": false
-          },
-          {
-            "type": "short",
-            "named": false
-          },
-          {
-            "type": "signed",
-            "named": false
-          },
-          {
             "type": "struct_def",
             "named": true
-          },
-          {
-            "type": "unsigned",
-            "named": false
           }
         ]
       }
@@ -2974,32 +2817,31 @@
     "named": true,
     "fields": {
       "argument": {
-        "multiple": true,
-        "required": true,
+        "multiple": false,
+        "required": false,
         "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "abstruct_declarator",
-            "named": true
-          },
-          {
-            "type": "classref",
-            "named": true
-          },
           {
             "type": "expression",
             "named": true
           }
         ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_descriptor",
+            "named": true
+          }
+        ]
       }
     }
+  },
+  {
+    "type": "storage_class_specifier",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "string_literal",
@@ -3033,7 +2875,23 @@
             "named": false
           },
           {
-            "type": "classref",
+            "type": "class_modifier",
+            "named": true
+          },
+          {
+            "type": "class_name",
+            "named": true
+          },
+          {
+            "type": "gins_class",
+            "named": true
+          },
+          {
+            "type": "gtop_class",
+            "named": true
+          },
+          {
+            "type": "struct_specifier",
             "named": true
           }
         ]
@@ -3048,6 +2906,16 @@
           }
         ]
       },
+      "class_modifier": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "class_modifier",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": false,
@@ -3057,8 +2925,23 @@
             "named": true
           }
         ]
+      },
+      "struct_specifier": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "struct_specifier",
+            "named": true
+          }
+        ]
       }
     }
+  },
+  {
+    "type": "struct_specifier",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "subscript_expression",
@@ -3214,24 +3097,12 @@
     "named": true,
     "fields": {
       "class_modifier": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "long",
-            "named": false
-          },
-          {
-            "type": "short",
-            "named": false
-          },
-          {
-            "type": "signed",
-            "named": false
-          },
-          {
-            "type": "unsigned",
-            "named": false
+            "type": "class_modifier",
+            "named": true
           }
         ]
       },
@@ -3250,6 +3121,10 @@
         "required": true,
         "types": [
           {
+            "type": "class_modifier",
+            "named": true
+          },
+          {
             "type": "class_name",
             "named": true
           },
@@ -3266,24 +3141,70 @@
             "named": true
           },
           {
-            "type": "long",
-            "named": false
-          },
-          {
-            "type": "short",
-            "named": false
-          },
-          {
-            "type": "signed",
-            "named": false
-          },
-          {
             "type": "struct_def",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "type_descriptor",
+    "named": true,
+    "fields": {
+      "class_modifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "class_modifier",
+            "named": true
+          }
+        ]
+      },
+      "declarator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "abstruct_declarator",
+            "named": true
+          }
+        ]
+      },
+      "struct_specifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "struct_specifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "class_modifier",
             "named": true
           },
           {
-            "type": "unsigned",
-            "named": false
+            "type": "class_name",
+            "named": true
+          },
+          {
+            "type": "gins_class",
+            "named": true
+          },
+          {
+            "type": "gtop_class",
+            "named": true
+          },
+          {
+            "type": "struct_specifier",
+            "named": true
           }
         ]
       }

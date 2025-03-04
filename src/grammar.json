@@ -2785,10 +2785,10 @@
           "members": [
             {
               "type": "FIELD",
-              "name": "storage_class",
+              "name": "storage_class_specifier",
               "content": {
                 "type": "SYMBOL",
-                "name": "_storage_class"
+                "name": "storage_class_specifier"
               }
             },
             {
@@ -2867,7 +2867,7 @@
                   "name": "class_modifier",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "_class_modifier"
+                    "name": "class_modifier"
                   }
                 },
                 {
@@ -2899,7 +2899,7 @@
         }
       ]
     },
-    "_storage_class": {
+    "storage_class_specifier": {
       "type": "REPEAT1",
       "content": {
         "type": "CHOICE",
@@ -2951,7 +2951,7 @@
         ]
       }
     },
-    "_class_modifier": {
+    "class_modifier": {
       "type": "REPEAT1",
       "content": {
         "type": "CHOICE",
@@ -2974,6 +2974,27 @@
           }
         ]
       }
+    },
+    "struct_specifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "struct"
+        },
+        {
+          "type": "STRING",
+          "value": "class"
+        },
+        {
+          "type": "STRING",
+          "value": "union"
+        },
+        {
+          "type": "STRING",
+          "value": "enum"
+        }
+      ]
     },
     "init_declarator": {
       "type": "CHOICE",
@@ -3961,10 +3982,10 @@
           "members": [
             {
               "type": "FIELD",
-              "name": "storage_class",
+              "name": "storage_class_specifier",
               "content": {
                 "type": "SYMBOL",
-                "name": "_storage_class"
+                "name": "storage_class_specifier"
               }
             },
             {
@@ -4097,7 +4118,7 @@
                     "members": [
                       {
                         "type": "SYMBOL",
-                        "name": "classref"
+                        "name": "_classref"
                       },
                       {
                         "type": "REPEAT",
@@ -4110,7 +4131,7 @@
                             },
                             {
                               "type": "SYMBOL",
-                              "name": "classref"
+                              "name": "_classref"
                             }
                           ]
                         }
@@ -6287,7 +6308,7 @@
         }
       ]
     },
-    "classref": {
+    "_classref": {
       "type": "CHOICE",
       "members": [
         {
@@ -6301,7 +6322,7 @@
                   "name": "class_modifier",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "_class_modifier"
+                    "name": "class_modifier"
                   }
                 },
                 {
@@ -6327,25 +6348,12 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "struct"
-                },
-                {
-                  "type": "STRING",
-                  "value": "class"
-                },
-                {
-                  "type": "STRING",
-                  "value": "union"
-                },
-                {
-                  "type": "STRING",
-                  "value": "enum"
-                }
-              ]
+              "type": "FIELD",
+              "name": "struct_specifier",
+              "content": {
+                "type": "SYMBOL",
+                "name": "struct_specifier"
+              }
             },
             {
               "type": "CHOICE",
@@ -6368,6 +6376,35 @@
         }
       ]
     },
+    "type_descriptor": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_classref"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "declarator",
+              "content": {
+                "type": "SYMBOL",
+                "name": "abstruct_declarator"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
     "cast_expression": {
       "type": "PREC",
       "value": 12,
@@ -6383,24 +6420,8 @@
             "name": "type",
             "content": {
               "type": "SYMBOL",
-              "name": "classref"
+              "name": "type_descriptor"
             }
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "FIELD",
-                "name": "declarator",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "abstruct_declarator"
-                }
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
           },
           {
             "type": "STRING",
@@ -6428,59 +6449,38 @@
             "value": "sizeof"
           },
           {
-            "type": "FIELD",
-            "name": "argument",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "("
-                    },
-                    {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "("
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "type",
+                    "content": {
                       "type": "SYMBOL",
-                      "name": "classref"
-                    },
-                    {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "abstruct_declarator"
-                        },
-                        {
-                          "type": "BLANK"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "STRING",
-                      "value": ")"
+                      "name": "type_descriptor"
                     }
-                  ]
-                },
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "("
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "expression"
-                    },
-                    {
-                      "type": "STRING",
-                      "value": ")"
-                    }
-                  ]
+                  },
+                  {
+                    "type": "STRING",
+                    "value": ")"
+                  }
+                ]
+              },
+              {
+                "type": "FIELD",
+                "name": "argument",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "expression"
                 }
-              ]
-            }
+              }
+            ]
           }
         ]
       }
@@ -6499,8 +6499,12 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "_storage_class"
+                "type": "FIELD",
+                "name": "storage_class_specifier",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "storage_class_specifier"
+                }
               },
               {
                 "type": "BLANK"
@@ -6516,7 +6520,7 @@
             "name": "type",
             "content": {
               "type": "SYMBOL",
-              "name": "classref"
+              "name": "_classref"
             }
           },
           {
@@ -7438,11 +7442,11 @@
       "abstruct_pointer_declarator"
     ],
     [
-      "classref",
+      "_classref",
       "_qualified_identifier"
     ],
     [
-      "classref"
+      "_classref"
     ],
     [
       "_direct_declarator",
