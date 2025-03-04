@@ -49,10 +49,11 @@ int main() {
 
 (translation_unit
   (function_definition
-  type: (class_name)
-  declarator: (function_declarator
-    declarator: (identifier)
-    parameters: (parameter_list))
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
     body: (compound_statement
       (expression_statement
         (identifier)
@@ -86,10 +87,11 @@ int main() {
 
 (translation_unit
   (function_definition
-  type: (class_name)
-  declarator: (function_declarator
-    declarator: (identifier)
-    parameters: (parameter_list))
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
     body: (compound_statement
       (expression_statement
         (true))
@@ -123,10 +125,11 @@ int main() {
 
 (translation_unit
   (function_definition
-  type: (class_name)
-  declarator: (function_declarator
-    declarator: (identifier)
-    parameters: (parameter_list))
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
     body: (compound_statement
       (expression_statement
         (call_expression
@@ -159,10 +162,11 @@ int main() {
 
 (translation_unit
   (function_definition
-  type: (class_name)
-  declarator: (function_declarator
-    declarator: (identifier)
-    parameters: (parameter_list))
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
     body: (compound_statement
       (expression_statement
         (string_literal
@@ -210,10 +214,11 @@ int main() {
 
 (translation_unit
   (function_definition
-  type: (class_name)
-  declarator: (function_declarator
-    declarator: (identifier)
-    parameters: (parameter_list))
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
     body: (compound_statement
       (expression_statement
         (char_literal
@@ -256,10 +261,11 @@ int main() {
 
 (translation_unit
   (function_definition
-  type: (class_name)
-  declarator: (function_declarator
-    declarator: (identifier)
-    parameters: (parameter_list))
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
     body: (compound_statement
       (object_definition
         type: (class_name)
@@ -305,10 +311,11 @@ int main() {
 
 (translation_unit
   (function_definition
-  type: (class_name)
-  declarator: (function_declarator
-    declarator: (identifier)
-    parameters: (parameter_list))
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
     body: (compound_statement
       (expression_statement
         (field_expression
@@ -344,10 +351,11 @@ int main() {
 
 (translation_unit
   (function_definition
-  type: (class_name)
-  declarator: (function_declarator
-    declarator: (identifier)
-    parameters: (parameter_list))
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
     body: (compound_statement
       (expression_statement
         (binary_expression
