@@ -38,19 +38,20 @@ module.exports = grammar({
   name: "axel",
 
   conflicts: $ => [
-    [$._class_definition, $.obj_name],
+    [$._class_definition, $.qualified_identifier],
     [$._class_definition, $.direct_declarator],
     [$._class_definition],
-    [$.obj_name],
+    [$.qualified_identifier],
     [$.direct_declarator],
     [$.parameter_declaration],
     [$.abstruct_pointer_declarator, $.pointer_declarator],
     [$.abstruct_pointer_declarator],
-    [$.classref, $.obj_name],
+    [$.classref, $.qualified_identifier],
     [$.classref],
     [$.direct_declarator, $.gins_def],
     [$._class_definition, $.gins_def],
     [$.command_statement],
+    [$.init_declarator, $.parameter_list],
   ],
 
   extras: $ => [
@@ -66,6 +67,7 @@ module.exports = grammar({
   ],
 
   supertypes: $ => [
+    $.primary,
     $.expression,
     $.statement,
     $._declarator,
@@ -277,9 +279,14 @@ module.exports = grammar({
     )),
 
     init_declarator: $ => choice(
-      $._declarator,
-      seq($._declarator, '=', $.initializer,),
-      seq($._declarator, '(', commaSep($.expression), ')',),
+      field('declarator', $._declarator),
+      seq(
+        field('declarator', $._declarator),
+        '=',
+        field('value', choice($.initializer_list, $.expression)),
+      ),
+      seq(field('declarator', $._declarator),
+       '(', commaSep($.expression), ')',),
     ),
 
     _declarator: $ => choice(
@@ -304,9 +311,7 @@ module.exports = grammar({
 
     function_declarator: $ => prec(PREC.FIELD, seq(
       field('declarator', $._declarator),
-      '(',
-      optional(field('parameters', $.parameter_list)),
-      ')',
+      field('parameters', $.parameter_list),
     )),
 
     parenthesized_declarator: $ => prec(PREC.PAREN_DECLARATOR, seq(
@@ -364,9 +369,7 @@ module.exports = grammar({
 
     abstruct_function_declarator: $ => prec(PREC.FIELD, seq(
       optional(field('declarator', $.abstruct_declarator)),
-      '(',
-      optional(field('parameters', $.parameter_list)),
-      ')',
+      field('parameters', $.parameter_list),
     )),
 
     abstruct_parenthesized_declarator: $ => prec(PREC.PAREN_DECLARATOR, seq(
@@ -380,30 +383,34 @@ module.exports = grammar({
       seq($.instance_name, '.', $.identifier),
     ),
 
-    parameter_list: $ => choice(seq(
-        commaSep1($.parameter_declaration),
-        optional(','),
-        optional('...'),
-      ),
-      '...',
+    parameter_list: $ => seq(
+      '(',
+      optional(choice(
+        seq(
+          commaSep1($.parameter_declaration),
+          optional(','),
+          optional('...'),
+        ),
+        '...',
+      )),
+      ')',
     ),
 
     parameter_declaration: $ => choice(
       seq(
-        optional(field('storage_class','const')),
+        optional(field('storage_class', 'const')),
         field('type', $._class_definition),
         optional(field('declarator',$.init_declarator))
       ),
       seq(
         optional('const'),
         field('type', $._class_definition),
-        optional(field('declarator',$.abstruct_declarator))
+        optional(field('declarator', $.abstruct_declarator))
       ),
     ),
 
-    initializer: $ => choice(
-      $.expression,
-      seq('{', commaSep($.initializer), '}'),
+    initializer_list: $ => choice(
+      seq('{', commaSep(choice($.initializer_list, $.expression)), '}'),
     ),
 
     operator_declarator: $ => seq(
@@ -689,7 +696,7 @@ module.exports = grammar({
       $.unary_expression,
       $.pointer_expression,
       $.assignment_expression,
-      $.obj_name,
+      $.qualified_identifier,
       $.field_expression,
       $.subscript_expression,
       $.conditional_expression,
@@ -878,7 +885,7 @@ module.exports = grammar({
     )),
 
 
-    obj_name: $ => choice(
+    qualified_identifier: $ => choice(
       seq(
         optional('::'),
         choice(
@@ -892,7 +899,7 @@ module.exports = grammar({
         field('name', choice(
           $.identifier,
           $.operator_declarator,
-          $.obj_name,
+          $.qualified_identifier,
         ))
       ),
     ),

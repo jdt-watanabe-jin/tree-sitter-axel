@@ -1,0 +1,38 @@
+================================================================================
+Number literals
+================================================================================
+
+double a = {
+  0xAC00,
+  0.123,
+  0xabc00ll,
+  24e-5,
+  58.,
+  4e2,
+  123.456e-67,
+  2.0dd, 5wb
+};
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (direct_declarator
+        (identifier)
+      )
+      value: (initializer_list
+        (integer_literal)
+        (double_literal)
+        (integer64_literal)
+        (double_literal)
+        (double_literal)
+        (double_literal)
+        (double_literal)
+        (unit_double_literal)
+        (unit_integer_literal)
+      )
+    )
+  )
+)

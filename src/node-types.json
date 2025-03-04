@@ -84,10 +84,6 @@
         "named": true
       },
       {
-        "type": "obj_name",
-        "named": true
-      },
-      {
         "type": "parenthesized_expression",
         "named": true
       },
@@ -97,6 +93,10 @@
       },
       {
         "type": "primary",
+        "named": true
+      },
+      {
+        "type": "qualified_identifier",
         "named": true
       },
       {
@@ -117,6 +117,44 @@
       },
       {
         "type": "update_expression",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "primary",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "char_literal",
+        "named": true
+      },
+      {
+        "type": "concatenated_string",
+        "named": true
+      },
+      {
+        "type": "coordinate",
+        "named": true
+      },
+      {
+        "type": "double_literal",
+        "named": true
+      },
+      {
+        "type": "integer64_literal",
+        "named": true
+      },
+      {
+        "type": "integer_literal",
+        "named": true
+      },
+      {
+        "type": "unit_double_literal",
+        "named": true
+      },
+      {
+        "type": "unit_integer_literal",
         "named": true
       }
     ]
@@ -241,7 +279,7 @@
       },
       "parameters": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "parameter_list",
@@ -1482,7 +1520,7 @@
       },
       "parameters": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "parameter_list",
@@ -1597,28 +1635,45 @@
   {
     "type": "init_declarator",
     "named": true,
-    "fields": {},
+    "fields": {
+      "declarator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_declarator",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          },
+          {
+            "type": "initializer_list",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "_declarator",
-          "named": true
-        },
-        {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "initializer",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "initializer",
+    "type": "initializer_list",
     "named": true,
     "fields": {},
     "children": {
@@ -1630,7 +1685,7 @@
           "named": true
         },
         {
-          "type": "initializer",
+          "type": "initializer_list",
           "named": true
         }
       ]
@@ -1802,54 +1857,6 @@
       "types": [
         {
           "type": "number_literal",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "obj_name",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "obj_name",
-            "named": true
-          },
-          {
-            "type": "operator_declarator",
-            "named": true
-          }
-        ]
-      },
-      "scope": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "member_name",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "operator_declarator",
           "named": true
         }
       ]
@@ -2888,43 +2895,48 @@
     }
   },
   {
-    "type": "primary",
+    "type": "qualified_identifier",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "operator_declarator",
+            "named": true
+          },
+          {
+            "type": "qualified_identifier",
+            "named": true
+          }
+        ]
+      },
+      "scope": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "member_name",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "char_literal",
+          "type": "identifier",
           "named": true
         },
         {
-          "type": "concatenated_string",
-          "named": true
-        },
-        {
-          "type": "coordinate",
-          "named": true
-        },
-        {
-          "type": "double_literal",
-          "named": true
-        },
-        {
-          "type": "integer64_literal",
-          "named": true
-        },
-        {
-          "type": "integer_literal",
-          "named": true
-        },
-        {
-          "type": "unit_double_literal",
-          "named": true
-        },
-        {
-          "type": "unit_integer_literal",
+          "type": "operator_declarator",
           "named": true
         }
       ]
