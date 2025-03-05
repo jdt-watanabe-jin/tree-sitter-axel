@@ -1634,20 +1634,36 @@
     }
   },
   {
-    "type": "new_expression",
+    "type": "new_declarator",
     "named": true,
     "fields": {
-      "class_modifier": {
+      "size": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
-            "type": "class_modifier",
+            "type": "expression",
             "named": true
           }
         ]
-      },
-      "initializer": {
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "new_declarator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "new_expression",
+    "named": true,
+    "fields": {
+      "arguments": {
         "multiple": true,
         "required": false,
         "types": [
@@ -1669,20 +1685,22 @@
           }
         ]
       },
-      "size": {
-        "multiple": true,
+      "class_modifier": {
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "[",
-            "named": false
-          },
+            "type": "class_modifier",
+            "named": true
+          }
+        ]
+      },
+      "declarator": {
+        "multiple": false,
+        "required": false,
+        "types": [
           {
-            "type": "]",
-            "named": false
-          },
-          {
-            "type": "expression",
+            "type": "new_declarator",
             "named": true
           }
         ]
@@ -2061,16 +2079,17 @@
   {
     "type": "parenthesized_declarator",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "_declarator",
-          "named": true
-        }
-      ]
+    "fields": {
+      "declarator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_declarator",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {

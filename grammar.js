@@ -10,7 +10,7 @@
 const PREC = {
   PAREN_DECLARATOR: -10,
   ASSIGNMENT: -2,
-  STRUCTURED_BINDING: -1,
+  //STRUCTURED_BINDING: -1,
   CONDITIONAL: -1,
   DEFAULT: 0,
   LOGICAL_OR: 1,
@@ -20,8 +20,8 @@ const PREC = {
   BITWISE_AND: 5,
   EQUAL: 6,
   RELATIONAL: 7,
-  THREE_WAY: 8,
-  OFFSETOF: 8,
+  //THREE_WAY: 8,
+  //OFFSETOF: 8,
   SHIFT: 9,
   ADD: 10,
   MULTIPLY: 11,
@@ -322,7 +322,7 @@ module.exports = grammar({
 
     parenthesized_declarator: $ => prec(PREC.PAREN_DECLARATOR, seq(
       '(',
-      $._declarator,
+      field('declarator', $._declarator),
       ')',
     )),
 
@@ -885,16 +885,19 @@ module.exports = grammar({
       optional(field('storage_class_specifier', $.storage_class_specifier)),
       'new',
       field('type', $._classref),
-      optional(field('size', seq(
-        '[',
-        optional($.expression),
-        ']',
-      ))),
-      optional(field('initializer', seq(
+      optional(field('declarator', $.new_declarator)),
+      optional(field('arguments', seq(
         '(',
-        optional(commaSep($.expression)),
+        commaSep($.expression),
         ')',
       ))),
+    )),
+
+    new_declarator: $ => prec.right(seq(
+      '[',
+      field('size', $.expression),
+      ']',
+      optional($.new_declarator),
     )),
 
     delete_expression: $ => prec.left(PREC.UNARY, seq(

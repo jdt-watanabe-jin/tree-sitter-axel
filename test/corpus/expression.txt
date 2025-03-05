@@ -936,3 +936,169 @@ int main() {
     )
   )
 )
+
+================================================================================
+New and Delete expressions
+================================================================================
+
+int main() {
+  int* a = new int();
+  int (*d)[3] = new int[5][3]();
+  e = new int[5];
+  delete a;
+  delete[] e;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (object_definition
+        type: (class_name)
+        declarator: (init_declarator
+          declarator: (pointer_declarator
+            declarator: (identifier)
+          )
+          value: (new_expression
+            type: (class_name)
+          )
+        )
+      )
+      (object_definition
+        type: (class_name)
+        declarator: (init_declarator
+          declarator: (array_declarator
+            declarator: (parenthesized_declarator
+              declarator: (pointer_declarator
+                declarator: (identifier)
+              )
+            )
+            size: (integer_literal)
+          )
+          value: (new_expression
+            type: (class_name)
+            declarator: (new_declarator
+              size: (integer_literal)
+              (new_declarator
+                size: (integer_literal)
+              )
+            )
+          )
+        )
+      )
+      (expression_statement
+        (assignment_expression
+          left: (identifier)
+          right: (new_expression
+            type: (class_name)
+            declarator: (new_declarator
+              size: (integer_literal)
+            )
+          )
+        )
+      )
+      (expression_statement
+        (delete_expression
+          argument: (identifier)
+        )
+      )
+      (expression_statement
+        (delete_expression
+          argument: (identifier)
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Comma expressions at the start of blocks
+================================================================================
+
+int main() { a(), b(); }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (expression_statement
+        (comma_expression
+          left: (call_expression
+            function: (identifier)
+            arguments: (argument_list)
+          )
+          right: (call_expression
+            function: (identifier)
+            arguments: (argument_list)
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Nullptr
+================================================================================
+
+void *x = nullptr;
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (pointer_declarator
+        declarator: (identifier)
+      )
+      value: (null)
+    )
+  )
+)
+
+================================================================================
+Array assignment expression
+================================================================================
+
+int main() {
+  array_[i] = s[i];
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (expression_statement
+        (assignment_expression
+          left: (subscript_expression
+            argument: (identifier)
+            index: (identifier)
+          )
+          right: (subscript_expression
+            argument: (identifier)
+            index: (identifier)
+          )
+        )
+      )
+    )
+  )
+)
