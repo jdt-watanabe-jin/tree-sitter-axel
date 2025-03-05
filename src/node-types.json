@@ -1428,6 +1428,18 @@
           "named": true
         },
         {
+          "type": "preproc_call",
+          "named": true
+        },
+        {
+          "type": "preproc_def",
+          "named": true
+        },
+        {
+          "type": "preproc_function_def",
+          "named": true
+        },
+        {
           "type": "type_def",
           "named": true
         }

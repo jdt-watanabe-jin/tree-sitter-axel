@@ -525,6 +525,9 @@ module.exports = grammar({
     ),
 
     _field_declaration_list_item: $ => choice(
+      $.preproc_def,
+      $.preproc_function_def,
+      $.preproc_call,
       alias($.object_definition, $.field_declaration),
       $.function_definition,
       $.type_def,
