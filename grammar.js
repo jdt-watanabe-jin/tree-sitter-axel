@@ -43,8 +43,6 @@ module.exports = grammar({
     [$._class_definition],
     [$.qualified_declarator],
     [$.parameter_declaration],
-    [$.abstruct_pointer_declarator, $.pointer_declarator],
-    [$.abstruct_pointer_declarator],
     [$._classref, $._qualified_identifier],
     [$._classref],
     [$._direct_declarator, $.gins_def],
@@ -62,7 +60,9 @@ module.exports = grammar({
     $._class_name,
     $._gtop_class,
     $._gins_class,
+    $._statement_identifier,
     $._assignment_left_expression,
+    $._expression_not_binary,
   ],
 
   supertypes: $ => [
@@ -231,10 +231,10 @@ module.exports = grammar({
 
     // Declarations
 
-    object_definition: $ => seq(
+    object_definition: $ =>  seq(
       optional(field('storage_class_specifier', $.storage_class_specifier)),
       field('type', $._class_definition),
-      repeat(field('declarator', $.init_declarator)),
+      commaSep1(field('declarator', $.init_declarator)),
       ';',
     ),
 
@@ -303,19 +303,19 @@ module.exports = grammar({
       $.parenthesized_declarator,
     ),
 
-    pointer_declarator: $ => prec(PREC.UNARY, seq(
+    pointer_declarator: $ => prec.dynamic(1, prec.right(seq(
       choice('*', '&'),
       field('declarator', $._declarator),
-    )),
+    ))),
 
-    array_declarator: $ => prec(PREC.FIELD, seq(
+    array_declarator: $ => prec(1, seq(
       field('declarator', $._declarator),
       '[',
       optional(field('size', $.expression)),
       ']',
     )),
 
-    function_declarator: $ => prec(PREC.FIELD, seq(
+    function_declarator: $ => prec.right(1, seq(
       field('declarator', $._declarator),
       field('parameters', $.parameter_list),
     )),
@@ -363,24 +363,24 @@ module.exports = grammar({
       $.abstruct_parenthesized_declarator,
     ),
 
-    abstruct_pointer_declarator: $ => prec(PREC.UNARY, seq(
+    abstruct_pointer_declarator: $ => prec.dynamic(1, prec.right(seq(
       choice('*', '&'),
       optional(field('declarator', $.abstruct_declarator)),
-    )),
+    ))),
 
-    abstruct_array_declarator: $ => prec(PREC.FIELD, seq(
+    abstruct_array_declarator: $ => prec(1, seq(
       optional(field('declarator', $.abstruct_declarator)),
       '[',
       optional(field('size', $.expression)),
       ']',
     )),
 
-    abstruct_function_declarator: $ => prec(PREC.FIELD, seq(
+    abstruct_function_declarator: $ => prec(1, seq(
       optional(field('declarator', $.abstruct_declarator)),
       field('parameters', $.parameter_list),
     )),
 
-    abstruct_parenthesized_declarator: $ => prec(PREC.PAREN_DECLARATOR, seq(
+    abstruct_parenthesized_declarator: $ => prec(1, seq(
       '(',
       $.abstruct_declarator,
       ')',
@@ -696,6 +696,11 @@ module.exports = grammar({
 
     
     expression: $ => choice(
+      $._expression_not_binary,
+      $.binary_expression,
+    ),
+
+    _expression_not_binary: $ => choice(
       $.primary,
       $.true,
       $.false,
@@ -703,7 +708,6 @@ module.exports = grammar({
       $.call_expression,
       $.update_expression,
       $.cast_expression,
-      $.binary_expression,
       $.unary_expression,
       $.pointer_expression,
       $.assignment_expression,
@@ -913,7 +917,7 @@ module.exports = grammar({
         )),
       ),
       seq(
-        field('scope', $._member_identifier),
+        field('scope', $._namespace_identifier),
         '::',
         field('name', choice(
           $.identifier,
@@ -1043,6 +1047,7 @@ module.exports = grammar({
     _gtop_class: $ => alias($.identifier, $.gtop_class),
     _gins_class: $ => alias($.identifier, $.gins_class),
     _member_identifier: $ => alias($.identifier, $.member_identifier),
+    _namespace_identifier: $ => alias($.identifier, $.namespace_identifier),
     _statement_identifier: $ => alias($.identifier, $.statement_identifier),
 
     // Comments

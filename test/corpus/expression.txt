@@ -898,3 +898,41 @@ void f() {
     )
   )
 )
+
+================================================================================
+Scoped function calls
+================================================================================
+
+int main() {
+  abc::def("hello", "world");
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (expression_statement
+        (call_expression
+          function: (qualified_identifier
+            scope: (namespace_identifier)
+            name: (identifier)
+          )
+          arguments: (argument_list
+            (string_literal
+              (string_content)
+            )
+            (string_literal
+              (string_content)
+            )
+          )
+        )
+      )
+    )
+  )
+)

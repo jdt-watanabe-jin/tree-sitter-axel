@@ -1771,7 +1771,7 @@
       },
       "declarator": {
         "multiple": true,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "init_declarator",
@@ -2786,7 +2786,7 @@
         "required": false,
         "types": [
           {
-            "type": "member_identifier",
+            "type": "namespace_identifier",
             "named": true
           }
         ]
@@ -3687,6 +3687,10 @@
   },
   {
     "type": "member_identifier",
+    "named": true
+  },
+  {
+    "type": "namespace_identifier",
     "named": true
   },
   {
