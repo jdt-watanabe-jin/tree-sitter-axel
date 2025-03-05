@@ -49,6 +49,7 @@ module.exports = grammar({
     [$._class_definition, $.gins_def],
     [$.command_statement],
     [$.init_declarator, $.parameter_list],
+    [$.enum_specifier],
   ],
 
   extras: $ => [
@@ -235,7 +236,7 @@ module.exports = grammar({
     object_definition: $ =>  seq(
       optional(field('storage_class_specifier', $.storage_class_specifier)),
       field('type', $._class_definition),
-      commaSep1(field('declarator', $.init_declarator)),
+      commaSep(field('declarator', $.init_declarator)),
       ';',
     ),
 
@@ -253,8 +254,10 @@ module.exports = grammar({
       ),
       $._gtop_class,
       $._gins_class,
-      $.struct_def,
-      $.enum_def,
+      $.class_specifier,
+      $.union_specifier,
+      $.struct_specifier,
+      $.enum_specifier,
     ),
 
     storage_class_specifier: $ => repeat1(choice(
@@ -277,13 +280,6 @@ module.exports = grammar({
       'short',
       'long',
     )),
-
-    struct_specifier: $ => choice(
-      'struct',
-      'class',
-      'union',
-      'enum',
-    ),
 
     init_declarator: $ => choice(
       field('declarator', $._declarator),
@@ -482,25 +478,54 @@ module.exports = grammar({
       '}',
     ),
 
-    struct_def: $ => seq(
-      choice('struct', 'class', 'union'),
-      optional(field('name', $.identifier)),
-      optional(seq(
-        ':',
-        choice('public', 'protected', 'private'),
-        field('base', commaSep1($._classref)),
-      )),
-      field('body', $.member_definitions),
+    class_specifier: $ => seq(
+      'class',
+      $._class_declaration,
     ),
 
-    member_definitions: $ => seq(
+    union_specifier: $ => seq(
+      'union',
+      $._class_declaration,
+    ),
+
+    struct_specifier: $ => seq(
+      'struct',
+      $._class_declaration,
+    ),
+
+    _class_declaration: $ => prec.right(seq(
+      choice(
+        field('name', $._class_name),
+        seq(
+          optional(field('name', $._class_name)),
+          optional($.base_class_clause),
+          field('body', $.field_declaration_list),
+        ),
+      ),
+    )),
+
+    base_class_clause: $ => seq(
+      ':',
+      commaSep1(seq(
+        optional(field('access_specifier', $.access_specifier)),
+        $._classref,
+      )
+    )),
+
+    access_specifier: _ => choice(
+      'public',
+      'private',
+      'protected',
+    ),
+
+    field_declaration_list: $ => seq(
       '{',
       repeat($._field_declaration_list_item),
       '}',
     ),
 
     _field_declaration_list_item: $ => choice(
-      $.object_definition,
+      alias($.object_definition, $.field_declaration),
       $.function_definition,
       $.type_def,
       $.gins_def,
@@ -529,10 +554,15 @@ module.exports = grammar({
       ';',
     ),
 
-    enum_def: $ => seq(
+    enum_specifier: $ => seq(
       'enum',
-      field('name', $.identifier),
-      field('body', $.enumerator_list),
+      choice(
+        seq(
+          field('name', $._class_name),
+          optional(field('body', $.enumerator_list)),
+        ),
+        field('body', $.enumerator_list),
+      ),
     ),
 
     enumerator_list: $ => seq(
@@ -853,14 +883,11 @@ module.exports = grammar({
       ),
       $._gtop_class,
       $._gins_class,
-      seq(
-        field('struct_specifier', $.struct_specifier),
-        choice(
-          $._class_name,
-          $._gtop_class,
-          $._gins_class,
-        ),
-      )
+      $.class_specifier,
+      $.struct_specifier,
+      $.union_specifier,
+      $.enum_specifier,
+
     ),
 
     type_descriptor: $ => seq(

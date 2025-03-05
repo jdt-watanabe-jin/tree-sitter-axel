@@ -797,14 +797,16 @@ int main() {
           left: (binary_expression
             left: (sizeof_expression
               type: (type_descriptor
-                struct_specifier: (struct_specifier)
-                type: (class_name)
+                type: (struct_specifier
+                  name: (class_name)
+                )
               )
             )
             right: (sizeof_expression
               type: (type_descriptor
-                struct_specifier: (struct_specifier)
-                type: (class_name)
+                type: (struct_specifier
+                  name: (class_name)
+                )
               )
             )
           )
