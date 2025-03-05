@@ -1306,6 +1306,18 @@
         {
           "type": "enumerator",
           "named": true
+        },
+        {
+          "type": "preproc_call",
+          "named": true
+        },
+        {
+          "type": "preproc_if",
+          "named": true
+        },
+        {
+          "type": "preproc_ifdef",
+          "named": true
         }
       ]
     }
@@ -2583,6 +2595,10 @@
       "required": false,
       "types": [
         {
+          "type": "enumerator",
+          "named": true
+        },
+        {
           "type": "preproc_call",
           "named": true
         },
@@ -2651,6 +2667,10 @@
       "required": false,
       "types": [
         {
+          "type": "enumerator",
+          "named": true
+        },
+        {
           "type": "preproc_call",
           "named": true
         },
@@ -2689,6 +2709,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "enumerator",
+          "named": true
+        },
         {
           "type": "preproc_call",
           "named": true
@@ -2822,6 +2846,10 @@
       "required": false,
       "types": [
         {
+          "type": "enumerator",
+          "named": true
+        },
+        {
           "type": "preproc_call",
           "named": true
         },
@@ -2889,6 +2917,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "enumerator",
+          "named": true
+        },
         {
           "type": "preproc_call",
           "named": true

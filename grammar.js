@@ -50,6 +50,7 @@ module.exports = grammar({
     [$.command_statement],
     [$.init_declarator, $.parameter_list],
     [$.enum_specifier],
+    [$.enumerator_list],
   ],
 
   extras: $ => [
@@ -570,7 +571,20 @@ module.exports = grammar({
 
     enumerator_list: $ => seq(
       '{',
-      commaSep($.enumerator),
+      repeat(choice(
+        seq($.enumerator, ','),
+        alias($.preproc_if_in_enumerator_list, $.preproc_if),
+        alias($.preproc_ifdef_in_enumerator_list, $.preproc_ifdef),
+        seq($.preproc_call, ','),
+      )),
+      optional(seq(
+        choice(
+          $.enumerator,
+          alias($.preproc_if_in_enumerator_list_no_comma, $.preproc_if),
+          alias($.preproc_ifdef_in_enumerator_list_no_comma, $.preproc_ifdef),
+          $.preproc_call,
+        ),
+      )),
       optional(','),
       '}',
     ),

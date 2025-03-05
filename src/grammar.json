@@ -4497,30 +4497,93 @@
           "value": "{"
         },
         {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "enumerator"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  }
+                ]
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "preproc_if_in_enumerator_list"
+                },
+                "named": true,
+                "value": "preproc_if"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "preproc_ifdef_in_enumerator_list"
+                },
+                "named": true,
+                "value": "preproc_ifdef"
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "preproc_call"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
           "type": "CHOICE",
           "members": [
             {
               "type": "SEQ",
               "members": [
                 {
-                  "type": "SYMBOL",
-                  "name": "enumerator"
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ","
-                      },
-                      {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "enumerator"
+                    },
+                    {
+                      "type": "ALIAS",
+                      "content": {
                         "type": "SYMBOL",
-                        "name": "enumerator"
-                      }
-                    ]
-                  }
+                        "name": "preproc_if_in_enumerator_list_no_comma"
+                      },
+                      "named": true,
+                      "value": "preproc_if"
+                    },
+                    {
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "preproc_ifdef_in_enumerator_list_no_comma"
+                      },
+                      "named": true,
+                      "value": "preproc_ifdef"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "preproc_call"
+                    }
+                  ]
                 }
               ]
             },
@@ -7633,6 +7696,9 @@
     ],
     [
       "enum_specifier"
+    ],
+    [
+      "enumerator_list"
     ]
   ],
   "precedences": [],

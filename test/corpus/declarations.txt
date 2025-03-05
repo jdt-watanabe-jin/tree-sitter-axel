@@ -1,0 +1,227 @@
+================================================================================
+Struct declarations
+================================================================================
+
+struct s1;
+
+struct s2 {
+  int x;
+  float y;
+};
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (struct_specifier
+      name: (class_name)
+    )
+  )
+  (object_definition
+    type: (struct_specifier
+      name: (class_name)
+      body: (field_declaration_list
+        (field_declaration
+          type: (class_name)
+          declarator: (init_declarator
+            declarator: (identifier)
+          )
+        )
+        (field_declaration
+          type: (class_name)
+          declarator: (init_declarator
+            declarator: (identifier)
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Union declarations
+================================================================================
+
+union u1;
+
+union s2 {
+  int x;
+  float y;
+};
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (union_specifier
+      name: (class_name)
+    )
+  )
+  (object_definition
+    type: (union_specifier
+      name: (class_name)
+      body: (field_declaration_list
+        (field_declaration
+          type: (class_name)
+          declarator: (init_declarator
+            declarator: (identifier)
+          )
+        )
+        (field_declaration
+          type: (class_name)
+          declarator: (init_declarator
+            declarator: (identifier)
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Enum declarations
+================================================================================
+
+enum e1;
+
+enum e2 {
+  val1,
+  val2 = 5,
+  val3
+};
+
+enum e3 {
+  val4,
+};
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (enum_specifier
+      name: (class_name)
+    )
+  )
+  (object_definition
+    type: (enum_specifier
+      name: (class_name)
+      body: (enumerator_list
+        (enumerator
+          name: (identifier)
+        )
+        (enumerator
+          name: (identifier)
+          value: (integer_literal)
+        )
+        (enumerator
+          name: (identifier)
+        )
+      )
+    )
+  )
+  (object_definition
+    type: (enum_specifier
+      name: (class_name)
+      body: (enumerator_list
+        (enumerator
+          name: (identifier)
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Struct declarations containing preprocessor directives
+================================================================================
+
+struct s {
+  #define A 5
+  int b[a];
+  #undef A
+};
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (struct_specifier
+      name: (class_name)
+      body: (field_declaration_list
+        (preproc_def
+          name: (identifier)
+          value: (preproc_arg)
+        )
+        (field_declaration
+          type: (class_name)
+          declarator: (init_declarator
+            declarator: (array_declarator
+              declarator: (identifier)
+              size: (identifier)
+            )
+          )
+        )
+        (preproc_call
+          directive: (preproc_directive)
+          argument: (preproc_arg)
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Enum declarations containing preprocessor directives
+================================================================================
+
+enum e {
+	#ifdef A
+	  val1 = 1,
+	#else
+	  val1 = 2,
+	#endif
+	
+	#if HEY
+	  val2 = 3,
+	#else
+	  val2 = 4,
+	#endif
+};
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (enum_specifier
+      name: (class_name)
+      body: (enumerator_list
+        (preproc_ifdef
+          name: (identifier)
+          (enumerator
+            name: (identifier)
+            value: (integer_literal)
+          )
+          alternative: (preproc_else
+            (enumerator
+              name: (identifier)
+              value: (integer_literal)
+            )
+          )
+        )
+        (preproc_if
+          condition: (identifier)
+          (enumerator
+            name: (identifier)
+            value: (integer_literal)
+          )
+          alternative: (preproc_else
+            (enumerator
+              name: (identifier)
+              value: (integer_literal)
+            )
+          )
+        )
+      )
+    )
+  )
+)
