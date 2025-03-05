@@ -1,0 +1,664 @@
+================================================================================
+If statements
+================================================================================
+
+int main() {
+  if (a)
+    1;
+
+  if (!a) {
+    2;
+  } else {
+    3;
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (if_statement
+        condition: (parenthesized_expression
+          (identifier)
+        )
+        consequence: (expression_statement
+          (integer_literal)
+        )
+      )
+      (if_statement
+        condition: (parenthesized_expression
+          (unary_expression
+            argument: (identifier)
+          )
+        )
+        consequence: (compound_statement
+          (expression_statement
+            (integer_literal)
+          )
+        )
+        alternative: (else_clause
+          (compound_statement
+            (expression_statement
+              (integer_literal)
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+For loops
+================================================================================
+
+int main() {
+  for (;;)
+    1;
+
+  for (i = 0; i < 5; next(), i++) {
+    2;
+  }
+  
+  for (start(); check(); step())
+    3;
+
+  for (i = 0, j = 0, k = 0, l = 0; i < 1, j < 1; i++, j++, k++, l++)
+    1;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (for_statement
+        body: (expression_statement
+          (integer_literal)
+        )
+      )
+      (for_statement
+        initializer: (assignment_expression
+          left: (identifier)
+          right: (integer_literal)
+        )
+        condition: (binary_expression
+          left: (identifier)
+          right: (integer_literal)
+        )
+        update: (comma_expression
+          left: (call_expression
+            function: (identifier)
+            arguments: (argument_list)
+          )
+          right: (update_expression
+            argument: (identifier)
+          )
+        )
+        body: (compound_statement
+          (expression_statement
+            (integer_literal)
+          )
+        )
+      )
+      (for_statement
+        initializer: (call_expression
+          function: (identifier)
+          arguments: (argument_list)
+        )
+        condition: (call_expression
+          function: (identifier)
+          arguments: (argument_list)
+        )
+        update: (call_expression
+          function: (identifier)
+          arguments: (argument_list)
+        )
+        body: (expression_statement
+          (integer_literal)
+        )
+      )
+      (for_statement
+        initializer: (comma_expression
+          left: (assignment_expression
+            left: (identifier)
+            right: (integer_literal)
+          )
+          right: (comma_expression
+            left: (assignment_expression
+              left: (identifier)
+              right: (integer_literal)
+            )
+            right: (comma_expression
+              left: (assignment_expression
+                left: (identifier)
+                right: (integer_literal)
+              )
+              right: (assignment_expression
+                left: (identifier)
+                right: (integer_literal)
+              )
+            )
+          )
+        )
+        condition: (comma_expression
+          left: (binary_expression
+            left: (identifier)
+            right: (integer_literal)
+          )
+          right: (binary_expression
+            left: (identifier)
+            right: (integer_literal)
+          )
+        )
+        update: (comma_expression
+          left: (update_expression
+            argument: (identifier)
+          )
+          right: (comma_expression
+            left: (update_expression
+              argument: (identifier)
+            )
+            right: (comma_expression
+              left: (update_expression
+                argument: (identifier)
+              )
+              right: (update_expression
+                argument: (identifier)
+              )
+            )
+          )
+        )
+        body: (expression_statement
+          (integer_literal)
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+While loops
+================================================================================
+
+int main() {
+  while (x)
+    printf("hi");
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (while_statement
+        condition: (parenthesized_expression
+          (identifier)
+        )
+        body: (expression_statement
+          (call_expression
+            function: (identifier)
+            arguments: (argument_list
+              (string_literal
+                (string_content)
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Labeled statements
+================================================================================
+
+void foo(T *t) {
+recur:
+  t = t->next();
+  if (t) goto recur;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name)
+          declarator: (init_declarator
+            declarator: (pointer_declarator
+              declarator: (identifier)
+            )
+          )
+        )
+      )
+    )
+    body: (compound_statement
+      (labeled_statement
+        label: (statement_identifier)
+        (expression_statement
+          (assignment_expression
+            left: (identifier)
+            right: (call_expression
+              function: (field_expression
+                argument: (identifier)
+                field: (member_identifier)
+              )
+              arguments: (argument_list)
+            )
+          )
+        )
+      )
+      (if_statement
+        condition: (parenthesized_expression
+          (identifier)
+        )
+        consequence: (goto_statement
+          label: (statement_identifier)
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Switch statements
+================================================================================
+
+void foo(int a) {
+  switch (a) {
+    puts("entered switch!");
+  
+    case 3:
+    case 5:
+    if (b) {
+      c();
+    }
+    break;
+  
+    default:
+    c();
+    break;
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name)
+          declarator: (init_declarator
+            declarator: (identifier)
+          )
+        )
+      )
+    )
+    body: (compound_statement
+      (switch_statement
+        condition: (parenthesized_expression
+          (identifier)
+        )
+        body: (compound_statement
+          (expression_statement
+            (call_expression
+              function: (identifier)
+              arguments: (argument_list
+                (string_literal
+                  (string_content)
+                )
+              )
+            )
+          )
+          (case_statement
+            value: (integer_literal)
+          )
+          (case_statement
+            value: (integer_literal)
+            (if_statement
+              condition: (parenthesized_expression
+                (identifier)
+              )
+              consequence: (compound_statement
+                (expression_statement
+                  (call_expression
+                    function: (identifier)
+                    arguments: (argument_list)
+                  )
+                )
+              )
+            )
+            (break_statement)
+          )
+          (case_statement
+            (expression_statement
+              (call_expression
+                function: (identifier)
+                arguments: (argument_list)
+              )
+            )
+            (break_statement)
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Case statements separate from switch statements
+================================================================================
+
+int main() {
+  switch (count % 8) {
+  case 0:
+    do {
+      *to = *from++;
+      case 2: *to = *from++;
+      case 1: *to = *from++;
+    } while (--n > 0);
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (switch_statement
+        condition: (parenthesized_expression
+          (binary_expression
+            left: (identifier)
+            right: (integer_literal)
+          )
+        )
+        body: (compound_statement
+          (case_statement
+            value: (integer_literal)
+            (do_statement
+              body: (compound_statement
+                (expression_statement
+                  (assignment_expression
+                    left: (pointer_expression
+                      argument: (identifier)
+                    )
+                    right: (pointer_expression
+                      argument: (update_expression
+                        argument: (identifier)
+                      )
+                    )
+                  )
+                )
+                (case_statement
+                  value: (integer_literal)
+                  (expression_statement
+                    (assignment_expression
+                      left: (pointer_expression
+                        argument: (identifier)
+                      )
+                      right: (pointer_expression
+                        argument: (update_expression
+                          argument: (identifier)
+                        )
+                      )
+                    )
+                  )
+                )
+                (case_statement
+                  value: (integer_literal)
+                  (expression_statement
+                    (assignment_expression
+                      left: (pointer_expression
+                        argument: (identifier)
+                      )
+                      right: (pointer_expression
+                        argument: (update_expression
+                          argument: (identifier)
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+              condition: (parenthesized_expression
+                (binary_expression
+                  left: (update_expression
+                    argument: (identifier)
+                  )
+                  right: (integer_literal)
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+
+================================================================================
+Return statements
+================================================================================
+
+void foo() {
+  return;
+  return a;
+  return a, b;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (return_statement)
+      (return_statement
+        (identifier)
+      )
+      (return_statement
+        (comma_expression
+          left: (identifier)
+          right: (identifier)
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Comments with asterisks
+================================================================================
+
+/*************************
+ * odd number of asterisks
+ *************************/
+int a;
+
+/**************************
+ * even number of asterisks
+ **************************/
+int b;
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (comment)
+  (object_definition
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+  )
+  (comment)
+  (object_definition
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+  )
+)
+
+================================================================================
+Comment with multiple backslashes
+================================================================================
+
+int a = 3; // Hello \\
+World
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (identifier)
+      value: (integer_literal)
+    )
+  )
+  (comment)
+)
+
+================================================================================
+Try/catch statements
+================================================================================
+
+void main() {
+  try {
+    f();
+  } catch (overflow_error) {
+    // f() throws overflow_error (same type rule)
+  } catch (exception &e) {
+    // f() throws std::logic_error (base class rule)
+  } catch (...) {
+    // f() throws std::string or int or any other unrelated type
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (try_statement
+        body: (compound_statement
+          (expression_statement
+            (call_expression
+              function: (identifier)
+              arguments: (argument_list)
+            )
+          )
+        )
+        (catch_clause
+          parameters: (parameter_list
+            (parameter_declaration
+              type: (class_name)
+            )
+          )
+          body: (compound_statement
+            (comment)
+          )
+        )
+        (catch_clause
+          parameters: (parameter_list
+            (parameter_declaration
+              type: (class_name)
+              declarator: (init_declarator
+                declarator: (pointer_declarator
+                  declarator: (identifier)
+                )
+              )
+            )
+          )
+          body: (compound_statement
+            (comment)
+          )
+        )
+        (catch_clause
+          parameters: (parameter_list)
+          body: (compound_statement
+            (comment)
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Throw statements
+================================================================================
+
+void main() {
+     throw e;
+     throw x + 1;
+     throw "exception";
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (throw_statement
+        (identifier)
+      )
+      (throw_statement
+        (binary_expression
+          left: (identifier)
+          right: (integer_literal)
+        )
+      )
+      (throw_statement
+        (string_literal
+          (string_content)
+        )
+      )
+    )
+  )
+)

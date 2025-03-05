@@ -63,6 +63,7 @@ module.exports = grammar({
     $._statement_identifier,
     $._assignment_left_expression,
     $._expression_not_binary,
+    $._non_case_statement,
   ],
 
   supertypes: $ => [
@@ -552,9 +553,13 @@ module.exports = grammar({
     // Statements
 
     statement: $ => choice(
+      $.case_statement,
+      $._non_case_statement,
+    ),
+
+    _non_case_statement: $ => choice(
       $.object_definition,
       $.type_def,
-      $.case_statement,
       $.labeled_statement,
       $.expression_statement,
       $.compound_statement,
@@ -564,7 +569,6 @@ module.exports = grammar({
       $.do_statement,
       $.for_statement,
       $.switch_statement,
-      $.case_statement,
       $.return_statement,
       $.break_statement,
       $.continue_statement,
@@ -644,7 +648,7 @@ module.exports = grammar({
       ),
       ':',
       repeat(choice(
-        $.statement,
+        $._non_case_statement,
       )),
     )),
 
