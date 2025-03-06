@@ -85,7 +85,7 @@ module.exports = grammar({
       $.compound_statement,
       $.function_definition,
       $.object_definition,
-      $.type_def,
+      $.type_definition,
       $.preproc_if,
       $.preproc_ifdef,
       $.preproc_include,
@@ -241,10 +241,10 @@ module.exports = grammar({
       ';',
     ),
 
-    type_def: $ => seq(
+    type_definition: $ => seq(
       'typedef',
       field('type', $._class_definition),
-      repeat1(field('declarator', $.init_declarator)),
+      commaSep(field('declarator', $.init_declarator)),
       ';',
     ),
 
@@ -278,8 +278,6 @@ module.exports = grammar({
     class_modifier: $ => repeat1(choice(
       'signed',
       'unsigned',
-      'short',
-      'long',
     )),
 
     init_declarator: $ => choice(
@@ -531,7 +529,7 @@ module.exports = grammar({
       $.preproc_call,
       alias($.object_definition, $.field_declaration),
       $.function_definition,
-      $.type_def,
+      $.type_definition,
       $.gins_def,
       $.member_label,
     ),
@@ -606,7 +604,7 @@ module.exports = grammar({
 
     _non_case_statement: $ => choice(
       $.object_definition,
-      $.type_def,
+      $.type_definition,
       $.labeled_statement,
       $.expression_statement,
       $.compound_statement,
@@ -1093,7 +1091,7 @@ module.exports = grammar({
       '>',
     )),
 
-    identifier: _ => /[a-zA-Z_$][0-9a-zA-Z_$]*/,
+    identifier: _ => /[a-zA-Z_\$][0-9a-zA-Z_\$]*/,
     _class_name: $ => alias($.identifier, $.class_name),
     _gtop_class: $ => alias($.identifier, $.gtop_class),
     _gins_class: $ => alias($.identifier, $.gins_class),

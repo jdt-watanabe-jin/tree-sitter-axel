@@ -264,7 +264,7 @@
         "named": true
       },
       {
-        "type": "type_def",
+        "type": "type_definition",
         "named": true
       },
       {
@@ -813,7 +813,7 @@
           "named": true
         },
         {
-          "type": "type_def",
+          "type": "type_definition",
           "named": true
         },
         {
@@ -1452,7 +1452,7 @@
           "named": true
         },
         {
-          "type": "type_def",
+          "type": "type_definition",
           "named": true
         }
       ]
@@ -3343,7 +3343,7 @@
           "named": true
         },
         {
-          "type": "type_def",
+          "type": "type_definition",
           "named": true
         }
       ]
@@ -3376,7 +3376,7 @@
     }
   },
   {
-    "type": "type_def",
+    "type": "type_definition",
     "named": true,
     "fields": {
       "class_modifier": {
@@ -3391,7 +3391,7 @@
       },
       "declarator": {
         "multiple": true,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "init_declarator",
@@ -4011,10 +4011,6 @@
     "named": true
   },
   {
-    "type": "long",
-    "named": false
-  },
-  {
     "type": "member_identifier",
     "named": true
   },
@@ -4060,10 +4056,6 @@
   },
   {
     "type": "return",
-    "named": false
-  },
-  {
-    "type": "short",
     "named": false
   },
   {

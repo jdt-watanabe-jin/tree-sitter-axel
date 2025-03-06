@@ -225,3 +225,376 @@ enum e {
     )
   )
 )
+
+================================================================================
+Variable storage classes
+================================================================================
+
+int a;
+extern int b, c;
+auto int d;
+register int e;
+static int f;
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+  )
+  (object_definition
+    storage_class_specifier: (storage_class_specifier)
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+  )
+  (object_definition
+    storage_class_specifier: (storage_class_specifier)
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+  )
+  (object_definition
+    storage_class_specifier: (storage_class_specifier)
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+  )
+  (object_definition
+    storage_class_specifier: (storage_class_specifier)
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+  )
+)
+
+================================================================================
+Composite-typed variable declarations
+================================================================================
+
+struct b{} c;
+union { int e; } f;
+enum { g, h } i;
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (struct_specifier
+      name: (class_name)
+      body: (field_declaration_list)
+    )
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+  )
+  (object_definition
+    type: (union_specifier
+      body: (field_declaration_list
+        (field_declaration
+          type: (class_name)
+          declarator: (init_declarator
+            declarator: (identifier)
+          )
+        )
+      )
+    )
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+  )
+  (object_definition
+    type: (enum_specifier
+      body: (enumerator_list
+        (enumerator
+          name: (identifier)
+        )
+        (enumerator
+          name: (identifier)
+        )
+      )
+    )
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+  )
+)
+
+================================================================================
+Pointer variable declarations
+================================================================================
+
+char *the_string;
+const char **the_strings;
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (pointer_declarator
+        declarator: (identifier)
+      )
+    )
+  )
+  (object_definition
+    storage_class_specifier: (storage_class_specifier)
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (pointer_declarator
+        declarator: (pointer_declarator
+          declarator: (identifier)
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Typedefs
+================================================================================
+
+typedef int my_int;
+
+typedef struct {
+  int x;
+} *a;
+
+typedef struct A {
+	int i;
+} a, b;
+
+typedef enum {
+  A,
+  B,
+  C
+} b;
+
+typedef void *voidpc;
+
+typedef unsigned int;
+typedef unsigned short ptrdiff_t;
+typedef short charptr_t;
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (type_definition
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+  )
+  (type_definition
+    type: (struct_specifier
+      body: (field_declaration_list
+        (field_declaration
+          type: (class_name)
+          declarator: (init_declarator
+            declarator: (identifier)
+          )
+        )
+      )
+    )
+    declarator: (init_declarator
+      declarator: (pointer_declarator
+        declarator: (identifier)
+      )
+    )
+  )
+  (type_definition
+    type: (struct_specifier
+      name: (class_name)
+      body: (field_declaration_list
+        (field_declaration
+          type: (class_name)
+          declarator: (init_declarator
+            declarator: (identifier)
+          )
+        )
+      )
+    )
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+  )
+  (type_definition
+    type: (enum_specifier
+      body: (enumerator_list
+        (enumerator
+          name: (identifier)
+        )
+        (enumerator
+          name: (identifier)
+        )
+        (enumerator
+          name: (identifier)
+        )
+      )
+    )
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+  )
+  (type_definition
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (pointer_declarator
+        declarator: (identifier)
+      )
+    )
+  )
+  (type_definition
+    class_modifier: (class_modifier)
+    type: (class_name)
+  )
+  (type_definition
+    class_modifier: (class_modifier)
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+  )
+  (type_definition
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (identifier)
+    )
+  )
+)
+
+================================================================================
+Function declarations
+================================================================================
+
+int main(int argc, const char **argv);
+static foo bar();
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (function_declarator
+        declarator: (identifier)
+        parameters: (parameter_list
+          (parameter_declaration
+            type: (class_name)
+            declarator: (init_declarator
+              declarator: (identifier)
+            )
+          )
+          (parameter_declaration
+            type: (class_name)
+            declarator: (init_declarator
+              declarator: (pointer_declarator
+                declarator: (pointer_declarator
+                  declarator: (identifier)
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+  (object_definition
+    storage_class_specifier: (storage_class_specifier)
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (function_declarator
+        declarator: (identifier)
+        parameters: (parameter_list)
+      )
+    )
+  )
+)
+
+================================================================================
+Function definitions
+================================================================================
+
+void * do_stuff(int arg1) {
+  return 5;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (pointer_declarator
+      declarator: (function_declarator
+        declarator: (identifier)
+        parameters: (parameter_list
+          (parameter_declaration
+            type: (class_name)
+            declarator: (init_declarator
+              declarator: (identifier)
+            )
+          )
+        )
+      )
+    )
+    body: (compound_statement
+      (return_statement
+        (integer_literal)
+      )
+    )
+  )
+)
+
+================================================================================
+Local array declarations
+================================================================================
+
+int main() {
+  char the_buffer[the_size];
+  char the_other_buffer[];
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (object_definition
+        type: (class_name)
+        declarator: (init_declarator
+          declarator: (array_declarator
+            declarator: (identifier)
+            size: (identifier)
+          )
+        )
+      )
+      (object_definition
+        type: (class_name)
+        declarator: (init_declarator
+          declarator: (array_declarator
+            declarator: (identifier)
+          )
+        )
+      )
+    )
+  )
+)
