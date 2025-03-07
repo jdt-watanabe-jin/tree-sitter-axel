@@ -662,3 +662,40 @@ void main() {
     )
   )
 )
+
+================================================================================
+Command statements
+================================================================================
+
+int main()
+{
+  @_hoge.axl -a 1 -b `expr1 + f()`;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (command_statement
+        (command_identifier)
+        (command_identifier)
+        (integer_literal)
+        (command_identifier)
+        (command_expression
+          (binary_expression
+            left: (identifier)
+            right: (call_expression
+              function: (identifier)
+              arguments: (argument_list)
+            )
+          )
+        )
+      )
+    )
+  )
+)

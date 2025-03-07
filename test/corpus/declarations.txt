@@ -598,3 +598,195 @@ int main() {
     )
   )
 )
+
+================================================================================
+Inline method definitions
+================================================================================
+
+struct S {
+  int f;
+
+ private:
+  int getF1() { return f; }
+};
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (struct_specifier
+      name: (class_name)
+      body: (field_declaration_list
+        (field_declaration
+          type: (class_name)
+          declarator: (init_declarator
+            declarator: (identifier)
+          )
+        )
+        (access_specifier)
+        (function_definition
+          type: (class_name)
+          declarator: (function_declarator
+            declarator: (identifier)
+            parameters: (parameter_list)
+          )
+          body: (compound_statement
+            (return_statement
+              (identifier)
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Classes with inheritance
+================================================================================
+
+class A : public B {};
+class C : protected D {};
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (class_specifier
+      name: (class_name)
+      (base_class_clause
+        access_specifier: (access_specifier)
+        (class_name)
+      )
+      body: (field_declaration_list)
+    )
+  )
+  (object_definition
+    type: (class_specifier
+      name: (class_name)
+      (base_class_clause
+        access_specifier: (access_specifier)
+        (class_name)
+      )
+      body: (field_declaration_list)
+    )
+  )
+)
+
+================================================================================
+Operator overload declarations
+================================================================================
+
+bool A::operator!=(A other) {
+  return !(*this == other);
+}
+bool A::operator ==(A other) {
+  return i == other.i;
+}
+
+A::operator int() {
+  return i;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (qualified_declarator
+        scope: (identifier)
+        name: (operator_declarator)
+      )
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name)
+          declarator: (init_declarator
+            declarator: (identifier)
+          )
+        )
+      )
+    )
+    body: (compound_statement
+      (return_statement
+        (unary_expression
+          argument: (parenthesized_expression
+            (binary_expression
+              left: (pointer_expression
+                argument: (this)
+              )
+              right: (identifier)
+            )
+          )
+        )
+      )
+    )
+  )
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (qualified_declarator
+        scope: (identifier)
+        name: (operator_declarator)
+      )
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name)
+          declarator: (init_declarator
+            declarator: (identifier)
+          )
+        )
+      )
+    )
+    body: (compound_statement
+      (return_statement
+        (binary_expression
+          left: (identifier)
+          right: (field_expression
+            argument: (identifier)
+            field: (member_identifier)
+          )
+        )
+      )
+    )
+  )
+  (function_definition
+    declarator: (function_declarator
+      declarator: (qualified_declarator
+        scope: (identifier)
+        name: (conversion_declarator
+          type: (class_name)))
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (return_statement
+        (identifier)
+      )
+    )
+  )
+)
+
+================================================================================
+GUI Class declarations
+================================================================================
+
+class mydlg : public GCDialog {
+  GCHBoxLayout {
+    GCListView layerLST;
+    GCVBoxLayout {
+      GCLabel { OnCreate() { text = "fill pattern"; }};
+      GCListBox fillLST;
+    };
+    GCVBoxLayout {
+      GCLabel { OnCreate() { text = "line style (list & combo)"; }};
+      GCListBox lstLST;
+      GCComboBox lstCMB;
+    };
+  };
+};
+
+void mydlg::lstCMB::OnCreate() {}
+
+void mydlg::layerLST.fillLST::OnCreate() {}
+
+--------------------------------------------------------------------------------

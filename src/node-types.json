@@ -966,7 +966,7 @@
     }
   },
   {
-    "type": "command",
+    "type": "command_expression",
     "named": true,
     "fields": {},
     "children": {
@@ -976,10 +976,6 @@
         {
           "type": "expression",
           "named": true
-        },
-        {
-          "type": "string_literal",
-          "named": true
         }
       ]
     }
@@ -987,17 +983,51 @@
   {
     "type": "command_statement",
     "named": true,
-    "fields": {
-      "command": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "command",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command_expression",
+          "named": true
+        },
+        {
+          "type": "command_identifier",
+          "named": true
+        },
+        {
+          "type": "command_string",
+          "named": true
+        },
+        {
+          "type": "double_literal",
+          "named": true
+        },
+        {
+          "type": "integer_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "command_string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "string_content",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1424,6 +1454,10 @@
       "required": false,
       "types": [
         {
+          "type": "access_specifier",
+          "named": true
+        },
+        {
           "type": "field_declaration",
           "named": true
         },
@@ -1432,11 +1466,7 @@
           "named": true
         },
         {
-          "type": "gins_def",
-          "named": true
-        },
-        {
-          "type": "member_label",
+          "type": "gins_definition",
           "named": true
         },
         {
@@ -1683,29 +1713,109 @@
     }
   },
   {
-    "type": "gins_def",
+    "type": "gins_attributes_definition",
     "named": true,
     "fields": {
-      "attributes": {
-        "multiple": true,
-        "required": false,
+      "body": {
+        "multiple": false,
+        "required": true,
         "types": [
           {
-            "type": "function_definition",
+            "type": "compound_statement",
             "named": true
           }
         ]
       },
-      "instance": {
+      "class_modifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "class_modifier",
+            "named": true
+          }
+        ]
+      },
+      "declarator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_declarator",
+            "named": true
+          }
+        ]
+      },
+      "storage_class_specifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "storage_class_specifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
         "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "gins_def",
+            "type": "class_modifier",
             "named": true
           },
           {
-            "type": "object_definition",
+            "type": "class_name",
+            "named": true
+          },
+          {
+            "type": "class_specifier",
+            "named": true
+          },
+          {
+            "type": "enum_specifier",
+            "named": true
+          },
+          {
+            "type": "gins_class",
+            "named": true
+          },
+          {
+            "type": "gtop_class",
+            "named": true
+          },
+          {
+            "type": "struct_specifier",
+            "named": true
+          },
+          {
+            "type": "union_specifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "gins_definition",
+    "named": true,
+    "fields": {
+      "class_modifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "class_modifier",
+            "named": true
+          }
+        ]
+      },
+      "declarator": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "init_declarator",
             "named": true
           }
         ]
@@ -1719,14 +1829,86 @@
             "named": true
           }
         ]
+      },
+      "storage_class_specifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "storage_class_specifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "class_modifier",
+            "named": true
+          },
+          {
+            "type": "class_name",
+            "named": true
+          },
+          {
+            "type": "class_specifier",
+            "named": true
+          },
+          {
+            "type": "enum_specifier",
+            "named": true
+          },
+          {
+            "type": "gins_class",
+            "named": true
+          },
+          {
+            "type": "gtop_class",
+            "named": true
+          },
+          {
+            "type": "struct_specifier",
+            "named": true
+          },
+          {
+            "type": "union_specifier",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
-          "type": "gins_class",
+          "type": "gins_attributes_definition",
+          "named": true
+        },
+        {
+          "type": "gins_definition",
+          "named": true
+        },
+        {
+          "type": "preproc_call",
+          "named": true
+        },
+        {
+          "type": "preproc_def",
+          "named": true
+        },
+        {
+          "type": "preproc_function_def",
+          "named": true
+        },
+        {
+          "type": "preproc_if",
+          "named": true
+        },
+        {
+          "type": "preproc_ifdef",
           "named": true
         }
       ]
@@ -1886,30 +2068,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "member_label",
-    "named": true,
-    "fields": {
-      "label": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "private",
-            "named": false
-          },
-          {
-            "type": "protected",
-            "named": false
-          },
-          {
-            "type": "public",
-            "named": false
-          }
-        ]
-      }
     }
   },
   {
@@ -2603,6 +2761,10 @@
       "required": false,
       "types": [
         {
+          "type": "access_specifier",
+          "named": true
+        },
+        {
           "type": "enumerator",
           "named": true
         },
@@ -2615,11 +2777,11 @@
           "named": true
         },
         {
-          "type": "gins_def",
+          "type": "gins_attributes_definition",
           "named": true
         },
         {
-          "type": "member_label",
+          "type": "gins_definition",
           "named": true
         },
         {
@@ -2691,6 +2853,10 @@
       "required": false,
       "types": [
         {
+          "type": "access_specifier",
+          "named": true
+        },
+        {
           "type": "enumerator",
           "named": true
         },
@@ -2703,11 +2869,11 @@
           "named": true
         },
         {
-          "type": "gins_def",
+          "type": "gins_attributes_definition",
           "named": true
         },
         {
-          "type": "member_label",
+          "type": "gins_definition",
           "named": true
         },
         {
@@ -2750,6 +2916,10 @@
       "required": false,
       "types": [
         {
+          "type": "access_specifier",
+          "named": true
+        },
+        {
           "type": "enumerator",
           "named": true
         },
@@ -2762,11 +2932,11 @@
           "named": true
         },
         {
-          "type": "gins_def",
+          "type": "gins_attributes_definition",
           "named": true
         },
         {
-          "type": "member_label",
+          "type": "gins_definition",
           "named": true
         },
         {
@@ -2902,6 +3072,10 @@
       "required": false,
       "types": [
         {
+          "type": "access_specifier",
+          "named": true
+        },
+        {
           "type": "enumerator",
           "named": true
         },
@@ -2914,11 +3088,11 @@
           "named": true
         },
         {
-          "type": "gins_def",
+          "type": "gins_attributes_definition",
           "named": true
         },
         {
-          "type": "member_label",
+          "type": "gins_definition",
           "named": true
         },
         {
@@ -2990,6 +3164,10 @@
       "required": false,
       "types": [
         {
+          "type": "access_specifier",
+          "named": true
+        },
+        {
           "type": "enumerator",
           "named": true
         },
@@ -3002,11 +3180,11 @@
           "named": true
         },
         {
-          "type": "gins_def",
+          "type": "gins_attributes_definition",
           "named": true
         },
         {
-          "type": "member_label",
+          "type": "gins_definition",
           "named": true
         },
         {
@@ -4007,6 +4185,10 @@
   },
   {
     "type": "class_name",
+    "named": true
+  },
+  {
+    "type": "command_identifier",
     "named": true
   },
   {

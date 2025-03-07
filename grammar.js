@@ -45,9 +45,8 @@ module.exports = grammar({
     [$.parameter_declaration],
     [$._classref, $._qualified_identifier],
     [$._classref],
-    [$._direct_declarator, $.gins_def],
-    [$._class_definition, $.gins_def],
-    [$.command_statement],
+    [$._direct_declarator, $.gins_definition],
+    [$._class_definition, $.gins_definition],
     [$.init_declarator, $.parameter_list],
     [$.enum_specifier],
     [$.enumerator_list],
@@ -158,6 +157,7 @@ module.exports = grammar({
     ...preprocIf('_in_field_declaration_list', $ => $._field_declaration_list_item),
     ...preprocIf('_in_enumerator_list', $ => seq($.enumerator, ',')),
     ...preprocIf('_in_enumerator_list_no_comma', $ => $.enumerator, -1),
+    ...preprocIf('_in_gins_attributes_list_item', $ => $._gins_attributes_list_item),
 
     preproc_arg: _ => token(prec(-1, /\S([^/\n]|\/[^*]|\\\r?\n)*/)),
     preproc_directive: _ => /#[ \t]*[a-zA-Z0-9]\w*/,
@@ -342,7 +342,7 @@ module.exports = grammar({
         $.conversion_declarator,
         $._class_name,
         seq('~', $._class_name),
-      ))
+      )),
     ),
 
     _direct_declarator: $ => choice(
@@ -384,7 +384,7 @@ module.exports = grammar({
 
     instance_name: $ => choice(
       $.identifier,
-      seq($.instance_name, '.', $.identifier),
+      seq($.identifier, '.', $.instance_name),
     ),
 
     parameter_list: $ => seq(
@@ -532,30 +532,30 @@ module.exports = grammar({
       alias($.object_definition, $.field_declaration),
       $.function_definition,
       $.type_definition,
-      $.gins_def,
-      $.member_label,
+      $.gins_definition,
+      seq($.access_specifier, ':'),
     ),
 
-    member_label: $ => seq(
-      field('label', choice('public', 'protected', 'private')),
-      ':',
-    ),
-
-    gins_def: $ => seq(
-      $._gins_class,
+    gins_definition: $ => seq(
+      field('type', $._gins_class),
       optional(field('name', $.identifier)),
       seq(
         '{',
-        repeat1(choice(
-          field('attributes', $.function_definition),
-          field('instance', choice(
-            $.object_definition,
-            $.gins_def,
-          )),
-        )),
+        repeat($._gins_attributes_list_item),
         '}',
       ),
       ';',
+    ),
+
+    _gins_attributes_list_item: $ => choice(
+      $.preproc_def,
+      $.preproc_function_def,
+      $.preproc_call,
+      alias($.preproc_if_in_gins_attributes_list_item, $.preproc_if),
+      alias($.preproc_ifdef_in_gins_attributes_list_item, $.preproc_ifdef),
+      alias($.object_definition, $.gins_definition),
+      alias($.function_definition, $.gins_attributes_definition),
+      $.gins_definition,
     ),
 
     enum_specifier: $ => seq(
@@ -733,14 +733,19 @@ module.exports = grammar({
 
     command_statement: $ => seq(
       '@',
-      field('command', repeat($.command)),
+      repeat($._command),
+      ';',
     ),
 
-    command: $ => choice(
-      $.identifier,
-      $.string_literal,
-      seq('`', $.expression, '`',),
+    _command: $ => choice(
+      $.command_identifier,
+      alias($.string_literal, $.command_string),
+      $.integer_literal,
+      $.double_literal,
+      $.command_expression,
     ),
+
+    command_expression : $ => seq('\`', $.expression, '\`'),
 
 
     // Expressions
@@ -1100,6 +1105,8 @@ module.exports = grammar({
     _member_identifier: $ => alias($.identifier, $.member_identifier),
     _namespace_identifier: $ => alias($.identifier, $.namespace_identifier),
     _statement_identifier: $ => alias($.identifier, $.statement_identifier),
+
+    command_identifier: _ => /[a-zA-Z_\$\.\-][0-9a-zA-Z_\$\.\-]*/,
 
     // Comments
     comment: _ => token(choice(
