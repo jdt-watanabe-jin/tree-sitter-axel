@@ -272,21 +272,19 @@ struct S {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (object_definition
-    type: (struct_specifier
-      name: (class_name)
-      body: (field_declaration_list
-        (preproc_ifdef
-          name: (identifier)
+  (struct_specifier
+    name: (class_name)
+    body: (field_declaration_list
+      (preproc_ifdef
+        name: (identifier)
+        (field_declaration
+          type: (class_name)
+          declarator: (identifier)
+        )
+        alternative: (preproc_else
           (field_declaration
             type: (class_name)
             declarator: (identifier)
-          )
-          alternative: (preproc_else
-            (field_declaration
-              type: (class_name)
-              declarator: (identifier)
-            )
           )
         )
       )

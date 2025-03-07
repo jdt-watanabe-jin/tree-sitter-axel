@@ -83,6 +83,7 @@ module.exports = grammar({
       $.compound_statement,
       $.function_definition,
       $.object_definition,
+      $._empty_declaration,
       $.type_definition,
       $.preproc_if,
       $.preproc_ifdef,
@@ -95,6 +96,7 @@ module.exports = grammar({
 
     _block_item: $ => choice(
       $.statement,
+      $._empty_declaration,
       $.preproc_if,
       $.preproc_ifdef,
       $.preproc_include,
@@ -236,7 +238,7 @@ module.exports = grammar({
     object_definition: $ =>  seq(
       optional(field('storage_class_specifier', $.storage_class_specifier)),
       field('type', $._class_definition),
-      commaSep(field('declarator', choice($._declarator, $.init_declarator))),
+      commaSep1(field('declarator', choice($._declarator, $.init_declarator))),
       ';',
     ),
 
@@ -258,6 +260,16 @@ module.exports = grammar({
       $.union_specifier,
       $.struct_specifier,
       $.enum_specifier,
+    ),
+
+    _empty_declaration: $ => seq(
+      choice(
+        $.class_specifier,
+        $.union_specifier,
+        $.struct_specifier,
+        $.enum_specifier
+      ),
+      ';',
     ),
 
     storage_class_specifier: $ => repeat1(choice(

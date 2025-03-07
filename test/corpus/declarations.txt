@@ -12,23 +12,19 @@ struct s2 {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (object_definition
-    type: (struct_specifier
-      name: (class_name)
-    )
+  (struct_specifier
+    name: (class_name)
   )
-  (object_definition
-    type: (struct_specifier
-      name: (class_name)
-      body: (field_declaration_list
-        (field_declaration
-          type: (class_name)
-          declarator: (identifier)
-        )
-        (field_declaration
-          type: (class_name)
-          declarator: (identifier)
-        )
+  (struct_specifier
+    name: (class_name)
+    body: (field_declaration_list
+      (field_declaration
+        type: (class_name)
+        declarator: (identifier)
+      )
+      (field_declaration
+        type: (class_name)
+        declarator: (identifier)
       )
     )
   )
@@ -48,23 +44,19 @@ union s2 {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (object_definition
-    type: (union_specifier
+  (union_specifier
       name: (class_name)
-    )
   )
-  (object_definition
-    type: (union_specifier
-      name: (class_name)
-      body: (field_declaration_list
-        (field_declaration
-          type: (class_name)
-          declarator: (identifier)
-        )
-        (field_declaration
-          type: (class_name)
-          declarator: (identifier)
-        )
+  (union_specifier
+    name: (class_name)
+    body: (field_declaration_list
+      (field_declaration
+        type: (class_name)
+        declarator: (identifier)
+      )
+      (field_declaration
+        type: (class_name)
+        declarator: (identifier)
       )
     )
   )
@@ -89,35 +81,29 @@ enum e3 {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (object_definition
-    type: (enum_specifier
-      name: (class_name)
-    )
+  (enum_specifier
+    name: (class_name)
   )
-  (object_definition
-    type: (enum_specifier
-      name: (class_name)
-      body: (enumerator_list
-        (enumerator
-          name: (identifier)
-        )
-        (enumerator
-          name: (identifier)
-          value: (integer_literal)
-        )
-        (enumerator
-          name: (identifier)
-        )
+  (enum_specifier
+    name: (class_name)
+    body: (enumerator_list
+      (enumerator
+        name: (identifier)
+      )
+      (enumerator
+        name: (identifier)
+        value: (integer_literal)
+      )
+      (enumerator
+        name: (identifier)
       )
     )
   )
-  (object_definition
-    type: (enum_specifier
-      name: (class_name)
-      body: (enumerator_list
-        (enumerator
-          name: (identifier)
-        )
+  (enum_specifier
+    name: (class_name)
+    body: (enumerator_list
+      (enumerator
+        name: (identifier)
       )
     )
   )
@@ -136,25 +122,23 @@ struct s {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (object_definition
-    type: (struct_specifier
-      name: (class_name)
-      body: (field_declaration_list
-        (preproc_def
-          name: (identifier)
-          value: (preproc_arg)
+  (struct_specifier
+    name: (class_name)
+    body: (field_declaration_list
+      (preproc_def
+        name: (identifier)
+        value: (preproc_arg)
+      )
+      (field_declaration
+        type: (class_name)
+        declarator: (array_declarator
+          declarator: (identifier)
+          size: (identifier)
         )
-        (field_declaration
-          type: (class_name)
-          declarator: (array_declarator
-            declarator: (identifier)
-            size: (identifier)
-          )
-        )
-        (preproc_call
-          directive: (preproc_directive)
-          argument: (preproc_arg)
-        )
+      )
+      (preproc_call
+        directive: (preproc_directive)
+        argument: (preproc_arg)
       )
     )
   )
@@ -181,34 +165,32 @@ enum e {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (object_definition
-    type: (enum_specifier
-      name: (class_name)
-      body: (enumerator_list
-        (preproc_ifdef
+  (enum_specifier
+    name: (class_name)
+    body: (enumerator_list
+      (preproc_ifdef
+        name: (identifier)
+        (enumerator
           name: (identifier)
+          value: (integer_literal)
+        )
+        alternative: (preproc_else
           (enumerator
             name: (identifier)
             value: (integer_literal)
-          )
-          alternative: (preproc_else
-            (enumerator
-              name: (identifier)
-              value: (integer_literal)
-            )
           )
         )
-        (preproc_if
-          condition: (identifier)
+      )
+      (preproc_if
+        condition: (identifier)
+        (enumerator
+          name: (identifier)
+          value: (integer_literal)
+        )
+        alternative: (preproc_else
           (enumerator
             name: (identifier)
             value: (integer_literal)
-          )
-          alternative: (preproc_else
-            (enumerator
-              name: (identifier)
-              value: (integer_literal)
-            )
           )
         )
       )
@@ -545,25 +527,23 @@ struct S {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (object_definition
-    type: (struct_specifier
-      name: (class_name)
-      body: (field_declaration_list
-        (field_declaration
-          type: (class_name)
+  (struct_specifier
+    name: (class_name)
+    body: (field_declaration_list
+      (field_declaration
+        type: (class_name)
+        declarator: (identifier)
+      )
+      (access_specifier)
+      (function_definition
+        type: (class_name)
+        declarator: (function_declarator
           declarator: (identifier)
+          parameters: (parameter_list)
         )
-        (access_specifier)
-        (function_definition
-          type: (class_name)
-          declarator: (function_declarator
-            declarator: (identifier)
-            parameters: (parameter_list)
-          )
-          body: (compound_statement
-            (return_statement
-              (identifier)
-            )
+        body: (compound_statement
+          (return_statement
+            (identifier)
           )
         )
       )
@@ -581,25 +561,21 @@ class C : protected D {};
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (object_definition
-    type: (class_specifier
-      name: (class_name)
-      (base_class_clause
-        access_specifier: (access_specifier)
-        (class_name)
-      )
-      body: (field_declaration_list)
+  (class_specifier
+    name: (class_name)
+    (base_class_clause
+      access_specifier: (access_specifier)
+      (class_name)
     )
+    body: (field_declaration_list)
   )
-  (object_definition
-    type: (class_specifier
-      name: (class_name)
-      (base_class_clause
-        access_specifier: (access_specifier)
-        (class_name)
-      )
-      body: (field_declaration_list)
+  (class_specifier
+    name: (class_name)
+    (base_class_clause
+      access_specifier: (access_specifier)
+      (class_name)
     )
+    body: (field_declaration_list)
   )
 )
 
