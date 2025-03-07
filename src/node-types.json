@@ -1390,6 +1390,10 @@
         "required": false,
         "types": [
           {
+            "type": "_declarator",
+            "named": true
+          },
+          {
             "type": "init_declarator",
             "named": true
           }
@@ -1815,6 +1819,10 @@
         "required": false,
         "types": [
           {
+            "type": "_declarator",
+            "named": true
+          },
+          {
             "type": "init_declarator",
             "named": true
           }
@@ -2231,6 +2239,10 @@
         "required": false,
         "types": [
           {
+            "type": "_declarator",
+            "named": true
+          },
+          {
             "type": "init_declarator",
             "named": true
           }
@@ -2456,6 +2468,10 @@
         "multiple": false,
         "required": false,
         "types": [
+          {
+            "type": "_declarator",
+            "named": true
+          },
           {
             "type": "abstruct_declarator",
             "named": true
@@ -3659,6 +3675,10 @@
         "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "_declarator",
+            "named": true
+          },
           {
             "type": "init_declarator",
             "named": true

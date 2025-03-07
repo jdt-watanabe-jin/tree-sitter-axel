@@ -133,18 +133,14 @@ int b;
     name: (identifier)
     (object_definition
       type: (class_name)
-      declarator: (init_declarator
-        declarator: (identifier)
-      )
+      declarator: (identifier)
     )
   )
   (preproc_ifdef
     name: (identifier)
     (object_definition
       type: (class_name)
-      declarator: (init_declarator
-        declarator: (identifier)
-      )
+      declarator: (identifier)
     )
     (preproc_def
       name: (identifier)
@@ -157,9 +153,7 @@ int b;
       alternative: (preproc_else
         (object_definition
           type: (class_name)
-          declarator: (init_declarator
-            declarator: (identifier)
-          )
+          declarator: (identifier)
         )
         (preproc_def
           name: (identifier)
@@ -286,16 +280,12 @@ struct S {
           name: (identifier)
           (field_declaration
             type: (class_name)
-            declarator: (init_declarator
-              declarator: (identifier)
-            )
+            declarator: (identifier)
           )
           alternative: (preproc_else
             (field_declaration
               type: (class_name)
-              declarator: (init_declarator
-                declarator: (identifier)
-              )
+              declarator: (identifier)
             )
           )
         )
@@ -355,9 +345,7 @@ uint32_t a;
     )
     (object_definition
       type: (class_name)
-      declarator: (init_declarator
-        declarator: (identifier)
-      )
+      declarator: (identifier)
     )
   )
 )

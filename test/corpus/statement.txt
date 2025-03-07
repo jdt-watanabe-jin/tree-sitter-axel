@@ -246,10 +246,8 @@ recur:
       parameters: (parameter_list
         (parameter_declaration
           type: (class_name)
-          declarator: (init_declarator
-            declarator: (pointer_declarator
-              declarator: (identifier)
-            )
+          declarator: (pointer_declarator
+            declarator: (identifier)
           )
         )
       )
@@ -313,9 +311,7 @@ void foo(int a) {
       parameters: (parameter_list
         (parameter_declaration
           type: (class_name)
-          declarator: (init_declarator
-            declarator: (identifier)
-          )
+          declarator: (identifier)
         )
       )
     )
@@ -521,16 +517,12 @@ int b;
   (comment)
   (object_definition
     type: (class_name)
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
   )
   (comment)
   (object_definition
     type: (class_name)
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
   )
 )
 
@@ -603,10 +595,8 @@ void main() {
           parameters: (parameter_list
             (parameter_declaration
               type: (class_name)
-              declarator: (init_declarator
-                declarator: (pointer_declarator
-                  declarator: (identifier)
-                )
+              declarator: (pointer_declarator
+                declarator: (identifier)
               )
             )
           )

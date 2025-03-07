@@ -47,7 +47,6 @@ module.exports = grammar({
     [$._classref],
     [$._direct_declarator, $.gins_definition],
     [$._class_definition, $.gins_definition],
-    [$.init_declarator, $.parameter_list],
     [$.enum_specifier],
     [$.enumerator_list],
   ],
@@ -237,14 +236,14 @@ module.exports = grammar({
     object_definition: $ =>  seq(
       optional(field('storage_class_specifier', $.storage_class_specifier)),
       field('type', $._class_definition),
-      commaSep(field('declarator', $.init_declarator)),
+      commaSep(field('declarator', choice($._declarator, $.init_declarator))),
       ';',
     ),
 
     type_definition: $ => seq(
       'typedef',
       field('type', $._class_definition),
-      commaSep(field('declarator', $.init_declarator)),
+      commaSep(field('declarator', choice($._declarator, $.init_declarator))),
       ';',
     ),
 
@@ -281,14 +280,13 @@ module.exports = grammar({
     )),
 
     init_declarator: $ => choice(
-      field('declarator', $._declarator),
       seq(
         field('declarator', $._declarator),
         '=',
         field('value', choice($.initializer_list, $.expression)),
       ),
       seq(field('declarator', $._declarator),
-       '(', commaSep($.expression), ')',),
+       '(', commaSep1($.expression), ')',),
     ),
 
     _declarator: $ => choice(
@@ -404,7 +402,7 @@ module.exports = grammar({
       seq(
         optional(field('storage_class', 'const')),
         field('type', $._class_definition),
-        optional(field('declarator',$.init_declarator))
+        optional(field('declarator', choice($._declarator, $.init_declarator)))
       ),
       seq(
         optional('const'),

@@ -3201,8 +3201,17 @@
                   "type": "FIELD",
                   "name": "declarator",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "init_declarator"
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "_declarator"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "init_declarator"
+                      }
+                    ]
                   }
                 },
                 {
@@ -3218,8 +3227,17 @@
                         "type": "FIELD",
                         "name": "declarator",
                         "content": {
-                          "type": "SYMBOL",
-                          "name": "init_declarator"
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "_declarator"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "init_declarator"
+                            }
+                          ]
                         }
                       }
                     ]
@@ -3263,8 +3281,17 @@
                   "type": "FIELD",
                   "name": "declarator",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "init_declarator"
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "_declarator"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "init_declarator"
+                      }
+                    ]
                   }
                 },
                 {
@@ -3280,8 +3307,17 @@
                         "type": "FIELD",
                         "name": "declarator",
                         "content": {
-                          "type": "SYMBOL",
-                          "name": "init_declarator"
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "_declarator"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "init_declarator"
+                            }
+                          ]
                         }
                       }
                     ]
@@ -3426,14 +3462,6 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "FIELD",
-          "name": "declarator",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_declarator"
-          }
-        },
-        {
           "type": "SEQ",
           "members": [
             {
@@ -3483,35 +3511,27 @@
               "value": "("
             },
             {
-              "type": "CHOICE",
+              "type": "SEQ",
               "members": [
                 {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "expression"
-                    },
-                    {
-                      "type": "REPEAT",
-                      "content": {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "STRING",
-                            "value": ","
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "expression"
-                          }
-                        ]
-                      }
-                    }
-                  ]
+                  "type": "SYMBOL",
+                  "name": "expression"
                 },
                 {
-                  "type": "BLANK"
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "expression"
+                      }
+                    ]
+                  }
                 }
               ]
             },
@@ -4104,8 +4124,17 @@
                   "type": "FIELD",
                   "name": "declarator",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "init_declarator"
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "_declarator"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "init_declarator"
+                      }
+                    ]
                   }
                 },
                 {
@@ -8148,10 +8177,6 @@
     [
       "_class_definition",
       "gins_definition"
-    ],
-    [
-      "init_declarator",
-      "parameter_list"
     ],
     [
       "enum_specifier"

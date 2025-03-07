@@ -23,15 +23,11 @@ struct s2 {
       body: (field_declaration_list
         (field_declaration
           type: (class_name)
-          declarator: (init_declarator
-            declarator: (identifier)
-          )
+          declarator: (identifier)
         )
         (field_declaration
           type: (class_name)
-          declarator: (init_declarator
-            declarator: (identifier)
-          )
+          declarator: (identifier)
         )
       )
     )
@@ -63,15 +59,11 @@ union s2 {
       body: (field_declaration_list
         (field_declaration
           type: (class_name)
-          declarator: (init_declarator
-            declarator: (identifier)
-          )
+          declarator: (identifier)
         )
         (field_declaration
           type: (class_name)
-          declarator: (init_declarator
-            declarator: (identifier)
-          )
+          declarator: (identifier)
         )
       )
     )
@@ -154,11 +146,9 @@ struct s {
         )
         (field_declaration
           type: (class_name)
-          declarator: (init_declarator
-            declarator: (array_declarator
-              declarator: (identifier)
-              size: (identifier)
-            )
+          declarator: (array_declarator
+            declarator: (identifier)
+            size: (identifier)
           )
         )
         (preproc_call
@@ -241,40 +231,28 @@ static int f;
 (translation_unit
   (object_definition
     type: (class_name)
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
   )
   (object_definition
     storage_class_specifier: (storage_class_specifier)
     type: (class_name)
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
+    declarator: (identifier)
   )
   (object_definition
     storage_class_specifier: (storage_class_specifier)
     type: (class_name)
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
   )
   (object_definition
     storage_class_specifier: (storage_class_specifier)
     type: (class_name)
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
   )
   (object_definition
     storage_class_specifier: (storage_class_specifier)
     type: (class_name)
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
   )
 )
 
@@ -294,24 +272,18 @@ enum { g, h } i;
       name: (class_name)
       body: (field_declaration_list)
     )
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
   )
   (object_definition
     type: (union_specifier
       body: (field_declaration_list
         (field_declaration
           type: (class_name)
-          declarator: (init_declarator
-            declarator: (identifier)
-          )
+          declarator: (identifier)
         )
       )
     )
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
   )
   (object_definition
     type: (enum_specifier
@@ -324,9 +296,7 @@ enum { g, h } i;
         )
       )
     )
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
   )
 )
 
@@ -342,20 +312,16 @@ const char **the_strings;
 (translation_unit
   (object_definition
     type: (class_name)
-    declarator: (init_declarator
-      declarator: (pointer_declarator
-        declarator: (identifier)
-      )
+    declarator: (pointer_declarator
+      declarator: (identifier)
     )
   )
   (object_definition
     storage_class_specifier: (storage_class_specifier)
     type: (class_name)
-    declarator: (init_declarator
+    declarator: (pointer_declarator
       declarator: (pointer_declarator
-        declarator: (pointer_declarator
-          declarator: (identifier)
-        )
+        declarator: (identifier)
       )
     )
   )
@@ -392,25 +358,19 @@ typedef short charptr_t;
 (translation_unit
   (type_definition
     type: (class_name)
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
   )
   (type_definition
     type: (struct_specifier
       body: (field_declaration_list
         (field_declaration
           type: (class_name)
-          declarator: (init_declarator
-            declarator: (identifier)
-          )
+          declarator: (identifier)
         )
       )
     )
-    declarator: (init_declarator
-      declarator: (pointer_declarator
-        declarator: (identifier)
-      )
+    declarator: (pointer_declarator
+      declarator: (identifier)
     )
   )
   (type_definition
@@ -419,18 +379,12 @@ typedef short charptr_t;
       body: (field_declaration_list
         (field_declaration
           type: (class_name)
-          declarator: (init_declarator
-            declarator: (identifier)
-          )
+          declarator: (identifier)
         )
       )
     )
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
+    declarator: (identifier)
   )
   (type_definition
     type: (enum_specifier
@@ -446,16 +400,12 @@ typedef short charptr_t;
         )
       )
     )
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
   )
   (type_definition
     type: (class_name)
-    declarator: (init_declarator
-      declarator: (pointer_declarator
-        declarator: (identifier)
-      )
+    declarator: (pointer_declarator
+      declarator: (identifier)
     )
   )
   (type_definition
@@ -465,15 +415,11 @@ typedef short charptr_t;
   (type_definition
     class_modifier: (class_modifier)
     type: (class_name)
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
   )
   (type_definition
     type: (class_name)
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
   )
 )
 
@@ -489,24 +435,18 @@ static foo bar();
 (translation_unit
   (object_definition
     type: (class_name)
-    declarator: (init_declarator
-      declarator: (function_declarator
-        declarator: (identifier)
-        parameters: (parameter_list
-          (parameter_declaration
-            type: (class_name)
-            declarator: (init_declarator
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name)
+          declarator: (identifier)
+        )
+        (parameter_declaration
+          type: (class_name)
+          declarator: (pointer_declarator
+            declarator: (pointer_declarator
               declarator: (identifier)
-            )
-          )
-          (parameter_declaration
-            type: (class_name)
-            declarator: (init_declarator
-              declarator: (pointer_declarator
-                declarator: (pointer_declarator
-                  declarator: (identifier)
-                )
-              )
             )
           )
         )
@@ -516,11 +456,9 @@ static foo bar();
   (object_definition
     storage_class_specifier: (storage_class_specifier)
     type: (class_name)
-    declarator: (init_declarator
-      declarator: (function_declarator
-        declarator: (identifier)
-        parameters: (parameter_list)
-      )
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
     )
   )
 )
@@ -544,9 +482,7 @@ void * do_stuff(int arg1) {
         parameters: (parameter_list
           (parameter_declaration
             type: (class_name)
-            declarator: (init_declarator
-              declarator: (identifier)
-            )
+            declarator: (identifier)
           )
         )
       )
@@ -580,19 +516,15 @@ int main() {
     body: (compound_statement
       (object_definition
         type: (class_name)
-        declarator: (init_declarator
-          declarator: (array_declarator
-            declarator: (identifier)
-            size: (identifier)
-          )
+        declarator: (array_declarator
+          declarator: (identifier)
+          size: (identifier)
         )
       )
       (object_definition
         type: (class_name)
-        declarator: (init_declarator
-          declarator: (array_declarator
-            declarator: (identifier)
-          )
+        declarator: (array_declarator
+          declarator: (identifier)
         )
       )
     )
@@ -619,9 +551,7 @@ struct S {
       body: (field_declaration_list
         (field_declaration
           type: (class_name)
-          declarator: (init_declarator
-            declarator: (identifier)
-          )
+          declarator: (identifier)
         )
         (access_specifier)
         (function_definition
@@ -701,9 +631,7 @@ A::operator int() {
       parameters: (parameter_list
         (parameter_declaration
           type: (class_name)
-          declarator: (init_declarator
-            declarator: (identifier)
-          )
+          declarator: (identifier)
         )
       )
     )
@@ -732,9 +660,7 @@ A::operator int() {
       parameters: (parameter_list
         (parameter_declaration
           type: (class_name)
-          declarator: (init_declarator
-            declarator: (identifier)
-          )
+          declarator: (identifier)
         )
       )
     )

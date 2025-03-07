@@ -12,8 +12,6 @@ this_is_not a_comment;
   (comment)
   (object_definition
     type: (class_name)
-    declarator: (init_declarator
-      declarator: (identifier)
-    )
+    declarator: (identifier)
   )
 )
