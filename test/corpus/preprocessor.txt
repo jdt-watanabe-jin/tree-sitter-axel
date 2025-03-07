@@ -1,0 +1,363 @@
+================================================================================
+Include directives
+================================================================================
+
+#include "some/path.h"
+#include <stdint.h>
+#include MACRO
+#include MACRO(arg1, arg2)
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (preproc_include
+    path: (string_literal
+      (string_content)
+    )
+  )
+  (preproc_include
+    path: (system_lib_string)
+  )
+  (preproc_include
+    path: (identifier)
+  )
+  (preproc_include
+    path: (call_expression
+      function: (identifier)
+      arguments: (argument_list
+        (identifier)
+        (identifier)
+      )
+    )
+  )
+)
+
+================================================================================
+Object-like macro definitions
+================================================================================
+
+#define ONE
+    #define TWO int a = b;
+#define THREE \
+  c == d ? \
+  e : \
+  f
+#define FOUR (mno * pq)
+#define FIVE(a,b) x \
+                  + y
+#define SIX(a,   \
+            b) x \
+               + y
+#define SEVEN 7/* seven has an
+                * annoying comment */
+#define EIGHT(x) do { \
+        x = x + 1;  \
+        x = x / 2;  \
+    } while (x > 0);
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (preproc_def
+    name: (identifier)
+  )
+  (preproc_def
+    name: (identifier)
+    value: (preproc_arg)
+  )
+  (preproc_def
+    name: (identifier)
+    value: (preproc_arg)
+  )
+  (preproc_def
+    name: (identifier)
+    value: (preproc_arg)
+  )
+  (preproc_function_def
+    name: (identifier)
+    parameters: (preproc_params
+      (identifier)
+      (identifier)
+    )
+    value: (preproc_arg)
+  )
+  (preproc_function_def
+    name: (identifier)
+    parameters: (preproc_params
+      (identifier)
+      (identifier)
+    )
+    value: (preproc_arg)
+  )
+  (preproc_def
+    name: (identifier)
+    value: (preproc_arg)
+    (comment)
+  )
+  (preproc_function_def
+    name: (identifier)
+    parameters: (preproc_params
+      (identifier))
+    value: (preproc_arg)
+  )
+)
+
+================================================================================
+Ifdefs
+================================================================================
+
+#ifndef DEFINE1
+int j;
+#endif
+
+#ifdef DEFINE2
+ssize_t b;
+#define c 32
+#elif defined DEFINE3
+#else
+int b;
+#define c 16
+#endif
+
+#ifdef DEFINE2
+#else
+#  ifdef DEFINE3
+#  else
+#  endif
+#endif
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (preproc_ifdef
+    name: (identifier)
+    (object_definition
+      type: (class_name)
+      declarator: (init_declarator
+        declarator: (identifier)
+      )
+    )
+  )
+  (preproc_ifdef
+    name: (identifier)
+    (object_definition
+      type: (class_name)
+      declarator: (init_declarator
+        declarator: (identifier)
+      )
+    )
+    (preproc_def
+      name: (identifier)
+      value: (preproc_arg)
+    )
+    alternative: (preproc_elif
+      condition: (preproc_defined
+        (identifier)
+      )
+      alternative: (preproc_else
+        (object_definition
+          type: (class_name)
+          declarator: (init_declarator
+            declarator: (identifier)
+          )
+        )
+        (preproc_def
+          name: (identifier)
+          value: (preproc_arg)
+        )
+      )
+    )
+  )
+  (preproc_ifdef
+    name: (identifier)
+    alternative: (preproc_else
+      (preproc_ifdef
+        name: (identifier)
+        alternative: (preproc_else)
+      )
+    )
+  )
+)
+
+================================================================================
+Preprocessor conditionals in functions
+================================================================================
+
+int main() {
+  #if d
+    puts("1");
+  #else
+    puts("2");
+  #endif
+
+  #if a
+    return 0;
+  #elif b
+    return 1;
+  #elif c
+    return 2;
+  #else
+    return 3;
+  #endif
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list)
+    )
+    body: (compound_statement
+      (preproc_if
+        condition: (identifier)
+        (expression_statement
+          (call_expression
+            function: (identifier)
+            arguments: (argument_list
+              (string_literal
+                (string_content)
+              )
+            )
+          )
+        )
+        alternative: (preproc_else
+          (expression_statement
+            (call_expression
+              function: (identifier)
+              arguments: (argument_list
+                (string_literal
+                  (string_content)
+                )
+              )
+            )
+          )
+        )
+      )
+      (preproc_if
+        condition: (identifier)
+        (return_statement
+          (integer_literal)
+        )
+        alternative: (preproc_elif
+          condition: (identifier)
+          (return_statement
+            (integer_literal)
+          )
+          alternative: (preproc_elif
+            condition: (identifier)
+            (return_statement
+              (integer_literal)
+            )
+            alternative: (preproc_else
+              (return_statement
+                (integer_literal)
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Preprocessor conditionals in struct/union bodies
+================================================================================
+
+struct S {
+#ifdef _WIN32
+  long f2;
+#else
+  uint32_t f2;
+#endif
+};
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (struct_specifier
+      name: (class_name)
+      body: (field_declaration_list
+        (preproc_ifdef
+          name: (identifier)
+          (field_declaration
+            type: (class_name)
+            declarator: (init_declarator
+              declarator: (identifier)
+            )
+          )
+          alternative: (preproc_else
+            (field_declaration
+              type: (class_name)
+              declarator: (init_declarator
+                declarator: (identifier)
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
+Unknown preprocessor directives
+================================================================================
+
+#pragma mark - UIViewController
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (preproc_call
+    directive: (preproc_directive)
+    argument: (preproc_arg)
+  )
+)
+
+================================================================================
+Preprocessor expressions
+================================================================================
+
+#if A(B || C) && \
+    !D(F)
+
+uint32_t a;
+
+#endif
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (preproc_if
+    condition: (binary_expression
+      left: (call_expression
+        function: (identifier)
+        arguments: (argument_list
+          (binary_expression
+            left: (identifier)
+            right: (identifier)
+          )
+        )
+      )
+      right: (unary_expression
+        argument: (call_expression
+          function: (identifier)
+          arguments: (argument_list
+            (identifier)
+          )
+        )
+      )
+    )
+    (object_definition
+      type: (class_name)
+      declarator: (init_declarator
+        declarator: (identifier)
+      )
+    )
+  )
+)

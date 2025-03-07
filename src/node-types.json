@@ -1452,6 +1452,14 @@
           "named": true
         },
         {
+          "type": "preproc_if",
+          "named": true
+        },
+        {
+          "type": "preproc_ifdef",
+          "named": true
+        },
+        {
           "type": "type_definition",
           "named": true
         }
@@ -2599,6 +2607,22 @@
           "named": true
         },
         {
+          "type": "field_declaration",
+          "named": true
+        },
+        {
+          "type": "function_definition",
+          "named": true
+        },
+        {
+          "type": "gins_def",
+          "named": true
+        },
+        {
+          "type": "member_label",
+          "named": true
+        },
+        {
           "type": "preproc_call",
           "named": true
         },
@@ -2671,6 +2695,22 @@
           "named": true
         },
         {
+          "type": "field_declaration",
+          "named": true
+        },
+        {
+          "type": "function_definition",
+          "named": true
+        },
+        {
+          "type": "gins_def",
+          "named": true
+        },
+        {
+          "type": "member_label",
+          "named": true
+        },
+        {
           "type": "preproc_call",
           "named": true
         },
@@ -2711,6 +2751,22 @@
       "types": [
         {
           "type": "enumerator",
+          "named": true
+        },
+        {
+          "type": "field_declaration",
+          "named": true
+        },
+        {
+          "type": "function_definition",
+          "named": true
+        },
+        {
+          "type": "gins_def",
+          "named": true
+        },
+        {
+          "type": "member_label",
           "named": true
         },
         {
@@ -2850,6 +2906,22 @@
           "named": true
         },
         {
+          "type": "field_declaration",
+          "named": true
+        },
+        {
+          "type": "function_definition",
+          "named": true
+        },
+        {
+          "type": "gins_def",
+          "named": true
+        },
+        {
+          "type": "member_label",
+          "named": true
+        },
+        {
           "type": "preproc_call",
           "named": true
         },
@@ -2919,6 +2991,22 @@
       "types": [
         {
           "type": "enumerator",
+          "named": true
+        },
+        {
+          "type": "field_declaration",
+          "named": true
+        },
+        {
+          "type": "function_definition",
+          "named": true
+        },
+        {
+          "type": "gins_def",
+          "named": true
+        },
+        {
+          "type": "member_label",
           "named": true
         },
         {

@@ -4332,6 +4332,24 @@
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
+            "name": "preproc_if_in_field_declaration_list"
+          },
+          "named": true,
+          "value": "preproc_if"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "preproc_ifdef_in_field_declaration_list"
+          },
+          "named": true,
+          "value": "preproc_ifdef"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
             "name": "object_definition"
           },
           "named": true,
