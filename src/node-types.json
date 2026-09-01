@@ -1478,6 +1478,14 @@
           "named": true
         },
         {
+          "type": "class_specifier",
+          "named": true
+        },
+        {
+          "type": "enum_specifier",
+          "named": true
+        },
+        {
           "type": "field_declaration",
           "named": true
         },
@@ -1510,7 +1518,15 @@
           "named": true
         },
         {
+          "type": "struct_specifier",
+          "named": true
+        },
+        {
           "type": "type_definition",
+          "named": true
+        },
+        {
+          "type": "union_specifier",
           "named": true
         }
       ]

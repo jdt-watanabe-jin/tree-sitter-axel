@@ -110,6 +110,37 @@ enum e3 {
 )
 
 ================================================================================
+Class declarations containing anonymous enums
+================================================================================
+
+class Json {
+  enum {
+    COMPACT,
+    INDENT,
+  };
+};
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_specifier
+    name: (class_name)
+    body: (field_declaration_list
+      (enum_specifier
+        body: (enumerator_list
+          (enumerator
+            name: (identifier)
+          )
+          (enumerator
+            name: (identifier)
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
 Struct declarations containing preprocessor directives
 ================================================================================
 
@@ -692,3 +723,109 @@ void mydlg::lstCMB::OnCreate() {}
 void mydlg::layerLST.fillLST::OnCreate() {}
 
 --------------------------------------------------------------------------------
+
+(translation_unit
+  (class_specifier
+    name: (class_name)
+    (base_class_clause
+      access_specifier: (access_specifier)
+      (class_name)
+    )
+    body: (field_declaration_list
+      (gins_definition
+        type: (gins_class)
+        (gins_definition
+          type: (class_name)
+          declarator: (identifier)
+        )
+        (gins_definition
+          type: (gins_class)
+          (gins_definition
+            type: (gins_class)
+            (gins_attributes_definition
+              declarator: (function_declarator
+                declarator: (identifier)
+                parameters: (parameter_list)
+              )
+              body: (compound_statement
+                (expression_statement
+                  (assignment_expression
+                    left: (identifier)
+                    right: (string_literal
+                      (string_content)
+                    )
+                  )
+                )
+              )
+            )
+          )
+          (gins_definition
+            type: (class_name)
+            declarator: (identifier)
+          )
+        )
+        (gins_definition
+          type: (gins_class)
+          (gins_definition
+            type: (gins_class)
+            (gins_attributes_definition
+              declarator: (function_declarator
+                declarator: (identifier)
+                parameters: (parameter_list)
+              )
+              body: (compound_statement
+                (expression_statement
+                  (assignment_expression
+                    left: (identifier)
+                    right: (string_literal
+                      (string_content)
+                    )
+                  )
+                )
+              )
+            )
+          )
+        (gins_definition
+          type: (class_name)
+          declarator: (identifier)
+          )
+        (gins_definition
+          type: (class_name)
+            declarator: (identifier)
+          )
+        )
+      )
+    )
+  )
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (qualified_declarator
+        scope: (identifier)
+        instance: (instance_name
+          (identifier)
+        )
+        name: (identifier)
+      )
+      parameters: (parameter_list)
+    )
+    body: (compound_statement)
+  )
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (qualified_declarator
+        scope: (identifier)
+        instance: (instance_name
+          (identifier)
+          (instance_name
+            (identifier)
+          )
+        )
+        name: (identifier)
+      )
+      parameters: (parameter_list)
+    )
+    body: (compound_statement)
+  )
+)

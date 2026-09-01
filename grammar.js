@@ -539,6 +539,7 @@ module.exports = grammar({
       $.preproc_call,
       alias($.preproc_if_in_field_declaration_list, $.preproc_if),
       alias($.preproc_ifdef_in_field_declaration_list, $.preproc_ifdef),
+      $._empty_declaration,
       alias($.object_definition, $.field_declaration),
       $.function_definition,
       $.type_definition,

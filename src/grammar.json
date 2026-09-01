@@ -4793,6 +4793,10 @@
           "value": "preproc_ifdef"
         },
         {
+          "type": "SYMBOL",
+          "name": "_empty_declaration"
+        },
+        {
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
