@@ -2865,6 +2865,10 @@
           "named": true
         },
         {
+          "type": "preproc_using",
+          "named": true
+        },
+        {
           "type": "statement",
           "named": true
         },
@@ -2973,6 +2977,10 @@
           "named": true
         },
         {
+          "type": "preproc_using",
+          "named": true
+        },
+        {
           "type": "statement",
           "named": true
         },
@@ -3049,6 +3057,10 @@
         },
         {
           "type": "preproc_include",
+          "named": true
+        },
+        {
+          "type": "preproc_using",
           "named": true
         },
         {
@@ -3224,6 +3236,10 @@
           "named": true
         },
         {
+          "type": "preproc_using",
+          "named": true
+        },
+        {
           "type": "statement",
           "named": true
         },
@@ -3329,6 +3345,10 @@
         },
         {
           "type": "preproc_include",
+          "named": true
+        },
+        {
+          "type": "preproc_using",
           "named": true
         },
         {

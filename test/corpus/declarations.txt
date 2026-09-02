@@ -509,6 +509,76 @@ void * do_stuff(int arg1) {
 )
 
 ================================================================================
+Qualified constructor and destructor definitions in preprocessor
+================================================================================
+
+#ifndef __CTGEN_H__
+#define __CTGEN_H__
+
+CTGen::CTGen() {
+  this->Init(NULL);
+}
+
+CTGen::~CTGen() {
+  this->Term();
+}
+
+#endif
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (preproc_ifdef
+    name: (identifier)
+    (preproc_def
+      name: (identifier)
+    )
+    (function_definition
+      declarator: (function_declarator
+        declarator: (qualified_declarator
+          scope: (identifier)
+          name: (identifier)
+        )
+        parameters: (parameter_list)
+      )
+      body: (compound_statement
+        (expression_statement
+          (call_expression
+            function: (field_expression
+              argument: (this)
+              field: (member_identifier)
+            )
+            arguments: (argument_list
+              (null)
+            )
+          )
+        )
+      )
+    )
+    (function_definition
+      declarator: (function_declarator
+        declarator: (qualified_declarator
+          scope: (identifier)
+          name: (class_name)
+        )
+        parameters: (parameter_list)
+      )
+      body: (compound_statement
+        (expression_statement
+          (call_expression
+            function: (field_expression
+              argument: (this)
+              field: (member_identifier)
+            )
+            arguments: (argument_list)
+          )
+        )
+      )
+    )
+  )
+)
+
+================================================================================
 Local array declarations
 ================================================================================
 

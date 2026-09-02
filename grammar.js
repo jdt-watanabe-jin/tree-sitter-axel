@@ -85,8 +85,8 @@ module.exports = grammar({
       $.object_definition,
       $._empty_declaration,
       $.type_definition,
-      $.preproc_if,
-      $.preproc_ifdef,
+      alias($.preproc_if_in_top_level, $.preproc_if),
+      alias($.preproc_ifdef_in_top_level, $.preproc_ifdef),
       $.preproc_include,
       $.preproc_using,
       $.preproc_def,
@@ -155,6 +155,7 @@ module.exports = grammar({
     ),
 
     ...preprocIf('', $ => $._block_item),
+    ...preprocIf('_in_top_level', $ => $._context),
     ...preprocIf('_in_field_declaration_list', $ => $._field_declaration_list_item),
     ...preprocIf('_in_enumerator_list', $ => seq($.enumerator, ',')),
     ...preprocIf('_in_enumerator_list_no_comma', $ => $.enumerator, -1),
