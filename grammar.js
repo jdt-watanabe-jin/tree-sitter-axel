@@ -1118,7 +1118,11 @@ module.exports = grammar({
     _namespace_identifier: $ => alias($.identifier, $.namespace_identifier),
     _statement_identifier: $ => alias($.identifier, $.statement_identifier),
 
-    command_identifier: _ => /[a-zA-Z_\$\.\-][0-9a-zA-Z_\$\.\-]*/,
+    command_identifier: _ => token(choice(
+      /[a-zA-Z_\$\.\-][0-9a-zA-Z_\$\.\-]*([\\/][0-9a-zA-Z_\$\.\-]+)*/,
+      /\/[0-9a-zA-Z_\$\.\-]+(\/[0-9a-zA-Z_\$\.\-]+)*/,
+      /[a-zA-Z]:[\\/][0-9a-zA-Z_\$\.\-]+([\\/][0-9a-zA-Z_\$\.\-]+)*/,
+    )),
 
     // Comments
     comment: _ => token(choice(

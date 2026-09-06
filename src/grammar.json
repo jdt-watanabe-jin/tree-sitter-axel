@@ -8524,8 +8524,24 @@
       "value": "statement_identifier"
     },
     "command_identifier": {
-      "type": "PATTERN",
-      "value": "[a-zA-Z_\\$\\.\\-][0-9a-zA-Z_\\$\\.\\-]*"
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "[a-zA-Z_\\$\\.\\-][0-9a-zA-Z_\\$\\.\\-]*([\\\\/][0-9a-zA-Z_\\$\\.\\-]+)*"
+          },
+          {
+            "type": "PATTERN",
+            "value": "\\/[0-9a-zA-Z_\\$\\.\\-]+(\\/[0-9a-zA-Z_\\$\\.\\-]+)*"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[a-zA-Z]:[\\\\/][0-9a-zA-Z_\\$\\.\\-]+([\\\\/][0-9a-zA-Z_\\$\\.\\-]+)*"
+          }
+        ]
+      }
     },
     "comment": {
       "type": "TOKEN",

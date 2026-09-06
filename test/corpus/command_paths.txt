@@ -1,0 +1,70 @@
+================================================================================
+Command script paths with directory separators
+================================================================================
+
+void main (int argc, string *argv)
+{
+  @_spicechart/_adc.axl;
+  @./_spicechart/_adc.axl -a 1;
+  @../_spicechart/_adc.axl;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    (class_name)
+    (function_declarator
+      (identifier)
+      (parameter_list
+        (parameter_declaration (class_name) (identifier))
+        (parameter_declaration (class_name) (pointer_declarator (identifier)))))
+    (compound_statement
+      (command_statement (command_identifier))
+      (command_statement (command_identifier) (command_identifier) (integer_literal))
+      (command_statement (command_identifier)))))
+
+================================================================================
+Absolute command script paths
+================================================================================
+
+void main()
+{
+  @/home/path/to/sub.axl;
+  @C:\path\to\sub.axl;
+  @C:/path/to/sub.axl;
+  @/home/123/sub.axl -a 1;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    (class_name)
+    (function_declarator (identifier) (parameter_list))
+    (compound_statement
+      (command_statement (command_identifier))
+      (command_statement (command_identifier))
+      (command_statement (command_identifier))
+      (command_statement (command_identifier) (command_identifier) (integer_literal)))))
+
+================================================================================
+Comments adjacent to command paths
+================================================================================
+
+void main()
+{
+  @_spicechart/_adc.axl/* comment */ -a 1;
+  @_spicechart/_adc.axl// comment
+  ;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    (class_name)
+    (function_declarator (identifier) (parameter_list))
+    (compound_statement
+      (command_statement (command_identifier) (comment) (command_identifier) (integer_literal))
+      (command_statement (command_identifier) (comment)))))
