@@ -752,12 +752,15 @@ module.exports = grammar({
     ),
 
     _command: $ => choice(
+      $.command_script_argument,
       $.command_identifier,
       alias($.string_literal, $.command_string),
       $.integer_literal,
       $.double_literal,
       $.command_expression,
     ),
+
+    command_script_argument: $ => seq('@', $.command_identifier),
 
     command_expression : $ => seq('\`', $.expression, '\`'),
 

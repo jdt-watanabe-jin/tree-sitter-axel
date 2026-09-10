@@ -6179,6 +6179,10 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "command_script_argument"
+        },
+        {
+          "type": "SYMBOL",
           "name": "command_identifier"
         },
         {
@@ -6201,6 +6205,19 @@
         {
           "type": "SYMBOL",
           "name": "command_expression"
+        }
+      ]
+    },
+    "command_script_argument": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "command_identifier"
         }
       ]
     },

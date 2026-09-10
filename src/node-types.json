@@ -985,6 +985,21 @@
     }
   },
   {
+    "type": "command_script_argument",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "command_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "command_statement",
     "named": true,
     "fields": {},
@@ -998,6 +1013,10 @@
         },
         {
           "type": "command_identifier",
+          "named": true
+        },
+        {
+          "type": "command_script_argument",
           "named": true
         },
         {

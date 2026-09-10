@@ -68,3 +68,21 @@ void main()
     (compound_statement
       (command_statement (command_identifier) (comment) (command_identifier) (integer_literal))
       (command_statement (command_identifier) (comment)))))
+================================================================================
+Command script arguments with at prefixes
+================================================================================
+
+void main() {
+  @_dp -nohistory @degchk_Winlist.axl;
+  @_dp @./scripts/test.axl;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    (class_name)
+    (function_declarator (identifier) (parameter_list))
+    (compound_statement
+      (command_statement (command_identifier) (command_identifier) (command_script_argument (command_identifier)))
+      (command_statement (command_identifier) (command_script_argument (command_identifier))))))
