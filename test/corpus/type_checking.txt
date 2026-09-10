@@ -1,0 +1,254 @@
+================================================================================
+Natural declarations and conversion operator forms
+================================================================================
+
+class natural; class natural { public: natural operator+(int); int operator int(); }; class A { public: int x; operator int(){return x;} }; natural n=1;
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_specifier
+    name: (class_name))
+  (class_specifier
+    name: (class_name)
+    body: (field_declaration_list
+      (access_specifier)
+      (field_declaration
+        type: (class_name)
+        declarator: (function_declarator
+          declarator: (operator_declarator)
+          parameters: (parameter_list
+            (parameter_declaration
+              type: (class_name)))))
+      (field_declaration
+        type: (class_name)
+        declarator: (function_declarator
+          declarator: (conversion_declarator
+            type: (class_name))
+          parameters: (parameter_list)))))
+  (class_specifier
+    name: (class_name)
+    body: (field_declaration_list
+      (access_specifier)
+      (field_declaration
+        type: (class_name)
+        declarator: (identifier))
+      (function_definition
+        declarator: (function_declarator
+          declarator: (conversion_declarator
+            type: (class_name))
+          parameters: (parameter_list))
+        body: (compound_statement
+          (return_statement
+            (identifier))))))
+  (object_definition
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (identifier)
+      value: (integer_literal))))
+
+================================================================================
+Const pointer reference array and function declarators
+================================================================================
+
+const int i=1; const int *p; int &r=i; int a[1+2]; int (*callback)(int); typedef int Number;
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    storage_class_specifier: (storage_class_specifier)
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (identifier)
+      value: (integer_literal)))
+  (object_definition
+    storage_class_specifier: (storage_class_specifier)
+    type: (class_name)
+    declarator: (pointer_declarator
+      declarator: (identifier)))
+  (object_definition
+    type: (class_name)
+    declarator: (init_declarator
+      declarator: (pointer_declarator
+        declarator: (identifier))
+      value: (identifier)))
+  (object_definition
+    type: (class_name)
+    declarator: (array_declarator
+      declarator: (identifier)
+      size: (binary_expression
+        left: (integer_literal)
+        right: (integer_literal))))
+  (object_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (parenthesized_declarator
+        declarator: (pointer_declarator
+          declarator: (identifier)))
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name)))))
+  (type_definition
+    type: (class_name)
+    declarator: (identifier)))
+
+================================================================================
+Cast null units and expression fields
+================================================================================
+
+void f(){ natural n=1um; natural d=1.5um; int *p=NULL; int *q=nullptr; int i=(int)n; i+=2; n=n*2; if(n) i=3; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (object_definition
+        type: (class_name)
+        declarator: (init_declarator
+          declarator: (identifier)
+          value: (unit_integer_literal)))
+      (object_definition
+        type: (class_name)
+        declarator: (init_declarator
+          declarator: (identifier)
+          value: (unit_double_literal)))
+      (object_definition
+        type: (class_name)
+        declarator: (init_declarator
+          declarator: (pointer_declarator
+            declarator: (identifier))
+          value: (null)))
+      (object_definition
+        type: (class_name)
+        declarator: (init_declarator
+          declarator: (pointer_declarator
+            declarator: (identifier))
+          value: (null)))
+      (object_definition
+        type: (class_name)
+        declarator: (init_declarator
+          declarator: (identifier)
+          value: (cast_expression
+            type: (type_descriptor
+              type: (class_name))
+            argument: (identifier))))
+      (expression_statement
+        (assignment_expression
+          left: (identifier)
+          right: (integer_literal)))
+      (expression_statement
+        (assignment_expression
+          left: (identifier)
+          right: (binary_expression
+            left: (identifier)
+            right: (integer_literal))))
+      (if_statement
+        condition: (parenthesized_expression
+          (identifier))
+        consequence: (expression_statement
+          (assignment_expression
+            left: (identifier)
+            right: (integer_literal)))))))
+
+================================================================================
+Semantic errors preserve declaration and expression trees
+================================================================================
+
+void f(int); void f(double); class A { public: int operator int(){return 1;} }; void probe(){ (1+2)=3; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name)))))
+  (object_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name)))))
+  (class_specifier
+    name: (class_name)
+    body: (field_declaration_list
+      (access_specifier)
+      (function_definition
+        type: (class_name)
+        declarator: (function_declarator
+          declarator: (conversion_declarator
+            type: (class_name))
+          parameters: (parameter_list))
+        body: (compound_statement
+          (return_statement
+            (integer_literal))))))
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (assignment_expression
+          left: (parenthesized_expression
+            (binary_expression
+              left: (integer_literal)
+              right: (integer_literal)))
+          right: (integer_literal))))))
+
+================================================================================
+Literal assignment is a semantic error
+================================================================================
+
+void f(){ 1=2; }
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (assignment_expression
+          left: (integer_literal)
+          right: (integer_literal))))))
+
+================================================================================
+Prototype and function pointer parameter types
+================================================================================
+
+void f(int);
+int (*callback)(int);
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name)))))
+  (object_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (parenthesized_declarator
+        declarator: (pointer_declarator
+          declarator: (identifier)))
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name))))))

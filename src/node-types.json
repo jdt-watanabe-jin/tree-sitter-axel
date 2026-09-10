@@ -447,6 +447,10 @@
             "named": true
           },
           {
+            "type": "primary",
+            "named": true
+          },
+          {
             "type": "subscript_expression",
             "named": true
           }

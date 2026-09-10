@@ -411,7 +411,9 @@ module.exports = grammar({
       ')',
     ),
 
-    parameter_declaration: $ => choice(
+    // Preserve unnamed parameter types instead of constructor-style arguments.
+    // Keep the preference here so empty declarators retain macro error recovery.
+    parameter_declaration: $ => prec.dynamic(2, choice(
       seq(
         optional(field('storage_class', 'const')),
         field('type', $._class_definition),
@@ -422,7 +424,7 @@ module.exports = grammar({
         field('type', $._class_definition),
         optional(field('declarator', $.abstruct_declarator))
       ),
-    ),
+    )),
 
     initializer_list: $ => choice(
       seq('{', commaSep(choice($.initializer_list, $.expression)), '}'),
@@ -798,6 +800,8 @@ module.exports = grammar({
 
     _assignment_left_expression: $ => choice(
       $.identifier,
+      // Assignability is a semantic property, including for literal targets.
+      $.primary,
       $.call_expression,
       $.field_expression,
       $.pointer_expression,
