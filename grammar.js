@@ -38,6 +38,7 @@ module.exports = grammar({
   name: "axel",
 
   conflicts: $ => [
+    [$._empty_declaration, $.storage_class_specifier],
     [$._class_definition, $._qualified_identifier],
     [$._class_definition, $._direct_declarator],
     [$._class_definition],
@@ -264,6 +265,7 @@ module.exports = grammar({
     ),
 
     _empty_declaration: $ => seq(
+      optional(alias('static', $.storage_class_specifier)),
       choice(
         $.class_specifier,
         $.union_specifier,

@@ -1098,6 +1098,10 @@
           "named": true
         },
         {
+          "type": "storage_class_specifier",
+          "named": true
+        },
+        {
           "type": "struct_specifier",
           "named": true
         },
@@ -1538,6 +1542,10 @@
         },
         {
           "type": "preproc_ifdef",
+          "named": true
+        },
+        {
+          "type": "storage_class_specifier",
           "named": true
         },
         {
@@ -2896,6 +2904,10 @@
           "named": true
         },
         {
+          "type": "storage_class_specifier",
+          "named": true
+        },
+        {
           "type": "struct_specifier",
           "named": true
         },
@@ -3008,6 +3020,10 @@
           "named": true
         },
         {
+          "type": "storage_class_specifier",
+          "named": true
+        },
+        {
           "type": "struct_specifier",
           "named": true
         },
@@ -3088,6 +3104,10 @@
         },
         {
           "type": "statement",
+          "named": true
+        },
+        {
+          "type": "storage_class_specifier",
           "named": true
         },
         {
@@ -3267,6 +3287,10 @@
           "named": true
         },
         {
+          "type": "storage_class_specifier",
+          "named": true
+        },
+        {
           "type": "struct_specifier",
           "named": true
         },
@@ -3376,6 +3400,10 @@
         },
         {
           "type": "statement",
+          "named": true
+        },
+        {
+          "type": "storage_class_specifier",
           "named": true
         },
         {
@@ -3785,6 +3813,10 @@
         },
         {
           "type": "preproc_using",
+          "named": true
+        },
+        {
+          "type": "storage_class_specifier",
           "named": true
         },
         {

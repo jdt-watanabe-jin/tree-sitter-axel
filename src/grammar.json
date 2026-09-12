@@ -3794,6 +3794,23 @@
           "type": "CHOICE",
           "members": [
             {
+              "type": "ALIAS",
+              "content": {
+                "type": "STRING",
+                "value": "static"
+              },
+              "named": true,
+              "value": "storage_class_specifier"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SYMBOL",
               "name": "class_specifier"
             },
@@ -8618,6 +8635,10 @@
     }
   ],
   "conflicts": [
+    [
+      "_empty_declaration",
+      "storage_class_specifier"
+    ],
     [
       "_class_definition",
       "_qualified_identifier"
