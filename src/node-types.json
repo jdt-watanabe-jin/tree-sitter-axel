@@ -4623,6 +4623,10 @@
     "named": false
   },
   {
+    "type": "unterminated_comment",
+    "named": true
+  },
+  {
     "type": "virtual",
     "named": false
   },

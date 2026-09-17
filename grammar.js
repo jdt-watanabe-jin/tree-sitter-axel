@@ -55,6 +55,7 @@ module.exports = grammar({
   extras: $ => [
     /\s|\\\r?\n/,
     $.comment,
+    $.unterminated_comment,
   ],
 
   inline: $ => [
@@ -1142,6 +1143,11 @@ module.exports = grammar({
         '/',
       ),
     )),
+    unterminated_comment: _ => token(prec(-1, seq(
+      '/*',
+      repeat(choice(/[^*]/, /\*+[^*/]/)),
+      /\**/,
+    ))),
   },
 });
 

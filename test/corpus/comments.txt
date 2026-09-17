@@ -1,0 +1,70 @@
+============================================
+Closed block comments do not consume following code
+============================================
+
+/* closed */
+void real() {
+  int value;
+}
+
+---
+
+(translation_unit
+  (comment)
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (object_definition
+        type: (class_name)
+        declarator: (identifier)))))
+
+============================================
+Unterminated block comments consume through EOF
+============================================
+
+void real() {
+  int value;
+}
+/* unclosed
+void fake() {
+  int value;
+}
+
+---
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (object_definition
+        type: (class_name)
+        declarator: (identifier))))
+  (unterminated_comment))
+
+============================================
+Bare block comment opener at EOF
+============================================
+
+/*
+
+---
+
+(translation_unit
+  (unterminated_comment))
+
+============================================
+Unterminated block comments retain trailing stars
+============================================
+
+/* trailing ***
+
+---
+
+(translation_unit
+  (unterminated_comment))
