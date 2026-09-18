@@ -455,6 +455,10 @@
             "named": true
           },
           {
+            "type": "qualified_identifier",
+            "named": true
+          },
+          {
             "type": "subscript_expression",
             "named": true
           }

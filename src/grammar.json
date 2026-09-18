@@ -6421,6 +6421,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "qualified_identifier"
+        },
+        {
+          "type": "SYMBOL",
           "name": "call_expression"
         },
         {

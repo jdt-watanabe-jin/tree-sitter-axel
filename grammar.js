@@ -815,6 +815,7 @@ module.exports = grammar({
       $.identifier,
       // Assignability is a semantic property, including for literal targets.
       $.primary,
+      $.qualified_identifier,
       $.call_expression,
       $.field_expression,
       $.pointer_expression,

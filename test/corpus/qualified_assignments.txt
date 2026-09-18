@@ -1,0 +1,38 @@
+================================================================================
+Qualified assignment targets
+================================================================================
+
+void main() {
+  A::value = 1;
+  A::value += 2;
+  ::value = 3;
+  A::Nested::value = 4;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (expression_statement
+        (assignment_expression
+          left: (qualified_identifier scope: (namespace_identifier) name: (identifier))
+          right: (integer_literal)))
+      (expression_statement
+        (assignment_expression
+          left: (qualified_identifier scope: (namespace_identifier) name: (identifier))
+          right: (integer_literal)))
+      (expression_statement
+        (assignment_expression
+          left: (qualified_identifier name: (identifier))
+          right: (integer_literal)))
+      (expression_statement
+        (assignment_expression
+          left: (qualified_identifier
+            scope: (namespace_identifier)
+            name: (qualified_identifier scope: (namespace_identifier) name: (identifier)))
+          right: (integer_literal))))))
