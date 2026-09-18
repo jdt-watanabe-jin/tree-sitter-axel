@@ -48,3 +48,23 @@ test("parses static type definitions without inventing object names", () => {
   assert.deepStrictEqual(objects.map(node => node.childForFieldName("declarator").text), ["item", "count"]);
   assert.ok(objects.every(node => node.childForFieldName("storage_class_specifier").text === "static"));
 });
+
+test("keeps callable subscripts and unary tildes distinct from callable operators", () => {
+  const parser = new Parser();
+  parser.setLanguage(require("."));
+  const root = parser.parse("class Ops { int operator[](int value); }; void use(Ops value){ value[0]; ~1; }").rootNode;
+  assert.strictEqual(root.hasError, false);
+  assert.strictEqual(root.descendantsOfType("operator_declarator")[0].text, "operator[]");
+  assert.strictEqual(root.descendantsOfType("subscript_expression").length, 1);
+  assert.strictEqual(root.descendantsOfType("unary_expression")[0].childForFieldName("operator").text, "~");
+});
+
+test("recovers incomplete destructor text without crashing", () => {
+  const parser = new Parser();
+  parser.setLanguage(require("."));
+  for (const source of ["class Broken { ~() {} };", "void use(Broken value){ value.~(); }"]) {
+    let root;
+    assert.doesNotThrow(() => { root = parser.parse(source).rootNode; });
+    assert.strictEqual(root.hasError, true);
+  }
+});

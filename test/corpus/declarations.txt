@@ -559,7 +559,8 @@ CTGen::~CTGen() {
       declarator: (function_declarator
         declarator: (qualified_declarator
           scope: (identifier)
-          name: (class_name)
+          name: (destructor_name
+            name: (class_name))
         )
         parameters: (parameter_list)
       )
@@ -768,6 +769,130 @@ A::operator int() {
     )
   )
 )
+
+================================================================================
+Function call operator declarations
+================================================================================
+
+class Callable {
+public:
+  int operator()() { return 1; }
+  int operator()(int value);
+};
+
+int Callable::operator()(int value) {
+  return value;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_specifier
+    name: (class_name)
+    body: (field_declaration_list
+      (access_specifier)
+      (function_definition
+        type: (class_name)
+        declarator: (function_declarator
+          declarator: (operator_declarator)
+          parameters: (parameter_list))
+        body: (compound_statement
+          (return_statement
+            (integer_literal))))
+      (field_declaration
+        type: (class_name)
+        declarator: (function_declarator
+          declarator: (operator_declarator)
+          parameters: (parameter_list
+            (parameter_declaration
+              type: (class_name)
+              declarator: (identifier)))))))
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (qualified_declarator
+        scope: (identifier)
+        name: (operator_declarator))
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name)
+          declarator: (identifier))))
+    body: (compound_statement
+      (return_statement
+        (identifier)))))
+
+================================================================================
+Destructor declarations and explicit calls
+================================================================================
+
+class Resource {
+public:
+  ~Resource() {}
+};
+
+Resource::~Resource() {}
+
+void destroy(Resource value, Resource *pointer) {
+  value.~Resource();
+  pointer->~Resource();
+  Resource::~Resource();
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (class_specifier
+    name: (class_name)
+    body: (field_declaration_list
+      (access_specifier)
+      (function_definition
+        declarator: (function_declarator
+          declarator: (destructor_name
+            name: (class_name))
+          parameters: (parameter_list))
+        body: (compound_statement))))
+  (function_definition
+    declarator: (function_declarator
+      declarator: (qualified_declarator
+        scope: (identifier)
+        name: (destructor_name
+          name: (class_name)))
+      parameters: (parameter_list))
+    body: (compound_statement))
+  (function_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name)
+          declarator: (identifier))
+        (parameter_declaration
+          type: (class_name)
+          declarator: (pointer_declarator
+            declarator: (identifier)))))
+    body: (compound_statement
+      (expression_statement
+        (call_expression
+          function: (field_expression
+            argument: (identifier)
+            field: (destructor_name
+              name: (class_name)))
+          arguments: (argument_list)))
+      (expression_statement
+        (call_expression
+          function: (field_expression
+            argument: (identifier)
+            field: (destructor_name
+              name: (class_name)))
+          arguments: (argument_list)))
+      (expression_statement
+        (call_expression
+          function: (qualified_identifier
+            scope: (namespace_identifier)
+            name: (destructor_name
+              name: (class_name)))
+          arguments: (argument_list))))))
 
 ================================================================================
 GUI Class declarations

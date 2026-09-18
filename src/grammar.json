@@ -4217,17 +4217,8 @@
                 "name": "_class_name"
               },
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "~"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_class_name"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "destructor_name"
               }
             ]
           }
@@ -4248,6 +4239,10 @@
         {
           "type": "SYMBOL",
           "name": "conversion_declarator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "destructor_name"
         },
         {
           "type": "SYMBOL",
@@ -4861,8 +4856,38 @@
                     "value": "]"
                   }
                 ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "("
+                  },
+                  {
+                    "type": "STRING",
+                    "value": ")"
+                  }
+                ]
               }
             ]
+          }
+        }
+      ]
+    },
+    "destructor_name": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "~"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_class_name"
           }
         }
       ]
@@ -7900,6 +7925,10 @@
                   {
                     "type": "SYMBOL",
                     "name": "operator_declarator"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "destructor_name"
                   }
                 ]
               }
@@ -7934,6 +7963,10 @@
                   {
                     "type": "SYMBOL",
                     "name": "operator_declarator"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "destructor_name"
                   },
                   {
                     "type": "SYMBOL",
@@ -8539,13 +8572,22 @@
       "value": "gins_class"
     },
     "_member_identifier": {
-      "type": "ALIAS",
-      "content": {
-        "type": "SYMBOL",
-        "name": "identifier"
-      },
-      "named": true,
-      "value": "member_identifier"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          },
+          "named": true,
+          "value": "member_identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "destructor_name"
+        }
+      ]
     },
     "_namespace_identifier": {
       "type": "ALIAS",

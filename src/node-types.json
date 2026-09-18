@@ -12,6 +12,10 @@
         "named": true
       },
       {
+        "type": "destructor_name",
+        "named": true
+      },
+      {
         "type": "function_declarator",
         "named": true
       },
@@ -1276,6 +1280,22 @@
     }
   },
   {
+    "type": "destructor_name",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "class_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "do_statement",
     "named": true,
     "fields": {
@@ -1581,6 +1601,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "destructor_name",
+            "named": true
+          },
           {
             "type": "member_identifier",
             "named": true
@@ -2391,6 +2415,14 @@
           },
           {
             "type": "&=",
+            "named": false
+          },
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
             "named": false
           },
           {
@@ -3503,7 +3535,7 @@
         ]
       },
       "name": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
@@ -3515,16 +3547,16 @@
             "named": true
           },
           {
+            "type": "destructor_name",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "operator_declarator",
             "named": true
-          },
-          {
-            "type": "~",
-            "named": false
           }
         ]
       },
@@ -3560,6 +3592,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "destructor_name",
+            "named": true
+          },
           {
             "type": "identifier",
             "named": true

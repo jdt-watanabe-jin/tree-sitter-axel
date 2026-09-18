@@ -355,7 +355,7 @@ module.exports = grammar({
         $.operator_declarator,
         $.conversion_declarator,
         $._class_name,
-        seq('~', $._class_name),
+        $.destructor_name,
       )),
     ),
 
@@ -363,6 +363,7 @@ module.exports = grammar({
       $.identifier,
       $.operator_declarator,
       $.conversion_declarator,
+      $.destructor_name,
       $.qualified_declarator,
     ),
 
@@ -470,7 +471,13 @@ module.exports = grammar({
         '|=',
         '^=',
         seq('[', ']'),
+        seq('(', ')'),
       )),
+    ),
+
+    destructor_name: $ => seq(
+      '~',
+      field('name', $._class_name),
     ),
 
     conversion_declarator: $ => seq(
@@ -992,6 +999,7 @@ module.exports = grammar({
         field('name', choice(
           $.identifier,
           $.operator_declarator,
+          $.destructor_name,
         )),
       ),
       seq(
@@ -1000,6 +1008,7 @@ module.exports = grammar({
         field('name', choice(
           $.identifier,
           $.operator_declarator,
+          $.destructor_name,
           $.qualified_identifier,
         ))
       ),
@@ -1124,7 +1133,10 @@ module.exports = grammar({
     _class_name: $ => alias($.identifier, $.class_name),
     _gtop_class: $ => alias($.identifier, $.gtop_class),
     _gins_class: $ => alias($.identifier, $.gins_class),
-    _member_identifier: $ => alias($.identifier, $.member_identifier),
+    _member_identifier: $ => choice(
+      alias($.identifier, $.member_identifier),
+      $.destructor_name,
+    ),
     _namespace_identifier: $ => alias($.identifier, $.namespace_identifier),
     _statement_identifier: $ => alias($.identifier, $.statement_identifier),
 
