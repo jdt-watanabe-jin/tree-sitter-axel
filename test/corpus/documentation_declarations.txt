@@ -1,0 +1,93 @@
+================================================================================
+Documentation declaration: Callback and const pointer parameters
+================================================================================
+
+int Find(const char *name, int (*compare)(int,int));
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name)
+          declarator: (pointer_declarator
+            declarator: (identifier)))
+        (parameter_declaration
+          type: (class_name)
+          declarator: (function_declarator
+            declarator: (parenthesized_declarator
+              declarator: (pointer_declarator
+                declarator: (identifier)))
+            parameters: (parameter_list
+              (parameter_declaration
+                type: (class_name))
+              (parameter_declaration
+                type: (class_name)))))))))
+
+================================================================================
+Documentation declaration: Pointer and string parameters
+================================================================================
+
+int InitGetSection(Inifile *inifile, string sec);
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name)
+          declarator: (pointer_declarator
+            declarator: (identifier)))
+        (parameter_declaration
+          type: (class_name)
+          declarator: (identifier))))))
+
+================================================================================
+Documentation declaration: Operator prototype
+================================================================================
+
+int operator+(int left, int right);
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (operator_declarator)
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name)
+          declarator: (identifier))
+        (parameter_declaration
+          type: (class_name)
+          declarator: (identifier))))))
+
+================================================================================
+Documentation declaration: Typed variadic prototype
+================================================================================
+
+void Log(string format, int values...);
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (object_definition
+    type: (class_name)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (class_name)
+          declarator: (identifier))
+        (parameter_declaration
+          type: (class_name)
+          declarator: (identifier))))))
